@@ -6,6 +6,7 @@ import com.example.eyespace.exception.ExceptionHandling;
 import com.example.eyespace.exception.domain.EmailExistException;
 import com.example.eyespace.exception.domain.UserNotFoundException;
 import com.example.eyespace.exception.domain.UsernameExistException;
+import com.example.eyespace.service.EmailService;
 import com.example.eyespace.service.UserService;
 import com.example.eyespace.utility.JWTTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
+
+import javax.mail.MessagingException;
 
 import static com.example.eyespace.constant.SecurityConstant.JWT_TOKEN_HEADER;
 import static org.springframework.http.HttpStatus.OK;
@@ -24,6 +27,7 @@ public class UserResource extends ExceptionHandling {
     private AuthenticationManager authenticationManager;
     private UserService userService;
     private JWTTokenProvider jwtTokenProvider;
+
 
     @Autowired
     public UserResource(AuthenticationManager authenticationManager, UserService userService, JWTTokenProvider jwtTokenProvider) {
@@ -42,7 +46,7 @@ public class UserResource extends ExceptionHandling {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<User> register(@RequestBody User user) throws UserNotFoundException, UsernameExistException, EmailExistException {
+    public ResponseEntity<User> register(@RequestBody User user) throws UserNotFoundException, UsernameExistException, EmailExistException, MessagingException {
         User newUser = userService.register(user.getFirstName(), user.getLastName(), user.getUsername(), user.getEmail());
         return new ResponseEntity<>(newUser, OK);
     }
