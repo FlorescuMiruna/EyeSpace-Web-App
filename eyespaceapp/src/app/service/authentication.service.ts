@@ -40,9 +40,9 @@ export class AuthenticationService {
     localStorage.setItem('user', JSON.stringify(user));
   }
 
-  // public getUserFromLocalCache(): User {
-  //   return JSON.parse(localStorage.getItem('user'));
-  // }
+  public getUserFromLocalCache(): User {
+    return JSON.parse(localStorage.getItem('user')|| '{}');
+  }
 
   public loadToken(): void {
     this.token = localStorage.getItem('token');
@@ -52,19 +52,19 @@ export class AuthenticationService {
     return this.token;
   }
 
-  // public isUserLoggedIn(): boolean {
-  //   this.loadToken();
-  //   if (this.token != null && this.token !== ''){
-  //     if (this.jwtHelper.decodeToken(this.token).sub != null || '') {
-  //       if (!this.jwtHelper.isTokenExpired(this.token)) {
-  //         this.loggedInUsername = this.jwtHelper.decodeToken(this.token).sub;
-  //         return true;
-  //       }
-  //     }
-  //   } else {
-  //     this.logOut();
-  //     return false;
-  //   }
-  // }
+  public isUserLoggedIn(): any {
+    this.loadToken();
+    if (this.token != null && this.token !== ''){
+      if (this.jwtHelper.decodeToken(this.token).sub != null || '') {
+        if (!this.jwtHelper.isTokenExpired(this.token)) {
+          this.loggedInUsername = this.jwtHelper.decodeToken(this.token).sub;
+          return true;
+        }
+      }
+    } else {
+      this.logOut();
+      return false;
+    }
+  }
 
 }
