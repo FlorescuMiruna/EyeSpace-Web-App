@@ -1,10 +1,7 @@
 package com.example.eyespace.service;
 
 import com.example.eyespace.domain.User;
-import com.example.eyespace.exception.domain.EmailExistException;
-import com.example.eyespace.exception.domain.EmailNotFoundException;
-import com.example.eyespace.exception.domain.UserNotFoundException;
-import com.example.eyespace.exception.domain.UsernameExistException;
+import com.example.eyespace.exception.domain.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.mail.MessagingException;
@@ -21,13 +18,13 @@ public interface UserService {
 
     User findUserByEmail(String email);
 
-    User addNewUser(String firstName, String lastName, String username, String email, String role, boolean isNonLocked, boolean isActive, MultipartFile profileImage) throws UserNotFoundException, UsernameExistException, EmailExistException, IOException;
+    User addNewUser(String firstName, String lastName, String username, String email, String role, boolean isNonLocked, boolean isActive, MultipartFile profileImage) throws UserNotFoundException, UsernameExistException, EmailExistException, IOException, NotAnImageFileException;
 
-    User updateUser(String currentUsername, String newFirstName, String newLastName, String newUsername, String newEmail, String role, boolean isNonLocked, boolean isActive, MultipartFile profileImage) throws UserNotFoundException, UsernameExistException, EmailExistException, IOException;
+    User updateUser(String currentUsername, String newFirstName, String newLastName, String newUsername, String newEmail, String role, boolean isNonLocked, boolean isActive, MultipartFile profileImage) throws UserNotFoundException, UsernameExistException, EmailExistException, IOException, NotAnImageFileException;
 
     void deleteUser(String username) throws IOException;
 
     void resetPassword(String email) throws MessagingException, EmailNotFoundException;
 
-    User updateProfileImage(String username, MultipartFile profileImage) throws UserNotFoundException, UsernameExistException, EmailExistException, IOException;
+    User updateProfileImage(String username, MultipartFile profileImage) throws UserNotFoundException, UsernameExistException, EmailExistException, IOException, NotAnImageFileException;
 }
