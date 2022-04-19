@@ -2,7 +2,7 @@ package com.example.eyespace.constant;
 
 public class EmailConstant {
     public static final String SIMPLE_MAIL_TRANSFER_PROTOCOL = "smtps";
-    public static final String USERNAME = "mirunatest26@gmail.com";
+    public static final String USERNAME = "mirunatest27@gmail.com";
     public static final String PASSWORD = "Tineminte13";
     public static final String FROM_EMAIL = "mirunatest27@gmail.com";
     public static final String CC_EMAIL = "";
