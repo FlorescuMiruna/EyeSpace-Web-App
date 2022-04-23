@@ -2,6 +2,7 @@ import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { HeaderType } from '../enum/header-type.enum';
 import { NotificationType } from '../enum/notification-type.enum';
 import { User } from '../model/user';
 import { AuthenticationService } from '../service/authentication.service';
@@ -22,6 +23,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     if (this.authenticationService.isUserLoggedIn()) {
       this.router.navigateByUrl('/user/management');
+    //  this.router.navigateByUrl('login');
     } else {
       this.router.navigateByUrl('/login');
     }
@@ -31,7 +33,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.authenticationService.login(user).subscribe(
         (response: HttpResponse<User>) => {
-          const token = response.headers.get('Jwt_Token') as any;
+          const token = response.headers.get(HeaderType.JWT_TOKEN) as any;
           this.authenticationService.saveToken(token);
           if (response.body) // GUARD
             this.authenticationService.addUserToLocalCache(response.body);
@@ -56,6 +58,6 @@ export class LoginComponent implements OnInit, OnDestroy {
 
 
   ngOnDestroy(): void {
-    // this.subscriptions.forEach(sub => sub.unsubscribe());
+    this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 }
