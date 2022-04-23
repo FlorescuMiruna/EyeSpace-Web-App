@@ -8,7 +8,8 @@ import { NotificationService } from '../service/notification.service';
 @Injectable({providedIn: 'root'})
 export class AuthenticationGuard implements CanActivate {
 
-  constructor(private authenticationService: AuthenticationService, private router: Router, private notificationService:NotificationService) {}
+  constructor(private authenticationService: AuthenticationService, private router: Router,
+              private notificationService: NotificationService) {}
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     return this.isUserLoggedIn();
