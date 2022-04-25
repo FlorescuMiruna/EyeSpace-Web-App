@@ -2,5 +2,4 @@
 
 @import 'https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css';
 @import 'https://use.fontawesome.com/releases/v5.8.1/css/all.css';
-
-/* @import "~angular-notifier/styles"; */
+@import "~angular-notifier/styles";
