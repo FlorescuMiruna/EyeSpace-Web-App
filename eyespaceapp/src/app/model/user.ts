@@ -2,7 +2,7 @@ export class User {
     public userId: string;
     public firstName: string;
     public lastName: string;
-    public username: string;
+    public username: string ;
     public email: string;
     public lastLoginDate: Date;
     public lastLoginDateDisplay: Date;
