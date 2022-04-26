@@ -21,9 +21,9 @@
                     <i class="fa fa-cogs"></i> Settings
                 </a>
                 <a class="nav-item nav-link move-right mr-3" (click)="changeTitle('Profile')" data-toggle="tab" href="#profile">
-          Welcome, 
-          <i class="fa fa-user"></i>
-        </a>
+            Welcome, {{user?.firstName}}
+            <i class="fa fa-user"></i>
+          </a>
             </div>
         </div>
     </nav>
@@ -38,13 +38,13 @@
                         <input name="searchTerm" class="form-control mr-sm-2" type="search" placeholder="Search users...">
                     </form>
                     <button type="button" class="btn btn-info" data-toggle="modal" data-target="#addUserModal">
-            <i class="fa fa-plus"></i>New User
-          </button>
+              <i class="fa fa-plus"></i>New User
+            </button>
                 </div>
                 <div class="btn-group">
-                    <button type="button" class="btn btn-info">
-            <i  class="fas fa-sync fa-spin"></i><i class="fas fa-sync"></i>
-          </button>
+                    <button type="button" (click)="getUsers(true)" class="btn btn-info">
+              <i *ngIf="refreshing" class="fas fa-sync fa-spin"></i><i *ngIf="!refreshing" class="fas fa-sync"></i>
+            </button>
                 </div>
             </div>
             <table class="table table-hover">
@@ -60,24 +60,24 @@
                         <th>Actions</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody *ngFor="let appUser of users">
                     <tr class="text-center">
-                        <td>
-                            <img class="rounded-circle img-fluid img-thumbnail" alt="" />
+                        <td (click)="onSelectUser(appUser)">
+                            <img height="40" width="40" src="{{appUser?.profileImageUrl}}" class="rounded-circle img-fluid img-thumbnail" alt="" />
                         </td>
-                        <td>1</td>
-                        <td>Miruna</td>
-                        <td>Florescu</td>
-                        <td>Miruna26</td>
-                        <td>miruna@gmail.com</td>
-                        <td>
-                            <span class="badge badge-success">Active</span>
-                            <span class="badge badge-danger">Inactive</span>
+                        <td (click)="onSelectUser(appUser)">{{appUser?.userId}}</td>
+                        <td (click)="onSelectUser(appUser)">{{appUser?.firstName}}</td>
+                        <td (click)="onSelectUser(appUser)">{{appUser?.lastName}}</td>
+                        <td (click)="onSelectUser(appUser)">{{appUser?.username}}</td>
+                        <td (click)="onSelectUser(appUser)">{{appUser?.email}}</td>
+                        <td (click)="onSelectUser(appUser)">
+                            <span [hidden]="!appUser?.active" class="badge badge-success">Active</span>
+                            <span [hidden]="appUser?.active" class="badge badge-danger">Inactive</span>
                         </td>
                         <td class="">
                             <div class="btn-group">
                                 <button class="btn btn-outline-info"><i class="fas fa-edit"></i></button>
-                                <button class="btn btn-outline-danger"><i class="fas fa-trash"></i></button>
+                                <button class="btn btn-outline-danger"><i class="fas fa-trash "></i></button>
                             </div>
                         </td>
                     </tr>
@@ -85,7 +85,80 @@
             </table>
         </div>
 
-        <button [hidden]="true" type="button" id="openUserInfo" data-toggle="modal" data-target="#viewUserModal">
-    </button>
-        <button [hidden]="true" type="button" id="openUserEdit" data-toggle="modal" data-target="#editUserModal">
-    </button>
+        <button [hidden]="true" type="button " id="openUserInfo " data-toggle="modal " data-target="#viewUserModal ">
+      </button>
+        <button [hidden]="true " type="button " id="openUserEdit " data-toggle="modal " data-target="#editUserModal ">
+      </button>
+
+        <!-- modal user info -->
+        <div class="modal fade bd-example-modal-lg" id="viewUserModal" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="false">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title text-center" id="exampleModalLongTitle">{{selectedUser?.firstName}} {{selectedUser?.lastName}}
+                        </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+                    </div>
+                    <div class="modal-body">
+                        <div>
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-12 col-sm-auto">
+                                            <div class="mx-auto" style="width: 120px;">
+                                                <div class="d-flex justify-content-center align-items-center rounded">
+                                                    <img class="rounded" height="120" width="120" src="{{selectedUser?.profileImageUrl}}" alt="{{selectedUser?.firstName}}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col d-flex flex-column flex-sm-row justify-content-between">
+                                            <div class="text-center text-sm-left mb-sm-0">
+                                                <h6 class="pt-sm-2 pb-1 mb-0 text-nowrap">{{selectedUser?.firstName}} {{selectedUser?.lastName}}
+                                                </h6>
+                                                <p class="mb-1">{{selectedUser?.username}}</p>
+                                                <div class="">Status:
+                                                    <span [hidden]="!selectedUser?.active" class="badge badge-success">Active</span>
+                                                    <span [hidden]="selectedUser?.active" class="badge badge-danger">Inactive</span>
+                                                </div>
+                                                <div *ngIf="selectedUser?.lastLoginDateDisplay" class="text-muted"><small>Last Login: {{selectedUser?.lastLoginDateDisplay | date: 'medium'}}</small>
+                                                </div>
+                                            </div>
+                                            <div class="text-center text-sm-right">
+                                                <div class="text-muted"><small>Joined {{selectedUser?.joinDate | date: 'mediumDate'}}</small></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item"></li>
+                                    <li class="list-group-item"><i class="fa fa-id-badge float-right"></i>{{selectedUser?.userId}}
+                                    </li>
+                                    <li class="list-group-item"><i class="fa fa-envelope float-right"></i>{{selectedUser?.email}}
+                                    </li>
+                                    <li class="list-group-item"><i class="fas fa-shield-alt float-right"></i>{{selectedUser?.role}}
+                                        <li *ngIf="selectedUser?.lastLoginDateDisplay" class="list-group-item"><i class="fas fa-sign-in-alt float-right"></i>{{selectedUser?.lastLoginDateDisplay | date: 'medium'}}
+                                        </li>
+                                        <li class="list-group-item">
+                                            <span [hidden]="selectedUser?.notLocked">
+                    <i class="fa fa-lock float-right" style="color: red;">
+                    </i>
+                    Account Locked
+                  </span>
+                                            <span [hidden]="!selectedUser?.notLocked">
+                    <i class="fa fa-unlock float-right" style="color: green;">
+                    </i>
+                    Account Unlocked
+                  </span>
+                                        </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>

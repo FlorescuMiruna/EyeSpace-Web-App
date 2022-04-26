@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { NotificationType } from '../enum/notification-type.enum';
@@ -17,13 +17,19 @@ export class UserComponent implements OnInit {
   private titleSubject = new BehaviorSubject<String>('Users');
   public titleAction$ = this.titleSubject.asObservable();
   public users: User[] = [];
+  public user: User = new User;
   public refreshing: any;
   private subscriptions: Subscription[] = [];
+  public selectedUser: User = new User();
 
   constructor(private router: Router, private authenticationService: AuthenticationService,
-    private userService: UserService, private notificationService: NotificationService) {}
+    private userService: UserService, private notificationService: NotificationService) { }
 
-  
+  ngOnInit(): void {
+    this.user = this.authenticationService.getUserFromLocalCache();
+    this.getUsers(true);
+  }
+
   public changeTitle(title: string): void {
     this.titleSubject.next(title);
   }
@@ -55,8 +61,22 @@ export class UserComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {
-    this.getUsers(true);
+
+  public myFunction(): void {
+    console.log("open user ingo")
+  }
+  public onSelectUser(selectedUser: User): void {
+    this.selectedUser = selectedUser;
+    this.clickButton('openUserInfo');
+  }
+  private clickButton(buttonId: string): void {
+
+    const element = document.getElementById(buttonId);
+    if (element !== null)
+      element.click();
   }
 
+
+
 }
+
