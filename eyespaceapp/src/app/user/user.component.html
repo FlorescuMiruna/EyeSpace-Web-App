@@ -167,7 +167,85 @@
         </div>
 
 
-
+        <!-- model add user -->
+        <div class="modal draggable fade bd-example-modal-lg" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title text-center">New User</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+                    </div>
+                    <div class="modal-body">
+                        <div>
+                            <form #newUserForm="ngForm">
+                                <div class="form-group">
+                                    <label for="firstName">First Name</label>
+                                    <input type="text" name="firstName" required ngModel class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="lastName">Last Name</label>
+                                    <input type="text" name="lastName" required ngModel class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="username">Username</label>
+                                    <input type="text" name="username" required ngModel class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input type="email" name="email" required ngModel class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="authority">Role</label>
+                                    <select name="role" required ngModel="ROLE_USER" class="form-control">
+                    <option value="ROLE_USER">USER</option>
+                    <option value="ROLE_HR">HR</option>
+                    <option value="ROLE_MANAGER">MANAGER</option>
+                    <option value="ROLE_ADMIN">ADMIN</option>
+                    <option value="ROLE_SUPER_ADMIN">SUPER ADMIN</option>
+                  </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="authority">Role</label>
+                                    <input type="text" name="role" required ngModel="USER" readonly class="form-control">
+                                </div>
+                                <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Profile Picture </span>
+                                    </div>
+                                    <div class="custom-file">
+                                        <input type="file" accept="image/*" name="profileImage" class="custom-file-input">
+                                        <label class="custom-file-label"><span >fileName</span>
+                      <span >Choose File</span>
+                    </label>
+                                    </div>
+                                </div>
+                                <fieldset class="form-group">
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                      <input type="checkbox" name="active" ngModel class="form-check-input" >
+                      Acitve
+                    </label>
+                                    </div>
+                                    <div class="form-check disabled">
+                                        <label class="form-check-label">
+                      <input type="checkbox" name="notLocked" ngModel class="form-check-input">
+                      Unlocked
+                    </label>
+                                    </div>
+                                </fieldset>
+                                <button type="submit" style="display: none;" id="new-user-save"></button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="new-user-close">Close</button>
+                        <button type="button" [disabled]="newUserForm.invalid" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
     </div>
