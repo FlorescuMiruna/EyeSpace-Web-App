@@ -140,7 +140,7 @@
                                     </li>
                                     <li class="list-group-item"><i class="fa fa-envelope float-right"></i>{{selectedUser?.email}}
                                     </li>
-                                    <li class="list-group-item"><i class="fas fa-shield-alt float-right"></i>{{selectedUser?.role}}
+                                    <li class="list-group-item"><i class="fas fa-shield-alt float-right"></i>{{selectedUser?.role?.substring(5)}}
                                         <li *ngIf="selectedUser?.lastLoginDateDisplay" class="list-group-item"><i class="fas fa-sign-in-alt float-right"></i>{{selectedUser?.lastLoginDateDisplay | date: 'medium'}}
                                         </li>
                                         <li class="list-group-item">

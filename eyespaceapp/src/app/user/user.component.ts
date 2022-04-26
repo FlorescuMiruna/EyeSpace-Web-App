@@ -62,9 +62,9 @@ export class UserComponent implements OnInit {
   }
 
 
-  public myFunction(): void {
-    console.log("open user ingo")
-  }
+  // public f(): void {
+  //   console.log("open user info")
+  // }
   public onSelectUser(selectedUser: User): void {
     this.selectedUser = selectedUser;
     this.clickButton('openUserInfo');
