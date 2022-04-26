@@ -215,10 +215,10 @@
                                         <span class="input-group-text">Profile Picture </span>
                                     </div>
                                     <div class="custom-file">
-                                        <input type="file" accept="image/*" name="profileImage" class="custom-file-input">
-                                        <label class="custom-file-label"><span >fileName</span>
-                      <span >Choose File</span>
-                    </label>
+                                        <input type="file" accept="image/*" name="profileImage" (change)="onProfileImageChange(($any($event.target).files[0].name), ($any($event.target).files[0]))" class="custom-file-input">
+                                        <label class="custom-file-label"><span [hidden]="!fileName">{{ fileName }}</span>
+                                          <span [hidden]="fileName">Choose File</span>
+                                        </label>
                                     </div>
                                 </div>
                                 <fieldset class="form-group">

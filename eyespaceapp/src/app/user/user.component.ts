@@ -21,6 +21,8 @@ export class UserComponent implements OnInit {
   public refreshing: any;
   private subscriptions: Subscription[] = [];
   public selectedUser: User = new User();
+  public fileName: string = "";
+  public profileImage: File = new File([],"");
 
   constructor(private router: Router, private authenticationService: AuthenticationService,
     private userService: UserService, private notificationService: NotificationService) { }
@@ -76,7 +78,19 @@ export class UserComponent implements OnInit {
       element.click();
   }
 
-
+  // public onProfileImageChange(event: any): void {
+  //   // this.fileName =  fileName;
+  //   // this.profileImage = profileImage;
+  //   console.log(event)
+  //   console.log(event.target);
+  //   console.log(event.target.files[0].name, event.target.files[0]);
+  // }
+  public onProfileImageChange(fileName: string, profileImage: File): void {
+    this.fileName =  fileName;
+    this.profileImage = profileImage;
+    console.log("Name:",fileName);
+    console.log(profileImage)
+  }
 
 }
 
