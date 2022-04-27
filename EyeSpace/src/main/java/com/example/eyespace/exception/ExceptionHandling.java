@@ -2,10 +2,7 @@ package com.example.eyespace.exception;
 
 import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.example.eyespace.domain.HttpResponse;
-import com.example.eyespace.exception.domain.EmailExistException;
-import com.example.eyespace.exception.domain.EmailNotFoundException;
-import com.example.eyespace.exception.domain.UserNotFoundException;
-import com.example.eyespace.exception.domain.UsernameExistException;
+import com.example.eyespace.exception.domain.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.web.servlet.error.ErrorController;
@@ -89,6 +86,11 @@ public class ExceptionHandling implements ErrorController {
 //    public ResponseEntity<HttpResponse> noHandlerFoundException(NoHandlerFoundException e) {
 //        return createHttpResponse(BAD_REQUEST, "There is no mapping for this URL");
 //    }
+@ExceptionHandler(NotAnImageFileException.class)
+public ResponseEntity<HttpResponse> notAnImageFileException(NotAnImageFileException exception) {
+    LOGGER.error(exception.getMessage());
+    return createHttpResponse(BAD_REQUEST, exception.getMessage());
+}
 
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     public ResponseEntity<HttpResponse> methodNotSupportedException(HttpRequestMethodNotSupportedException exception) {

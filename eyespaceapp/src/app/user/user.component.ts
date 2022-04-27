@@ -78,17 +78,17 @@ export class UserComponent implements OnInit, OnDestroy {
     this.router.navigate(['/login']);
     this.sendNotification(NotificationType.SUCCESS, `You've been successfully logged out`);
   }
-
   public get isAdmin(): boolean {
-    return true;
+
+    return this.getUserRole() === Role.ADMIN || this.getUserRole() === Role.SUPER_ADMIN;
   }
 
   public get isManager(): boolean {
-    return true;
+    return this.isAdmin || this.getUserRole() === Role.MANAGER;
   }
 
   public get isAdminOrManager(): boolean {
-    return true;
+    return this.isAdmin || this.isManager;
   }
 
 
@@ -274,7 +274,9 @@ export class UserComponent implements OnInit, OnDestroy {
     console.log("before click??")
     this.clickButton('profile-image-input');
   }
-
+  private getUserRole(): string {
+    return this.authenticationService.getUserFromLocalCache().role;
+  }
 
 }
 
