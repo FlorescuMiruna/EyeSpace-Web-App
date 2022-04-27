@@ -1,4 +1,4 @@
-package com.example.eyespace.domain;
+package com.example.eyespace.model;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

@@ -1,4 +1,4 @@
-package com.example.eyespace.domain;
+package com.example.eyespace.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

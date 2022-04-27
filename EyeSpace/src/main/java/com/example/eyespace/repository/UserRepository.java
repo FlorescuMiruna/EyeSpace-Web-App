@@ -1,6 +1,6 @@
 package com.example.eyespace.repository;
 
-import com.example.eyespace.domain.User;
+import com.example.eyespace.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserRepository extends JpaRepository<User,Long> {

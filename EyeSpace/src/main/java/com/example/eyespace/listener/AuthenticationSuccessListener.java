@@ -1,6 +1,6 @@
 package com.example.eyespace.listener;
 
-import com.example.eyespace.domain.UserPrincipal;
+import com.example.eyespace.model.UserPrincipal;
 import com.example.eyespace.service.LoginAttemptService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;

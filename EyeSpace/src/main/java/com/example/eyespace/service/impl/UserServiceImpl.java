@@ -1,7 +1,7 @@
 package com.example.eyespace.service.impl;
 
-import com.example.eyespace.domain.User;
-import com.example.eyespace.domain.UserPrincipal;
+import com.example.eyespace.model.User;
+import com.example.eyespace.model.UserPrincipal;
 import com.example.eyespace.enumeration.Role;
 import com.example.eyespace.exception.domain.*;
 import com.example.eyespace.repository.UserRepository;
@@ -34,7 +34,6 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-import static com.example.eyespace.constant.FileConstant.*;
 import static com.example.eyespace.constant.FileConstant.*;
 import static com.example.eyespace.constant.FileConstant.DEFAULT_USER_IMAGE_PATH;
 import static com.example.eyespace.constant.UserImplConstant.*;

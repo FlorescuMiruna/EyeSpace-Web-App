@@ -1,7 +1,7 @@
 package com.example.eyespace.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.example.eyespace.domain.HttpResponse;
+import com.example.eyespace.model.HttpResponse;
 import static org.springframework.http.HttpStatus.FORBIDDEN;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.Http403ForbiddenEntryPoint;

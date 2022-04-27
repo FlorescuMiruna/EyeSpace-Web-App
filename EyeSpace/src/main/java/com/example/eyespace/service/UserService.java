@@ -1,6 +1,6 @@
 package com.example.eyespace.service;
 
-import com.example.eyespace.domain.User;
+import com.example.eyespace.model.User;
 import com.example.eyespace.exception.domain.*;
 import org.springframework.web.multipart.MultipartFile;
 

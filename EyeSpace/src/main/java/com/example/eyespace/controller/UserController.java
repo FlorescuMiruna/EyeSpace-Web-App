@@ -1,11 +1,10 @@
-package com.example.eyespace.resource;
+package com.example.eyespace.controller;
 
-import com.example.eyespace.domain.HttpResponse;
-import com.example.eyespace.domain.User;
-import com.example.eyespace.domain.UserPrincipal;
+import com.example.eyespace.model.HttpResponse;
+import com.example.eyespace.model.User;
+import com.example.eyespace.model.UserPrincipal;
 import com.example.eyespace.exception.ExceptionHandling;
 import com.example.eyespace.exception.domain.*;
-import com.example.eyespace.service.EmailService;
 import com.example.eyespace.service.UserService;
 import com.example.eyespace.utility.JWTTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +36,7 @@ import static org.springframework.http.MediaType.IMAGE_JPEG_VALUE;
 @RestController
 @RequestMapping(path = { "/", "/user"})
 //@CrossOrigin("http://localhost:4200")
-public class UserResource extends ExceptionHandling {
+public class UserController extends ExceptionHandling {
     public static final String EMAIL_SENT = "An email with a new password was sent to: ";
     public static final String USER_DELETED_SUCCESSFULLY = "User deleted successfully";
     private AuthenticationManager authenticationManager;
@@ -45,7 +44,7 @@ public class UserResource extends ExceptionHandling {
     private JWTTokenProvider jwtTokenProvider;
 
     @Autowired
-    public UserResource(AuthenticationManager authenticationManager, UserService userService, JWTTokenProvider jwtTokenProvider) {
+    public UserController(AuthenticationManager authenticationManager, UserService userService, JWTTokenProvider jwtTokenProvider) {
         this.authenticationManager = authenticationManager;
         this.userService = userService;
         this.jwtTokenProvider = jwtTokenProvider;
