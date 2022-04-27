@@ -22,8 +22,11 @@ export class UserComponent implements OnInit {
   public refreshing: any;
   private subscriptions: Subscription[] = [];
   public selectedUser: User = new User();
-  public fileName: string = "";
-  public profileImage: File = new File([],"");
+  public fileName: any;
+  //public profileImage: File = new File([],"");
+  public profileImage: any;
+  public editUser = new User();
+  private currentUsername: string = "";
 
   constructor(private router: Router, private authenticationService: AuthenticationService,
     private userService: UserService, private notificationService: NotificationService) { }
@@ -126,6 +129,29 @@ export class UserComponent implements OnInit {
     if (results.length === 0 || !searchTerm) {
       this.users = this.userService.getUsersFromLocalCache();
     }
+  }
+  public onEditUser(editUser: User): void {
+    this.editUser = editUser;
+    this.currentUsername = editUser.username;
+    this.clickButton('openUserEdit');
+  }
+  public onUpdateUser(): void {
+    const formData = this.userService.createUserFormDate(this.currentUsername, this.editUser, this.profileImage);
+    this.subscriptions.push(
+      this.userService.updateUser(formData).subscribe(
+        (response: User) => {
+          this.clickButton('closeEditUserModalButton');
+          this.getUsers(false);
+          this.fileName = null;
+          this.profileImage = null;
+          this.sendNotification(NotificationType.SUCCESS, `${response.firstName} ${response.lastName} updated successfully`);
+        },
+        (errorResponse: HttpErrorResponse) => {
+          this.sendNotification(NotificationType.ERROR, errorResponse.error.message);
+          this.profileImage = null;
+        }
+      )
+      );
   }
 
 }
