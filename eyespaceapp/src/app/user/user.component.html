@@ -166,7 +166,6 @@
             </div>
         </div>
 
-
         <!-- model add user -->
         <div class="modal draggable fade bd-example-modal-lg" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -174,12 +173,12 @@
                     <div class="modal-header">
                         <h5 class="modal-title text-center">New User</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
+        <span aria-hidden="true">&times;</span>
+      </button>
                     </div>
                     <div class="modal-body">
                         <div>
-                            <form #newUserForm="ngForm">
+                            <form #newUserForm="ngForm" (ngSubmit)="onAddNewUser(newUserForm)">
                                 <div class="form-group">
                                     <label for="firstName">First Name</label>
                                     <input type="text" name="firstName" required ngModel class="form-control">
@@ -199,12 +198,12 @@
                                 <div class="form-group">
                                     <label for="authority">Role</label>
                                     <select name="role" required ngModel="ROLE_USER" class="form-control">
-                    <option value="ROLE_USER">USER</option>
-                    <option value="ROLE_HR">HR</option>
-                    <option value="ROLE_MANAGER">MANAGER</option>
-                    <option value="ROLE_ADMIN">ADMIN</option>
-                    <option value="ROLE_SUPER_ADMIN">SUPER ADMIN</option>
-                  </select>
+              <option value="ROLE_USER">USER</option>
+              <option value="ROLE_HR">HR</option>
+              <option value="ROLE_MANAGER">MANAGER</option>
+              <option value="ROLE_ADMIN">ADMIN</option>
+              <option value="ROLE_SUPER_ADMIN">SUPER ADMIN</option>
+            </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="authority">Role</label>
@@ -217,22 +216,22 @@
                                     <div class="custom-file">
                                         <input type="file" accept="image/*" name="profileImage" (change)="onProfileImageChange(($any($event.target).files[0].name), ($any($event.target).files[0]))" class="custom-file-input">
                                         <label class="custom-file-label"><span [hidden]="!fileName">{{ fileName }}</span>
-                                          <span [hidden]="fileName">Choose File</span>
-                                        </label>
+                <span [hidden]="fileName">Choose File</span>
+              </label>
                                     </div>
                                 </div>
                                 <fieldset class="form-group">
                                     <div class="form-check">
                                         <label class="form-check-label">
-                      <input type="checkbox" name="active" ngModel class="form-check-input" >
-                      Acitve
-                    </label>
+                <input type="checkbox" name="active" ngModel class="form-check-input" >
+                Acitve
+              </label>
                                     </div>
                                     <div class="form-check disabled">
                                         <label class="form-check-label">
-                      <input type="checkbox" name="notLocked" ngModel class="form-check-input">
-                      Unlocked
-                    </label>
+                <input type="checkbox" name="notLocked" ngModel class="form-check-input">
+                Unlocked
+              </label>
                                     </div>
                                 </fieldset>
                                 <button type="submit" style="display: none;" id="new-user-save"></button>
@@ -241,7 +240,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal" id="new-user-close">Close</button>
-                        <button type="button" [disabled]="newUserForm.invalid" class="btn btn-primary">Save changes</button>
+                        <button type="button" (click)="saveNewUser()" [disabled]="newUserForm.invalid" class="btn btn-primary">Save changes</button>
                     </div>
                 </div>
             </div>

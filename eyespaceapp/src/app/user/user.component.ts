@@ -1,5 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { NotificationType } from '../enum/notification-type.enum';
@@ -78,18 +79,37 @@ export class UserComponent implements OnInit {
       element.click();
   }
 
-  // public onProfileImageChange(event: any): void {
-  //   // this.fileName =  fileName;
-  //   // this.profileImage = profileImage;
-  //   console.log(event)
-  //   console.log(event.target);
-  //   console.log(event.target.files[0].name, event.target.files[0]);
-  // }
   public onProfileImageChange(fileName: string, profileImage: File): void {
     this.fileName =  fileName;
     this.profileImage = profileImage;
     console.log("Name:",fileName);
     console.log(profileImage)
+  }
+
+  public saveNewUser(): void {
+    console.log("aaa")
+    this.clickButton('new-user-save');
+  }
+  public onAddNewUser(userForm: NgForm): void {
+    console.log("off")
+    const formData = this.userService.createUserFormDate(null, userForm.value, this.profileImage);
+    this.subscriptions.push(
+      this.userService.addUser(formData).subscribe(
+        (response: User) => {
+          console.log(response);
+          this.clickButton('new-user-close');
+          this.getUsers(false);
+          this.fileName = null as any;
+          this.profileImage = null as any;
+          userForm.reset();
+          this.sendNotification(NotificationType.SUCCESS, `${response.firstName} ${response.lastName} added successfully`);
+        },
+        (errorResponse: HttpErrorResponse) => {
+          this.sendNotification(NotificationType.ERROR, errorResponse.error.message);
+          this.profileImage = null as any;
+        }
+      )
+      );
   }
 
 }
