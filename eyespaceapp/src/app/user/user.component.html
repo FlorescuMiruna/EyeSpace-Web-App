@@ -90,7 +90,24 @@
         <button [hidden]="true" type="button" id="openUserEdit" data-toggle="modal" data-target="#editUserModal">
     </button>
 
-
+        <!-- change password  -->
+        <div class="tab-pane fade" id="reset-password">
+            <form #resetPasswordForm="ngForm" (ngSubmit)="onResetPassword(resetPasswordForm)">
+                <fieldset>
+                    <legend>User Password Management</legend>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Email address</label>
+                        <input type="email" name="reset-password-email" required ngModel class="form-control" placeholder="Enter email (example@email.com)">
+                        <small class="form-text text-muted">We'll never share your email with anyone else.</small>
+                    </div>
+                    <button type="submit" [disabled]="resetPasswordForm.invalid" class="btn btn-primary">
+              <i *ngIf="refreshing" class="fas fa-spinner fa-spin"></i>&nbsp;&nbsp;
+              <span *ngIf="refreshing">Loading...</span>
+              <span *ngIf="!refreshing">Reset Password</span>
+            </button>
+                </fieldset>
+            </form>
+        </div>
 
         <!-- modal user info -->
         <div class="modal fade bd-example-modal-lg" id="viewUserModal" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
