@@ -37,6 +37,7 @@ export class UserComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.user = this.authenticationService.getUserFromLocalCache();
+    console.log("USER",this.user)
     this.getUsers(true);
   }
   ngOnDestroy(): void {
@@ -92,9 +93,6 @@ export class UserComponent implements OnInit, OnDestroy {
   }
 
 
-  // public f(): void {
-  //   console.log("open user info")
-  // }
   public onSelectUser(selectedUser: User): void {
     this.selectedUser = selectedUser;
     this.clickButton('openUserInfo');

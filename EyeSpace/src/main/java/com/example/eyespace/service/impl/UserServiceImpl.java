@@ -1,5 +1,6 @@
 package com.example.eyespace.service.impl;
 
+import com.example.eyespace.model.Movie;
 import com.example.eyespace.model.User;
 import com.example.eyespace.model.UserPrincipal;
 import com.example.eyespace.enumeration.Role;
@@ -7,6 +8,7 @@ import com.example.eyespace.exception.domain.*;
 import com.example.eyespace.repository.UserRepository;
 import com.example.eyespace.service.EmailService;
 import com.example.eyespace.service.LoginAttemptService;
+import com.example.eyespace.service.MovieService;
 import com.example.eyespace.service.UserService;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -33,6 +35,7 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import static com.example.eyespace.constant.FileConstant.*;
 import static com.example.eyespace.constant.FileConstant.DEFAULT_USER_IMAGE_PATH;
@@ -48,17 +51,22 @@ import static org.springframework.http.MediaType.*;
 public class UserServiceImpl implements UserService, UserDetailsService {
     private Logger LOGGER = LoggerFactory.getLogger(getClass());
     private UserRepository userRepository;
+    private MovieService movieService;
     private BCryptPasswordEncoder passwordEncoder;
     private LoginAttemptService loginAttemptService;
     private EmailService emailService;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, BCryptPasswordEncoder passwordEncoder, LoginAttemptService loginAttemptService, EmailService emailService) {
+    public UserServiceImpl(UserRepository userRepository, MovieService movieService, BCryptPasswordEncoder passwordEncoder, LoginAttemptService loginAttemptService, EmailService emailService) {
         this.userRepository = userRepository;
+        this.movieService = movieService;
         this.passwordEncoder = passwordEncoder;
         this.loginAttemptService = loginAttemptService;
         this.emailService = emailService;
     }
+
+
+
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -168,6 +176,15 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public User findUserByUsername(String username) {
         return userRepository.findUserByUsername(username);
     }
+    @Override
+    public User findUserById(Long id) {
+      // return userRepository.findById(id);
+
+        Optional<User> optionalUser = userRepository.findById(id);
+        return optionalUser.orElseThrow(() -> new NotFoundException("User not found!", "user.not.found"));
+
+    }
+
 
     @Override
     public User findUserByEmail(String email) {
@@ -200,6 +217,15 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         }
     }
 
+    public User assignMovieToUser(Long userId, int movieId) {
+
+        User user = findUserById(userId);
+        System.out.println("USER: " + user);
+        Movie movie = movieService.getMovieById(movieId);
+        System.out.println("MOVIE: "+ movie);
+        user.getMovies().add(movie);
+        return userRepository.save(user);
+    }
     private String setProfileImageUrl(String username) {
         return ServletUriComponentsBuilder.fromCurrentContextPath().path(USER_IMAGE_PATH + username + FORWARD_SLASH
                 + username + DOT + JPG_EXTENSION).toUriString();

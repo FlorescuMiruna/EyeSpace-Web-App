@@ -99,6 +99,12 @@ public class UserController extends ExceptionHandling {
         return new ResponseEntity<>(user, OK);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<User> getUserById(@PathVariable("id") Long id) {
+        User user = userService.findUserById(id);
+        return new ResponseEntity<>(user, OK);
+    }
+
     @GetMapping("/list")
     public ResponseEntity<List<User>> getAllUsers() {
         List<User> users = userService.getUsers();
@@ -141,6 +147,13 @@ public class UserController extends ExceptionHandling {
             }
         }
         return byteArrayOutputStream.toByteArray();
+    }
+
+    @PutMapping("/{userId}/movie/{movieId}")
+    User assignMovieToUser (@PathVariable Long userId, @PathVariable int movieId){
+
+        User user = userService.assignMovieToUser(userId,movieId);
+        return user;
     }
 
     private ResponseEntity<HttpResponse> response(HttpStatus httpStatus, String message) {

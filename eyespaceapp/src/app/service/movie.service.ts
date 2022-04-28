@@ -20,14 +20,14 @@ export class MovieService {
   movieIdImdb : string;
 
   constructor(private http: HttpClient) { 
-    this.addMovieURL = 'http://localhost:8090/movie';
-    this.getMovieURL = 'http://localhost:8090/movie';
-    this.updateMovieURL = 'http://localhost:8090/movie';
-    this.deleteMovieURL = 'http://localhost:8090/movie';
+    this.addMovieURL = 'http://localhost:8026/movie';
+    this.getMovieURL = 'http://localhost:8026/movie';
+    this.updateMovieURL = 'http://localhost:8026/movie';
+    this.deleteMovieURL = 'http://localhost:8026/movie';
 
-    this.searchURL = 'http://localhost:8090/movie/API/search/';
+    this.searchURL = 'http://localhost:8026/movie/API/search/';
 
-    this.getAPIMovieURL = 'http://localhost:8090/movie/API/';
+    this.getAPIMovieURL = 'http://localhost:8026/movie/API/';
 
     this.movieIdImdb = 'default';
 

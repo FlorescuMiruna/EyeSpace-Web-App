@@ -16,6 +16,7 @@ import org.springframework.security.authentication.LockedException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.persistence.NoResultException;
@@ -27,6 +28,7 @@ import static org.springframework.http.HttpStatus.*;
 @RestControllerAdvice
 public class ExceptionHandling implements ErrorController {
     private final Logger LOGGER = LoggerFactory.getLogger(getClass());
+    //private Logger logger = LoggerFactory.getLogger(ExceptionHandling.class);
     private static final String ACCOUNT_LOCKED = "Your account has been locked. Please contact administration";
     private static final String METHOD_IS_NOT_ALLOWED = "This request method is not allowed on this endpoint. Please send a '%s' request";
     private static final String INTERNAL_SERVER_ERROR_MSG = "An error occurred while processing the request";
@@ -129,4 +131,14 @@ public ResponseEntity<HttpResponse> notAnImageFileException(NotAnImageFileExcept
 //    public String getErrorPath() {
 //        return ERROR_PATH;
 //    }
+
+    @ExceptionHandler(value = {NotFoundException.class})
+    @ResponseStatus(value = HttpStatus.NOT_FOUND)
+    public ErrorDto handleNotFound(Exception exception) {
+        BaseException baseException = (BaseException) exception;
+
+        LOGGER.warn("Not found exception", exception);
+        return new ErrorDto(baseException.getErrorCode(), baseException.getMessage(), HttpStatus.NOT_FOUND.value());
+    }
+
 }

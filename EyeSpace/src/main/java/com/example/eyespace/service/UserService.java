@@ -14,6 +14,8 @@ public interface UserService {
 
     List<User> getUsers();
 
+    User findUserById(Long id);
+
     User findUserByUsername(String username);
 
     User findUserByEmail(String email);
@@ -27,4 +29,6 @@ public interface UserService {
     void resetPassword(String email) throws MessagingException, EmailNotFoundException;
 
     User updateProfileImage(String username, MultipartFile profileImage) throws UserNotFoundException, UsernameExistException, EmailExistException, IOException, NotAnImageFileException;
+
+     User assignMovieToUser(Long userId, int movieId);
 }

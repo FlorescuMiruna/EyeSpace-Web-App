@@ -12,6 +12,7 @@ export class User {
     public notLocked: boolean;
     public role: string;
     public authorities: [];
+    public movies:[];
   
     constructor() {
       this.userId = '';
@@ -27,6 +28,7 @@ export class User {
       this.notLocked = false;
       this.role = '';
       this.authorities = [];
+      this.movies = [];
     }
   
   }

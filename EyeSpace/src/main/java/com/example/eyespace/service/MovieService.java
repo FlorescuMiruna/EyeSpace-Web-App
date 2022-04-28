@@ -1,7 +1,9 @@
 package com.example.eyespace.service;
 
+import com.example.eyespace.exception.domain.NotFoundException;
 import com.example.eyespace.model.Movie;
 import com.example.eyespace.model.MovieSearchDetails;
+import com.example.eyespace.model.User;
 import com.example.eyespace.repository.MovieRepository;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -17,32 +19,45 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MovieService {
-
-    @Autowired
-    MovieRepository movieRepository;
-
     @Value("${apiIMDBKey}")
     private String apiIMDBKey;
+
+//    @Autowired
+   private final MovieRepository movieRepository;
+
+
+    @Autowired
+    public MovieService(MovieRepository movieRepository) {
+        this.movieRepository = movieRepository;
+
+    }
+
+
 
     public List<Movie> getAllMovies(){
         return movieRepository.findAll();
     }
 
     public Movie addMovie(Movie movie){
-        System.out.println(movie);
+
         return movieRepository.save(movie);
 
     }
+
+
 
     public List<Movie> addAllMovies(List<Movie> movies) {
         return  movieRepository.saveAll(movies);
     }
 
     public Movie getMovieById(int id){
-        return movieRepository.findById(id).orElse(null);
+//        return movieRepository.findById(id);
+        Optional<Movie> movieOptional = movieRepository.findById(id);
+        return movieOptional.orElseThrow(() -> new NotFoundException("Movie not found!", "movie.not.found"));
     }
 
     public Movie getMovieByTitle(String title){
