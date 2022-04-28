@@ -1,0 +1,49 @@
+<nav>
+
+    <ul>
+        <li class="logo">Eye Space</li>
+        <li class="search-icon" [formGroup]="movieSearchDetail">
+            <input type="search" placeholder="Search" formControlName="title" id="tile">
+            <!-- <input type="text" formControlName="title" class="form-control" id="tile" aria-describedby="emailHelp"> -->
+            <label class="icon" (click)="search()">
+                <span class="bi bi-search" colour="red"></span>
+                </label>
+        </li>
+
+        <li class="btn"><span class="fas fa-bars"></span></li>
+        <div class="items">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">Contact</a></li>
+        </div>
+
+
+    </ul>
+</nav>
+<div class="container-fluid">
+
+
+
+
+    <div class="row-md-4" *ngFor="let movieSearch of movieSearchList " (click)="goToMovie(movieSearch)">
+
+        <div class=" card shadow ">
+            <div class="inner ">
+                <img src={{movieSearch.posterUrl}} class="card-img-top " alt="... ">
+
+            </div>
+            <div class="card-body ">
+                <h5 class="card-title ">{{movieSearch.title}}</h5>
+                <p class="card-text ">{{movieSearch.year}}</p>
+                <p class="card-text ">{{movieSearch.idIMDB}}</p>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+</div>

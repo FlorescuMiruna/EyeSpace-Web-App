@@ -13,7 +13,9 @@ import { NotificationService } from './service/notification.service';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { UserComponent } from './user/user.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MovieComponent } from './component/movie/movie.component';
+import { MoviePageComponent } from './component/movie-page/movie-page.component';
 
 
 @NgModule({
@@ -22,12 +24,15 @@ import { FormsModule } from '@angular/forms';
     LoginComponent,
     
     RegisterComponent,
-    UserComponent
+    UserComponent,
+    MovieComponent,
+    MoviePageComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    ReactiveFormsModule,
     FormsModule,
     NotificationModule
     

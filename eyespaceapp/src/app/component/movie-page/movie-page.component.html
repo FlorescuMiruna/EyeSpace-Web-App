@@ -1,0 +1,27 @@
+<div class="row-md-4">
+
+    <div class=" card shadow ">
+        <div class="inner ">
+            <img src={{movieAPI.posterUrl}} class="card-img-top " alt="... ">
+            <p>{{movieAPI.title}}</p>
+        </div>
+        <div class="card-body ">
+            <h5 class="card-title ">{{movieAPI.title}}</h5>
+            <p class="card-text ">{{movieAPI.date}}</p>
+            <p class="card-text ">{{movieAPI.director}}</p>
+            <p class="card-text ">{{movieAPI.genre}}</p>
+            <p class="card-text ">{{movieAPI.plot}}</p>
+            <p class="card-text ">{{movieAPI.rating}}</p>
+        </div>
+
+
+    </div>
+
+    <div>
+        <button class="btn btn-dark" (click)="addToWatchList()"> Add to your Watch list</button>
+    </div>
+
+    <div>
+        <button class="btn btn-success">Mark as watched</button>
+    </div>
+</div>
