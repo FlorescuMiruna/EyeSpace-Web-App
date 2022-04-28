@@ -222,8 +222,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         User user = findUserById(userId);
         System.out.println("USER: " + user);
         Movie movie = movieService.getMovieById(movieId);
+        Movie movie2 = movieService.getMovieById(movieId + 1);
         System.out.println("MOVIE: "+ movie);
         user.getMovies().add(movie);
+        user.getMovies().add(movie2);
         return userRepository.save(user);
     }
     private String setProfileImageUrl(String username) {
