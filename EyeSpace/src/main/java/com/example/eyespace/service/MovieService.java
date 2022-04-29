@@ -139,13 +139,6 @@ public class MovieService {
 
         }
 
-        System.out.println("Cheie" + apiIMDBKey);
-
-//        System.out.println("LISTA" + movieSearchDetailsList);
-//
-//        JSONObject movieSearchDetailsJson = array.getJSONObject(0);
-//        System.out.println("LOOK:" + movieSearchDetailsJson);
-//        MovieSearchDetails movieSearchDetails = jsonToMovieSearchDetails(movieSearchDetailsJson);
         return movieSearchDetailsList;
     }
 

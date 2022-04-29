@@ -22,7 +22,7 @@ public class Movie {
 
     @Id
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @NotNull
     private int id;
 
@@ -45,7 +45,7 @@ public class Movie {
 
     @JsonIgnore
     @ManyToMany(mappedBy = "movies")
-    private List<User> users = new ArrayList<>();
+    private Set<User> users = new HashSet<>();
 
     @Override
     public String toString() {
@@ -59,7 +59,7 @@ public class Movie {
                 ", plot='" + plot + '\'' +
                 ", rating='" + rating + '\'' +
                 ", posterUrl='" + posterUrl + '\'' +
-                ", users=" + users +
+
                 '}';
     }
 }

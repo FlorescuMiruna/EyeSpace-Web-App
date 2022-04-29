@@ -34,16 +34,20 @@ public class User implements Serializable {
     private String[] authorities;
     private boolean isActive;
     private boolean isNotLocked;
+
+    //O lista cu id-urile IMDB ale filmelor (reprezentand filmele vazut de user-ul respectiv
+   // private  List<String> movies = new ArrayList<>();
+
     @ManyToMany
     @JoinTable(
             name = "user_movies",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "movie_id"))
-    private List<Movie> movies = new ArrayList<>();
+    private Set<Movie> movies = new HashSet<>();
 
     public User(){}
 
-    public User(Long id, String userId, String firstName, String lastName, String username, String password, String email, String profileImageUrl, Date lastLoginDate, Date lastLoginDateDisplay, Date joinDate, String role, String[] authorities, boolean isActive, boolean isNotLocked) {
+    public User(Long id, String userId, String firstName, String lastName, String username, String password, String email, String profileImageUrl, Date lastLoginDate, Date lastLoginDateDisplay, Date joinDate, String role, String[] authorities, boolean isActive, boolean isNotLocked, Set<Movie> movies) {
         this.id = id;
         this.userId = userId;
         this.firstName = firstName;
@@ -59,6 +63,34 @@ public class User implements Serializable {
         this.authorities = authorities;
         this.isActive = isActive;
         this.isNotLocked = isNotLocked;
+        this.movies = movies;
+    }
+
+//    public User(Long id, String userId, String firstName, String lastName, String username, String password, String email, String profileImageUrl, Date lastLoginDate, Date lastLoginDateDisplay, Date joinDate, String role, String[] authorities, boolean isActive, boolean isNotLocked) {
+//        this.id = id;
+//        this.userId = userId;
+//        this.firstName = firstName;
+//        this.lastName = lastName;
+//        this.username = username;
+//        this.password = password;
+//        this.email = email;
+//        this.profileImageUrl = profileImageUrl;
+//        this.lastLoginDate = lastLoginDate;
+//        this.lastLoginDateDisplay = lastLoginDateDisplay;
+//        this.joinDate = joinDate;
+//        this.role = role;
+//        this.authorities = authorities;
+//        this.isActive = isActive;
+//        this.isNotLocked = isNotLocked;
+//    }
+
+
+    public Set<Movie> getMovies() {
+        return movies;
+    }
+
+    public void setMovies(Set<Movie> movies) {
+        this.movies = movies;
     }
 
     public Long getId() {
@@ -181,33 +213,7 @@ public class User implements Serializable {
         isNotLocked = notLocked;
     }
 
-    public List<Movie> getMovies() {
-        return movies;
-    }
 
-    public void setMovies(List<Movie> movies) {
-        this.movies = movies;
-    }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", userId='" + userId + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
-                ", profileImageUrl='" + profileImageUrl + '\'' +
-                ", lastLoginDate=" + lastLoginDate +
-                ", lastLoginDateDisplay=" + lastLoginDateDisplay +
-                ", joinDate=" + joinDate +
-                ", role='" + role + '\'' +
-                ", authorities=" + Arrays.toString(authorities) +
-                ", isActive=" + isActive +
-                ", isNotLocked=" + isNotLocked +
-                ", movies=" + movies +
-                '}';
-    }
+
 }
