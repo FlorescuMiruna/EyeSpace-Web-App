@@ -13,6 +13,8 @@ export class MoviePageComponent implements OnInit {
 
   
   movieAPI:Movie = new Movie();
+  isWatched:boolean = false;
+  
 
 
   constructor(private movieService: MovieService, private authenticationService:AuthenticationService) { }
@@ -22,6 +24,13 @@ export class MoviePageComponent implements OnInit {
 
 
   }
+
+  calculateClasses() {
+    if(this.isWatched === false)
+      return 'btn btn-outline-success';
+    else
+    return 'btn btn-success';
+}
 
   initializeMovie(){
      var idIMDB  = this.movieService.getMovieIdImdb();
@@ -42,13 +51,15 @@ export class MoviePageComponent implements OnInit {
 
   }
 
+
   addToWatchList(){
     
     var id  = this.authenticationService.getUserFromLocalCache().id;
 
     this.movieService.addMovie(this.movieAPI,id).subscribe(res=>{
-      
+      this.isWatched = true;
       console.log("FILMUL:",res);
+     // this.isWatched = true;
       Swal.fire({
         position: 'center',
         icon: 'success',
@@ -60,7 +71,7 @@ export class MoviePageComponent implements OnInit {
       // Swal.fire('Hello Angular');  
       // this.getAllMovies();
       console.log("USERUL LOGAT:",this.authenticationService.getUserFromLocalCache());
-
+     
       
   },err=>{
       console.log(err);
