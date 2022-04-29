@@ -15,13 +15,22 @@ import java.util.List;
 //@CrossOrigin(origins = "http://localhost:4200")
 public class MovieController {
 
-    @Autowired
+
     MovieService movieService;
 
-    @PostMapping("")
-    public Movie addMovie(@RequestBody Movie movie){
-        return movieService.addMovie(movie);
+    @Autowired
+    public MovieController(MovieService movieService) {
+        this.movieService = movieService;
     }
+
+    @PostMapping("/user/{userId}")
+    public Movie addMovie(@RequestBody Movie movie,@PathVariable Long userId){
+
+         movieService.addMovie(movie,userId);
+
+         return movie;
+    }
+
     @PostMapping("/all")
     public List<Movie> addAllMovies(@RequestBody List<Movie> movies) {
         return movieService.addAllMovies(movies);
@@ -38,9 +47,10 @@ public class MovieController {
 
 
     @GetMapping("/{id}")
-    public Movie getMovieById(@PathVariable int id){
+    public Movie getMovieById(@PathVariable String id){
         return movieService.getMovieById(id);
     }
+
     @GetMapping("")
     public List<Movie> getAllMovies(){
         return movieService.getAllMovies();
@@ -72,10 +82,10 @@ public class MovieController {
         return movieService.deleteMovieByID(id);
 
     }
-    @PutMapping("")
-    public Movie updateMovie(@RequestBody Movie movie) {
-        return movieService.updateMovie(movie);
-    }
+//    @PutMapping("")
+//    public Movie updateMovie(@RequestBody Movie movie) {
+//        return movieService.updateMovie(movie);
+//    }
 
 
 

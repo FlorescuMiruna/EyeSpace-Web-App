@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Movie } from '../model/movie';
 import { MovieSearchDetails } from '../model/movie-search-details';
+import { User } from '../model/user';
 
 @Injectable({
   providedIn: 'root'
@@ -18,13 +19,14 @@ export class MovieService {
   searchURL: string;
   getAPIMovieURL: string;
   movieIdImdb : string;
-
+  assignMovieToUserURL: string;
   constructor(private http: HttpClient) { 
     this.addMovieURL = 'http://localhost:8026/movie';
     this.getMovieURL = 'http://localhost:8026/movie';
     this.updateMovieURL = 'http://localhost:8026/movie';
     this.deleteMovieURL = 'http://localhost:8026/movie';
-
+    this.assignMovieToUserURL = 'http://localhost:8026/user/';
+    // this.assignMovieToUser = 'http://localhost:8026/user/2/movie/tt1471226';
     this.searchURL = 'http://localhost:8026/movie/API/search/';
 
     this.getAPIMovieURL = 'http://localhost:8026/movie/API/';
@@ -42,8 +44,11 @@ export class MovieService {
   }
   
   addMovie(movie : Movie): Observable<Movie> {
+    
     return this.http.post<Movie>(this.addMovieURL,movie);
   }
+
+
 
   getAllMovies(): Observable<Movie[]>{
     console.log("movie originea",this.http.get<Movie[]>(this.getMovieURL) )

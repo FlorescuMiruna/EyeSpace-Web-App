@@ -8,5 +8,7 @@ public interface MovieRepository extends JpaRepository<Movie,Integer> {
 
     Movie findByTitle(String title);
 
+    Movie findById(String id);
+
 
 }

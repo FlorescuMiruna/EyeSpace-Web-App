@@ -3,6 +3,7 @@ package com.example.eyespace.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -11,8 +12,7 @@ import java.util.*;
 @Entity
 //@Data
 @Table
-
-
+//@ToString
 public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -38,14 +38,46 @@ public class User implements Serializable {
     //O lista cu id-urile IMDB ale filmelor (reprezentand filmele vazut de user-ul respectiv
    // private  List<String> movies = new ArrayList<>();
 
-    @ManyToMany
-    @JoinTable(
-            name = "user_movies",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "movie_id"))
+//    @ManyToMany
+//    @JoinTable(
+//            name = "user_movies",
+//            joinColumns = @JoinColumn(name = "user_id"),
+//            inverseJoinColumns = @JoinColumn(name = "movie_id"))
+//    private Set<Movie> movies = new HashSet<>();
+
+    @JsonIgnore
+    @ManyToMany(mappedBy = "users")
     private Set<Movie> movies = new HashSet<>();
 
-    public User(){}
+    public Set<Movie> getMovies() {
+        return movies;
+    }
+
+    public void setMovies(Set<Movie> movies) {
+        this.movies = movies;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", userId='" + userId + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", profileImageUrl='" + profileImageUrl + '\'' +
+                ", lastLoginDate=" + lastLoginDate +
+                ", lastLoginDateDisplay=" + lastLoginDateDisplay +
+                ", joinDate=" + joinDate +
+                ", role='" + role + '\'' +
+                ", authorities=" + Arrays.toString(authorities) +
+                ", isActive=" + isActive +
+                ", isNotLocked=" + isNotLocked +
+                ", movies=" + movies +
+                '}';
+    }
 
     public User(Long id, String userId, String firstName, String lastName, String username, String password, String email, String profileImageUrl, Date lastLoginDate, Date lastLoginDateDisplay, Date joinDate, String role, String[] authorities, boolean isActive, boolean isNotLocked, Set<Movie> movies) {
         this.id = id;
@@ -66,32 +98,11 @@ public class User implements Serializable {
         this.movies = movies;
     }
 
-//    public User(Long id, String userId, String firstName, String lastName, String username, String password, String email, String profileImageUrl, Date lastLoginDate, Date lastLoginDateDisplay, Date joinDate, String role, String[] authorities, boolean isActive, boolean isNotLocked) {
-//        this.id = id;
-//        this.userId = userId;
-//        this.firstName = firstName;
-//        this.lastName = lastName;
-//        this.username = username;
-//        this.password = password;
-//        this.email = email;
-//        this.profileImageUrl = profileImageUrl;
-//        this.lastLoginDate = lastLoginDate;
-//        this.lastLoginDateDisplay = lastLoginDateDisplay;
-//        this.joinDate = joinDate;
-//        this.role = role;
-//        this.authorities = authorities;
-//        this.isActive = isActive;
-//        this.isNotLocked = isNotLocked;
-//    }
+    public User(){}
 
 
-    public Set<Movie> getMovies() {
-        return movies;
-    }
 
-    public void setMovies(Set<Movie> movies) {
-        this.movies = movies;
-    }
+
 
     public Long getId() {
         return id;
@@ -212,8 +223,6 @@ public class User implements Serializable {
     public void setNotLocked(boolean notLocked) {
         isNotLocked = notLocked;
     }
-
-
 
 
 }

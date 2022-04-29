@@ -51,15 +51,14 @@ import static org.springframework.http.MediaType.*;
 public class UserServiceImpl implements UserService, UserDetailsService {
     private Logger LOGGER = LoggerFactory.getLogger(getClass());
     private UserRepository userRepository;
-    private MovieService movieService;
+//    private MovieService movieService;
     private BCryptPasswordEncoder passwordEncoder;
     private LoginAttemptService loginAttemptService;
     private EmailService emailService;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, MovieService movieService, BCryptPasswordEncoder passwordEncoder, LoginAttemptService loginAttemptService, EmailService emailService) {
+    public UserServiceImpl(UserRepository userRepository, BCryptPasswordEncoder passwordEncoder, LoginAttemptService loginAttemptService, EmailService emailService) {
         this.userRepository = userRepository;
-        this.movieService = movieService;
         this.passwordEncoder = passwordEncoder;
         this.loginAttemptService = loginAttemptService;
         this.emailService = emailService;
@@ -107,6 +106,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         emailService.sendNewPasswordEmail(firstName, password, email);
         return user;
     }
+
 
     @Override
     public User addNewUser(String firstName, String lastName, String username, String email, String role, boolean isNonLocked, boolean isActive, MultipartFile profileImage) throws UserNotFoundException, UsernameExistException, EmailExistException, IOException, NotAnImageFileException {
@@ -181,6 +181,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
       // return userRepository.findById(id);
 
         Optional<User> optionalUser = userRepository.findById(id);
+
         return optionalUser.orElseThrow(() -> new NotFoundException("User not found!", "user.not.found"));
 
     }
@@ -217,17 +218,21 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         }
     }
 
-    public User assignMovieToUser(Long userId, int movieId) {
-
-        User user = findUserById(userId);
-        System.out.println("USER: " + user);
-        Movie movie = movieService.getMovieById(movieId);
-
-        System.out.println("MOVIE: "+ movie);
-        user.getMovies().add(movie);
-
-        return userRepository.save(user);
-    }
+//    public User assignMovieToUser(Long userId, String movieId) {
+//
+//        User user = findUserById(userId);
+//
+//        Movie movie = movieService.getMovieById(movieId);
+//
+//
+//        user.getMovies().add(movie);
+////        User user1 = (User) movie.getUsers().toArray()[1];
+////        System.out.println(user1.getUsername());
+//        System.out.println("MOVIE: " );
+//        System.out.println("USER: " + user);
+//
+//        return userRepository.save(user);
+//    }
     private String setProfileImageUrl(String username) {
         return ServletUriComponentsBuilder.fromCurrentContextPath().path(USER_IMAGE_PATH + username + FORWARD_SLASH
                 + username + DOT + JPG_EXTENSION).toUriString();

@@ -30,5 +30,5 @@ public interface UserService {
 
     User updateProfileImage(String username, MultipartFile profileImage) throws UserNotFoundException, UsernameExistException, EmailExistException, IOException, NotAnImageFileException;
 
-     User assignMovieToUser(Long userId, int movieId);
+//     User assignMovieToUser(Long userId, String movieId) throws IOException, InterruptedException;
 }

@@ -28,21 +28,32 @@ public class MovieService {
 
 //    @Autowired
    private final MovieRepository movieRepository;
-
+   private final UserService userService;
 
     @Autowired
-    public MovieService(MovieRepository movieRepository) {
+    public MovieService(MovieRepository movieRepository, UserService userService) {
         this.movieRepository = movieRepository;
-
+        this.userService = userService;
     }
-
-
 
     public List<Movie> getAllMovies(){
         return movieRepository.findAll();
     }
 
-    public Movie addMovie(Movie movie){
+    public Movie addMovie(Movie movie,Long userId){
+       User user = userService.findUserById(userId);
+
+        Optional<Movie> optionalMovie = Optional.ofNullable(movieRepository.findById(movie.getId()));
+        if(optionalMovie.isPresent()){
+            movie.setUsers(optionalMovie.get().getUsers());
+
+        }else
+            System.out.println("NU E");
+
+
+        movie.getUsers().add(user);
+
+
 
         return movieRepository.save(movie);
 
@@ -54,10 +65,13 @@ public class MovieService {
         return  movieRepository.saveAll(movies);
     }
 
-    public Movie getMovieById(int id){
+    public Movie getMovieById(String id){
 //        return movieRepository.findById(id);
-        Optional<Movie> movieOptional = movieRepository.findById(id);
+        Optional<Movie> movieOptional = Optional.ofNullable(movieRepository.findById(id));
+
         return movieOptional.orElseThrow(() -> new NotFoundException("Movie not found!", "movie.not.found"));
+
+
     }
 
     public Movie getMovieByTitle(String title){
@@ -72,21 +86,21 @@ public class MovieService {
         }
         return false;
     }
-
-    public Movie updateMovie(Movie movie) {
-        Movie existingMovie = movieRepository.findById(movie.getId()).orElse(null);
-        System.out.println(movie);
-        if(existingMovie == null) {
-            System.out.println("Movie not found");
-            return  movieRepository.save(movie);
-        }else  {
-            existingMovie.setTitle(movie.getTitle());
-            existingMovie.setDirector(movie.getDirector());
-            existingMovie.setRating(movie.getRating());
-            movieRepository.save(existingMovie);
-        }
-        return movie;
-    }
+//
+//    public Movie updateMovie(Movie movie) {
+//        Movie existingMovie = movieRepository.findById(movie.getId()).orElse(null);
+//        System.out.println(movie);
+//        if(existingMovie == null) {
+//            System.out.println("Movie not found");
+//            return  movieRepository.save(movie);
+//        }else  {
+//            existingMovie.setTitle(movie.getTitle());
+//            existingMovie.setDirector(movie.getDirector());
+//            existingMovie.setRating(movie.getRating());
+//            movieRepository.save(existingMovie);
+//        }
+//        return movie;
+//    }
 
     public JSONObject MovieAPI() throws IOException, InterruptedException {
         HttpRequest request = HttpRequest.newBuilder()
@@ -182,7 +196,7 @@ public class MovieService {
 
     public Movie jsonToMovie(JSONObject jsonObject){
         Movie movie = new Movie();
-        movie.setIdIMDB((String) jsonObject.get("id"));
+        movie.setId((String) jsonObject.get("id"));
         movie.setTitle((String) jsonObject.get("title"));
         movie.setDirector((String) jsonObject.get("directors"));
         movie.setRating((String) jsonObject.get("imDbRating"));
@@ -194,8 +208,6 @@ public class MovieService {
         System.out.println("Movie din jsonToMovie:" + movie.toString());
         return movie;
     }
-
-
 
 
 

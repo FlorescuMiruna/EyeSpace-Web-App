@@ -16,17 +16,18 @@ import java.util.Set;
 @AllArgsConstructor
 @Getter
 @Setter
+
 @Table(name = "movie")
+
 
 public class Movie {
 
-    @Id
+//    @Id
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NotNull
-    private int id;
-
-    private String idIMDB;
+//    @NotNull
+//    private int id;
+    @Id
+    private String id;
 
     //@Column(name = "title")
 //    @JsonProperty("title")
@@ -41,17 +42,24 @@ public class Movie {
     private String rating;
     private String posterUrl;
 
-    // private String actors;
 
-    @JsonIgnore
-    @ManyToMany(mappedBy = "movies")
-    private Set<User> users = new HashSet<>();
+
+  //  @JsonIgnore
+//    @ManyToMany(mappedBy = "movies")
+//    private Set<User> users = new HashSet<>();
+
+    @ManyToMany
+    @JoinTable(
+            name = "movie_user",
+            joinColumns = @JoinColumn(name = "movie_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private  Set<User> users = new HashSet<>();
+
 
     @Override
     public String toString() {
         return "Movie{" +
-                "id=" + id +
-                ", idIMDB='" + idIMDB + '\'' +
+                "id='" + id + '\'' +
                 ", title='" + title + '\'' +
                 ", director='" + director + '\'' +
                 ", genre='" + genre + '\'' +

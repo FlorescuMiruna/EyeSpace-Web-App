@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Movie } from 'src/app/model/movie';
+import { AuthenticationService } from 'src/app/service/authentication.service';
 import { MovieService } from 'src/app/service/movie.service';
 import Swal from 'sweetalert2';
 
@@ -14,10 +15,11 @@ export class MoviePageComponent implements OnInit {
   movieAPI:Movie = new Movie();
 
 
-  constructor(private movieService: MovieService) { }
+  constructor(private movieService: MovieService, private authenticationService:AuthenticationService) { }
 
   ngOnInit(): void {
     this.initializeMovie();
+
 
   }
 
@@ -41,8 +43,10 @@ export class MoviePageComponent implements OnInit {
   }
 
   addToWatchList(){
+   console.log(this.authenticationService.getUserFromLocalCache());
     this.movieService.addMovie(this.movieAPI).subscribe(res=>{
       console.log(res);
+      
       Swal.fire({
         position: 'center',
         icon: 'success',
@@ -53,6 +57,8 @@ export class MoviePageComponent implements OnInit {
 
       // Swal.fire('Hello Angular');  
       // this.getAllMovies();
+      console.log("USERUL LOGAT:");
+      console.log(this.authenticationService.getUserFromLocalCache())
       
   },err=>{
       console.log(err);

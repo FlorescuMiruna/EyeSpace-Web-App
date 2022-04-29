@@ -149,12 +149,12 @@ public class UserController extends ExceptionHandling {
         return byteArrayOutputStream.toByteArray();
     }
 
-    @PutMapping("/{userId}/movie/{movieId}")
-    User assignMovieToUser (@PathVariable Long userId, @PathVariable int movieId){
-
-        User user = userService.assignMovieToUser(userId,movieId);
-        return user;
-    }
+//    @PutMapping("/{userId}/movie/{movieId}")
+//    User assignMovieToUser (@PathVariable Long userId, @PathVariable String movieId) throws IOException, InterruptedException {
+//
+//        User user = userService.assignMovieToUser(userId,movieId);
+//        return user;
+//    }
 
     private ResponseEntity<HttpResponse> response(HttpStatus httpStatus, String message) {
         return new ResponseEntity<>(new HttpResponse(httpStatus.value(), httpStatus, httpStatus.getReasonPhrase().toUpperCase(),
