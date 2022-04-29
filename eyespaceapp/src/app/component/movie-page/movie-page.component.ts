@@ -43,10 +43,12 @@ export class MoviePageComponent implements OnInit {
   }
 
   addToWatchList(){
-   console.log(this.authenticationService.getUserFromLocalCache());
-    this.movieService.addMovie(this.movieAPI).subscribe(res=>{
-      console.log(res);
+    
+    var id  = this.authenticationService.getUserFromLocalCache().id;
+
+    this.movieService.addMovie(this.movieAPI,id).subscribe(res=>{
       
+      console.log("FILMUL:",res);
       Swal.fire({
         position: 'center',
         icon: 'success',
@@ -57,8 +59,8 @@ export class MoviePageComponent implements OnInit {
 
       // Swal.fire('Hello Angular');  
       // this.getAllMovies();
-      console.log("USERUL LOGAT:");
-      console.log(this.authenticationService.getUserFromLocalCache())
+      console.log("USERUL LOGAT:",this.authenticationService.getUserFromLocalCache());
+
       
   },err=>{
       console.log(err);

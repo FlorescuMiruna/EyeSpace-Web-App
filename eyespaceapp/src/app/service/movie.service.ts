@@ -21,7 +21,7 @@ export class MovieService {
   movieIdImdb : string;
   assignMovieToUserURL: string;
   constructor(private http: HttpClient) { 
-    this.addMovieURL = 'http://localhost:8026/movie';
+    this.addMovieURL = 'http://localhost:8026/movie/user/';
     this.getMovieURL = 'http://localhost:8026/movie';
     this.updateMovieURL = 'http://localhost:8026/movie';
     this.deleteMovieURL = 'http://localhost:8026/movie';
@@ -43,9 +43,11 @@ export class MovieService {
     return this.movieIdImdb;
   }
   
-  addMovie(movie : Movie): Observable<Movie> {
-    
-    return this.http.post<Movie>(this.addMovieURL,movie);
+  addMovie(movie : Movie,id: number): Observable<Movie> {
+    var URL = "";
+    URL = this.addMovieURL + id.toString();
+    console.log("URL:", URL);
+    return this.http.post<Movie>(URL,movie);
   }
 
 
