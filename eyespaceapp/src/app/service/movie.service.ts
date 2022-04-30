@@ -70,7 +70,7 @@ export class MovieService {
 
     URL = this.searchURL + TITLE;
 
-    // console.log("Filmulele:", this.http.get<MovieSearch[]>(this.searchURL))
+    // console.log("Filmele:", this.http.get<MovieSearch[]>(this.searchURL))
     return this.http.get<MovieSearchDetails[]>(URL);
 
   }
@@ -84,13 +84,6 @@ export class MovieService {
 
   }
 
-  /** GET hero by id. Will 404 if id not found */
-  // public deleteEmployee(employeeId: number): Observable<void> {
-  //   return this.http.delete<void>(`http://localhost:8090/movie/${employeeId}`);
-  // }
-  // getAllMovies(): Observable<Movie[]>{
-  //   return this.http.get<Movie[]>(this.getMovieURL);
-  // }
 
 
 }

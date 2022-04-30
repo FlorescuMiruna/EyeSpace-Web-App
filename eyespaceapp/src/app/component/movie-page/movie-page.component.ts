@@ -33,8 +33,15 @@ export class MoviePageComponent implements OnInit {
 }
 
   initializeMovie(){
-     var idIMDB  = this.movieService.getMovieIdImdb();
 
+    // var idIMDB  = this.movieService.getMovieIdImdb();
+    var idIMDB = '';
+    var localMovie = localStorage.getItem('movieIdImdb');
+    if( localMovie!== null){
+      var idIMDB = localMovie;
+    }
+
+    console.log('idIMDB', idIMDB)
      
     this.movieService.getAPIMovie(idIMDB).subscribe(res=>{
 
