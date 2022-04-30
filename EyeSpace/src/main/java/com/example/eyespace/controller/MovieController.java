@@ -27,8 +27,13 @@ public class MovieController {
     public Movie addMovie(@RequestBody Movie movie,@PathVariable Long userId){
 
          movieService.addMovie(movie,userId);
-
          return movie;
+    }
+    @PutMapping("/remove/{movieId}/user/{userId}")
+    public void removeMovieFromUser(@PathVariable String movieId,@PathVariable Long userId){
+
+        movieService.removeMovieFromUser(movieId,userId);
+
     }
 
     @PostMapping("/all")
@@ -78,8 +83,8 @@ public class MovieController {
 
 
     @DeleteMapping("/{id}")
-    public Boolean deleteMovie(@PathVariable int id){
-        return movieService.deleteMovieByID(id);
+    public void deleteMovie(@PathVariable String id){
+         movieService.deleteMovie(id);
 
     }
 //    @PutMapping("")

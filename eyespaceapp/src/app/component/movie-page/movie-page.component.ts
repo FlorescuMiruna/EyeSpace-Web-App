@@ -68,6 +68,7 @@ export class MoviePageComponent implements OnInit {
 
   initializeMovie() {
 
+    this.refreshUserFromLocalChash(this.authenticationService.getUserFromLocalCache().id);
     // var idIMDB  = this.movieService.getMovieIdImdb();
     var idIMDB = '';
     var temp = localStorage.getItem('movieIdImdb');

@@ -20,6 +20,7 @@ import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class MovieService {
@@ -53,8 +54,6 @@ public class MovieService {
 
         movie.getUsers().add(user);
 
-
-
         return movieRepository.save(movie);
 
     }
@@ -78,13 +77,13 @@ public class MovieService {
         return movieRepository.findByTitle(title);
     }
 
-    public boolean deleteMovieByID(int id) {
-        Movie existingMovie = movieRepository.getById(id);
-        if(existingMovie != null) {
-            movieRepository.deleteById(id);
-            return true;
-        }
-        return false;
+    public void deleteMovie(String id) {
+            Optional<Movie> movieOptional = Optional.ofNullable(movieRepository.findById(id));
+            if(movieOptional.isPresent()){
+                movieRepository.delete(movieOptional.get());
+            }else {
+                throw new NotFoundException("Movie not found!", "movie.not.found");
+            }
     }
 //
 //    public Movie updateMovie(Movie movie) {
@@ -205,10 +204,33 @@ public class MovieService {
         movie.setPlot((String) jsonObject.get("plot"));
         movie.setPosterUrl((String) jsonObject.get("image"));
         System.out.println();
-        System.out.println("Movie din jsonToMovie:" + movie.toString());
+      //  System.out.println("Movie din jsonToMovie:" + movie.toString());
         return movie;
     }
 
 
+    public void removeMovieFromUser(String movieId, Long userId) {
+        User user = userService.findUserById(userId);
+        Optional<Movie> movieOptional = Optional.ofNullable(movieRepository.findById(movieId));
+        if(movieOptional.isPresent()  ){
 
+            if(user.getMovies().contains(movieOptional.get())){
+//               Set<User> users =  movieOptional.get().getUsers();
+//                System.out.println("BEFORE:"+ users);
+//                users.remove(user);
+//                System.out.println("AFTER:"+ users);
+
+                movieOptional.get().getUsers().remove(user);
+                movieRepository.save(movieOptional.get());
+                System.out.println("Remvoved movie:"+ movieOptional.get());
+                System.out.println("From user:"+ user);
+            }
+
+            else {
+                throw new NotFoundException("Movie not found in User list!", "movie.not.found.in.user.list");
+            }
+        }else {
+            throw new NotFoundException("Movie not found!", "movie.not.found");
+        }
+    }
 }
