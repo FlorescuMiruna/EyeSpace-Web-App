@@ -18,7 +18,7 @@
     </div>
 
     <div>
-        <button [ngClass]="calculateClasses()" (click)="addToWatchList()"> Mark as watched</button>
+        <button [ngClass]="calculateClasses()" (click)="addMovieToWatchList()"> {{isWatched==true ? "Watched" : "Mark as watched"}}</button>
     </div>
 
     <!-- <div>

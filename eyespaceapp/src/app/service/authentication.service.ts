@@ -37,7 +37,7 @@ export class AuthenticationService {
   }
 
   public addUserToLocalCache(user: User): void {
-    console.log("EU ATSA I-AM DAT:", user);
+
     localStorage.setItem('user', JSON.stringify(user));
   }
 

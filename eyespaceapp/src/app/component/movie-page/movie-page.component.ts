@@ -15,77 +15,90 @@ import Swal from 'sweetalert2';
 })
 export class MoviePageComponent implements OnInit {
 
-  
-  movieAPI:Movie = new Movie();
-  isWatched:boolean = false;
-  subscriptions: any;
-  
 
+  movieAPI: Movie = new Movie();
+  isWatched: boolean = false;
 
-  constructor(private movieService: MovieService, private authenticationService:AuthenticationService, private userService: UserService) { }
+  constructor(private movieService: MovieService, private authenticationService: AuthenticationService, private userService: UserService) { }
 
   ngOnInit(): void {
 
     this.initializeMovie();
 
 
+
   }
 
   calculateClasses() {
-    if(this.isWatched === false)
+    if (this.isWatched === false)
       return 'btn btn-outline-success';
     else
-    return 'btn btn-success';
-}
+      return 'btn btn-success';
+  }
 
-refreshUserFromLocalChash(id:number){
-  this.userService.getUserById(id).subscribe(res=>{
+  /*Verific daca filmul este in lista user-ului de filme vazute*/
+  checkWatched(): void {
 
+    let found: boolean = false;
+    let movies: Movie[] = this.authenticationService.getUserFromLocalCache().movies;
+    // console.log("this.movieAPI", this.movieAPI);
 
-   console.log("response USER from db",res);
-    this.authenticationService.addUserToLocalCache(res);
-    console.log("USER FROM LOCAL CACHE AHTER:",this.authenticationService.getUserFromLocalCache())
-    
-},err=>{
-  console.log("Error while fetching data.")
-});
-}
+    for (let movie of movies) {
+      if (movie.id == this.movieAPI.id) {
+        // console.log(movie)
+        found = true;
+        this.isWatched = true;
+        break;
+      }
+    }
+    if (found == false)
+      this.isWatched = false;
+  }
 
-  initializeMovie(){
+  refreshUserFromLocalChash(id: number) {
+    this.userService.getUserById(id).subscribe(res => {
+
+      this.authenticationService.addUserToLocalCache(res);
+      console.log("USER FROM LOCAL CACHE AFTER:", this.authenticationService.getUserFromLocalCache())
+
+    }, err => {
+      console.log("Error while fetching data.")
+    });
+  }
+
+  initializeMovie() {
 
     // var idIMDB  = this.movieService.getMovieIdImdb();
     var idIMDB = '';
-    var localMovie = localStorage.getItem('movieIdImdb');
-    if( localMovie!== null){
-      var idIMDB = localMovie;
+    var temp = localStorage.getItem('movieIdImdb');
+    if (temp !== null) {
+      var idIMDB = temp;
     }
 
-    console.log('idIMDB', idIMDB)
-     
-    this.movieService.getAPIMovie(idIMDB).subscribe(res=>{
+    console.log('idIMDB:', idIMDB)
 
+    this.movieService.getAPIMovie(idIMDB).subscribe(res => {
 
-      console.log("imdb movie res",res);
       this.movieAPI = res;
-      console.log("imdb movie ",this.movieAPI);
- 
+      console.log("this.movieAPI:", this.movieAPI)
+      this.checkWatched();
+      console.log("ESTE VAZUT FILMUL?", this.isWatched);
 
-      
-  },err=>{
-    console.log("Error while fetching data.")
-  });
+    }, err => {
+      console.log("Error while fetching data")
+    });
+    
 
   }
 
 
-  addToWatchList(){
-    
-    var id  = this.authenticationService.getUserFromLocalCache().id;
+  addMovieToWatchList() {
 
-    this.movieService.addMovie(this.movieAPI,id).subscribe(res=>{
-      this.isWatched = true;
-      console.log("FILMUL:",res);
-     // this.isWatched = true;
+    var id = this.authenticationService.getUserFromLocalCache().id;
+    this.movieService.addMovie(this.movieAPI, id).subscribe(res => {
+
+      // console.log("Filmul a fost adaugat cu sucess:", res);
+
       Swal.fire({
         position: 'center',
         icon: 'success',
@@ -94,16 +107,15 @@ refreshUserFromLocalChash(id:number){
         timer: 1500
       })
 
-      // Swal.fire('Hello Angular');  
-      // this.getAllMovies();
-     
+
       this.refreshUserFromLocalChash(this.authenticationService.getUserFromLocalCache().id);
- 
-      
-  },err=>{
+      this.isWatched = true;
+      console.log("ESTE VAZUT FILMUL?", this.isWatched);
+
+    }, err => {
       console.log(err);
-      // this.getAllMovies();
-  });
+
+    });
 
   }
 

@@ -11,80 +11,54 @@ import { MovieService } from 'src/app/service/movie.service';
 })
 export class MovieComponent implements OnInit {
 
-  // movieDetail !: FormGroup;
-  movieSearchDetail !: FormGroup;
-  // movieObj : Movie = new Movie();
-  // movieList: Movie[] = [];
+
+  movieSearchDetailForm !: FormGroup;
   movieSearchList: MovieSearchDetails[] = [];
-  // movieAPI:Movie = new Movie();
   TITLE: String = "";
-  constructor(private router : Router, private formBuilder: FormBuilder, private movieService: MovieService) { }
+
+  constructor(private router: Router, private formBuilder: FormBuilder, private movieService: MovieService) { }
 
   ngOnInit(): void {
 
+    this.movieSearchDetailForm = this.formBuilder.group({
 
-
-    console.log("Se reinoieste?")
-    
-  
-
-    this.movieSearchDetail = this.formBuilder.group({
-      
-
-      idIMDB:[''],
-      title : [''],
+      idIMDB: [''],
+      title: [''],
       year: [''],
-     posterUrl:['']
-    }); 
+      posterUrl: ['']
+    });
   }
 
 
-  getAllSearchMovies(TITLE: String){
-    console.log("TITLE din getAllSearchMovies",TITLE)
-    this.movieService.getAllSearchMovies(TITLE).subscribe(res=>{
+  getAllSearchMovies(TITLE: String) {
 
-      console.log("movieSearchList",this.movieSearchList)
+    this.movieService.getAllSearchMovies(TITLE).subscribe(res => {
+
+
       this.movieSearchList = res;
+      console.log("movieSearch List:", this.movieSearchList)
 
-      
-  },err=>{
-    console.log("error while fetching data.")
-  });
+    }, err => {
+      console.log("Error while fetching data")
+    });
 
   }
 
 
 
 
-  search(){
+  search() {
 
-    this.TITLE = this.movieSearchDetail.value.title;
-
-    console.log("value",this.movieSearchDetail.value.title);
-    console.log("TITLUL:",this.TITLE);
+    this.TITLE = this.movieSearchDetailForm.value.title;
     this.getAllSearchMovies(this.TITLE);
-    // window.location.reload();
   }
-  goToMovie(movieSearchDetails: MovieSearchDetails){
+  goToMovie(movieSearchDetails: MovieSearchDetails) {
 
-    
-     this.router.navigate(['/movie-page'])
-    console.log("movieSearch",movieSearchDetails);
-    this.movieService.setMovieIdImdb(movieSearchDetails.idIMDB);
+
+    this.router.navigate(['/movie-page'])
+    // this.movieService.setMovieIdImdb(movieSearchDetails.idIMDB);
     localStorage.setItem("movieIdImdb", movieSearchDetails.idIMDB)
 
-  //   this.movieService.getAPIMovie(movieSearch.idIMDB).subscribe(res=>{
-
-  //     this.movieAPI = res;
-
-  //     console.log("imdb movie res",res);
-  //     console.log("imdb movie ",this.movieAPI);
- 
-
-      
-  // },err=>{
-  //   console.log("error while fetching data.")
-  // });
 
   }
 
