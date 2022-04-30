@@ -1,7 +1,11 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { NotificationType } from 'src/app/enum/notification-type.enum';
 import { Movie } from 'src/app/model/movie';
+import { User } from 'src/app/model/user';
 import { AuthenticationService } from 'src/app/service/authentication.service';
 import { MovieService } from 'src/app/service/movie.service';
+import { UserService } from 'src/app/service/user.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -14,12 +18,14 @@ export class MoviePageComponent implements OnInit {
   
   movieAPI:Movie = new Movie();
   isWatched:boolean = false;
+  subscriptions: any;
   
 
 
-  constructor(private movieService: MovieService, private authenticationService:AuthenticationService) { }
+  constructor(private movieService: MovieService, private authenticationService:AuthenticationService, private userService: UserService) { }
 
   ngOnInit(): void {
+
     this.initializeMovie();
 
 
@@ -30,6 +36,19 @@ export class MoviePageComponent implements OnInit {
       return 'btn btn-outline-success';
     else
     return 'btn btn-success';
+}
+
+refreshUserFromLocalChash(id:number){
+  this.userService.getUserById(id).subscribe(res=>{
+
+
+   console.log("response USER from db",res);
+    this.authenticationService.addUserToLocalCache(res);
+    console.log("USER FROM LOCAL CACHE AHTER:",this.authenticationService.getUserFromLocalCache())
+    
+},err=>{
+  console.log("Error while fetching data.")
+});
 }
 
   initializeMovie(){
@@ -77,8 +96,9 @@ export class MoviePageComponent implements OnInit {
 
       // Swal.fire('Hello Angular');  
       // this.getAllMovies();
-      console.log("USERUL LOGAT:",this.authenticationService.getUserFromLocalCache());
      
+      this.refreshUserFromLocalChash(this.authenticationService.getUserFromLocalCache().id);
+ 
       
   },err=>{
       console.log(err);

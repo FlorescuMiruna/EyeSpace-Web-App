@@ -48,6 +48,7 @@ public class Movie {
 //    @ManyToMany(mappedBy = "movies")
 //    private Set<User> users = new HashSet<>();
 
+    @JsonIgnore
     @ManyToMany
     @JoinTable(
             name = "movie_user",
@@ -67,7 +68,7 @@ public class Movie {
                 ", plot='" + plot + '\'' +
                 ", rating='" + rating + '\'' +
                 ", posterUrl='" + posterUrl + '\'' +
-
+                ", users=" + users +
                 '}';
     }
 }

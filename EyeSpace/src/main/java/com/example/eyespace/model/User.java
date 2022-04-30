@@ -45,7 +45,7 @@ public class User implements Serializable {
 //            inverseJoinColumns = @JoinColumn(name = "movie_id"))
 //    private Set<Movie> movies = new HashSet<>();
 
-    @JsonIgnore
+    //@JsonIgnore
     @ManyToMany(mappedBy = "users")
     private Set<Movie> movies = new HashSet<>();
 
@@ -75,7 +75,7 @@ public class User implements Serializable {
                 ", authorities=" + Arrays.toString(authorities) +
                 ", isActive=" + isActive +
                 ", isNotLocked=" + isNotLocked +
-                ", movies=" + movies +
+               // ", movies=" + movies +
                 '}';
     }
 
