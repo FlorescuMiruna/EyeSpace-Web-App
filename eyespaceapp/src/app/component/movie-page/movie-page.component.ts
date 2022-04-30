@@ -102,7 +102,7 @@ export class MoviePageComponent implements OnInit {
       Swal.fire({
         position: 'center',
         icon: 'success',
-        title: 'The movie was added to your watch list',
+        title: 'The movie was added to your list',
         showConfirmButton: false,
         timer: 1500
       })
