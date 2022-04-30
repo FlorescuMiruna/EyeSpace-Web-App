@@ -37,6 +37,7 @@ export class MovieService {
 
   setMovieIdImdb(idIMDB: string){
     this.movieIdImdb = idIMDB;
+
   }
 
   getMovieIdImdb(){

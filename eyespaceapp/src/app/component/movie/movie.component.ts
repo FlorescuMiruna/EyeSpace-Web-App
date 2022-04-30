@@ -67,10 +67,11 @@ export class MovieComponent implements OnInit {
   }
   goToMovie(movieSearchDetails: MovieSearchDetails){
 
-
+    
      this.router.navigate(['/movie-page'])
     console.log("movieSearch",movieSearchDetails);
     this.movieService.setMovieIdImdb(movieSearchDetails.idIMDB);
+    localStorage.setItem("movieIdImdb", movieSearchDetails.idIMDB)
 
   //   this.movieService.getAPIMovie(movieSearch.idIMDB).subscribe(res=>{
 
