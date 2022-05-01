@@ -88,37 +88,74 @@ export class MoviePageComponent implements OnInit {
     }, err => {
       console.log("Error while fetching data")
     });
-    
+
 
   }
 
 
   addMovieToWatchList() {
+    if (!this.isWatched) {
+      var id = this.authenticationService.getUserFromLocalCache().id;
+      this.movieService.addMovie(this.movieAPI, id).subscribe(res => {
 
-    var id = this.authenticationService.getUserFromLocalCache().id;
-    this.movieService.addMovie(this.movieAPI, id).subscribe(res => {
+        // console.log("Filmul a fost adaugat cu sucess:", res);
 
-      // console.log("Filmul a fost adaugat cu sucess:", res);
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'The movie was added to your list',
+          showConfirmButton: false,
+          timer: 1500
+        })
 
+
+        this.refreshUserFromLocalChash(this.authenticationService.getUserFromLocalCache().id);
+        this.isWatched = true;
+        console.log("ESTE VAZUT FILMUL?", this.isWatched);
+
+      }, err => {
+        console.log(err);
+
+      });
+
+    }
+    else {
       Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'The movie was added to your list',
-        showConfirmButton: false,
-        timer: 1500
+        title: 'Do you want to remove the movie from your list?',
+        // text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#4E9A9B',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+
+         
+          let userId = this.authenticationService.getUserFromLocalCache().id;
+          console.log("Id-es:",this.movieAPI.id,userId );
+          this.movieService.deleteUserFromMovie(this.movieAPI.id,userId).subscribe(res => {
+
+           console.log(res);
+           Swal.fire(
+            'The movie was removed!',
+          )
+          this.isWatched = false;
+      
+          }, err => {
+            console.log(err)
+            console.log("Error while fetching data")
+          });
+      
+
+
+
+        }
       })
-
-
-      this.refreshUserFromLocalChash(this.authenticationService.getUserFromLocalCache().id);
-      this.isWatched = true;
-      console.log("ESTE VAZUT FILMUL?", this.isWatched);
-
-    }, err => {
-      console.log(err);
-
-    });
-
+    }
   }
+
+
 
 
 }

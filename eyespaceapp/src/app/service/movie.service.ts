@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { CustomHttpRespone } from '../model/custom-http-response';
 import { Movie } from '../model/movie';
 import { MovieSearchDetails } from '../model/movie-search-details';
 import { User } from '../model/user';
@@ -20,19 +21,20 @@ export class MovieService {
   getAPIMovieURL: string;
   movieIdImdb : string;
   assignMovieToUserURL: string;
+  deleteUserFromMovieURL: string;
+
   constructor(private http: HttpClient) { 
     this.addMovieURL = 'http://localhost:8026/movie/user/';
     this.getMovieURL = 'http://localhost:8026/movie';
     this.updateMovieURL = 'http://localhost:8026/movie';
     this.deleteMovieURL = 'http://localhost:8026/movie';
     this.assignMovieToUserURL = 'http://localhost:8026/user/';
-    // this.assignMovieToUser = 'http://localhost:8026/user/2/movie/tt1471226';
     this.searchURL = 'http://localhost:8026/movie/API/search/';
-
     this.getAPIMovieURL = 'http://localhost:8026/movie/API/';
 
-    this.movieIdImdb = 'default';
+    this.deleteUserFromMovieURL = 'http://localhost:8026/movie/remove/'
 
+    this.movieIdImdb = 'default';
   }
 
   setMovieIdImdb(idIMDB: string){
@@ -63,6 +65,17 @@ export class MovieService {
   deleteMovie(movie : Movie) : Observable<Movie> {
     return this.http.delete<Movie>(this.deleteMovieURL+'/'+movie.id);
   }
+  // deleteUserFromMovie(movieId:string,userId:number): void{
+  //   this.http.post('/api?data=' + id, null).map(
+  //     (response: any) => {
+  //       return response;
+  //     }
+  //   )
+  // }
+  public deleteUserFromMovie(movieId:string,userId:number): Observable<any> {
+    return this.http.put<any>(this.deleteUserFromMovieURL + movieId + '/user/' + userId.toString(), null);
+  }
+
  
 
   getAllSearchMovies(TITLE: String): Observable<MovieSearchDetails[]>{
