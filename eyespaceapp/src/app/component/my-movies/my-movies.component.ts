@@ -23,8 +23,12 @@ export class MyMoviesComponent implements OnInit {
   initializeLists(){
     this.movies = this.authenticationService.getUserFromLocalCache().movies;
     this.movies_watch_list = this.authenticationService.getUserFromLocalCache().movies_watch_list;
-      console.log("MOVIES:", this.movies);
-      console.log("WATCH LIST:", this.movies_watch_list)
+
+
+    //Nu vreau ca elementele din lista de filme vizionate sa mai apara si in Watch list
+    this.movies_watch_list =  this.movies_watch_list.filter(val => !(this.movies.map(a => a.id)).includes(val.id));
+
+
   }
 
   goToMovie(movie: Movie) {

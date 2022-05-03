@@ -3,10 +3,29 @@
     <button type="button" class="btn btn-info">Watch list</button>
     <button type="button" class="btn btn-info">Favorites</button>
 </div>
-
+<h1>MY MOVIES</h1>
 <div class="row">
 
     <div class="col-md-3" *ngFor="let movie of movies " (click)="goToMovie(movie)">
+
+        <div class=" card shadow ">
+            <div class="inner ">
+                <img src={{movie.posterUrl}} class="card-img-top " alt="... ">
+
+            </div>
+            <div class="card-body ">
+                <h5 class="card-title ">{{movie.title}}</h5>
+                <p class="card-text ">{{movie.date}}</p>
+                <p class="card-text ">{{movie.director}}</p>
+            </div>
+        </div>
+    </div>
+
+</div>
+<h1>WATCH LIST</h1>
+<div class="row">
+
+    <div class="col-md-3" *ngFor="let movie of movies_watch_list " (click)="goToMovie(movie)">
 
         <div class=" card shadow ">
             <div class="inner ">
