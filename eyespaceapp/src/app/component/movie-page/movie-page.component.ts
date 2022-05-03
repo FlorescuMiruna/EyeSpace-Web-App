@@ -37,7 +37,7 @@ export class MoviePageComponent implements OnInit {
       return 'btn btn-success';
   }
 
-  
+
   calculateClasses2() {
     if (this.isInWatchList === false)
       return 'btn btn-outline-dark';
@@ -80,11 +80,11 @@ export class MoviePageComponent implements OnInit {
 
 
   refreshUserFromLocalChash(id: number) {
- 
+
     this.userService.getUserById(id).subscribe(res => {
 
       this.authenticationService.addUserToLocalCache(res);
-     
+
 
     }, err => {
       console.log("Error while fetching data.")
@@ -158,23 +158,23 @@ export class MoviePageComponent implements OnInit {
       }).then((result) => {
         if (result.isConfirmed) {
 
-         
-          let userId = this.authenticationService.getUserFromLocalCache().id;
-          console.log("Id-es:",this.movieAPI.id,userId );
-          this.movieService.removeMovieFromUser(this.movieAPI.id,userId).subscribe(res => {
 
-           console.log(res);
-           Swal.fire(
-            'The movie was removed!',
-          )
-          this.isWatched = false;
-      
+          let userId = this.authenticationService.getUserFromLocalCache().id;
+
+          this.movieService.removeMovieFromUser(this.movieAPI.id, userId).subscribe(res => {
+
+            console.log(res);
+            Swal.fire(
+              'The movie was removed!',
+            )
+            this.isWatched = false;
+
           }, err => {
             console.log(err)
             console.log("Error while fetching data")
           });
-      
 
+          this.refreshUserFromLocalChash(userId);
 
 
         }
@@ -182,9 +182,9 @@ export class MoviePageComponent implements OnInit {
     }
   }
 
-  addMovieToWatchList(){
+  addMovieToWatchList() {
 
-    if(!this.isInWatchList){
+    if (!this.isInWatchList) {
       var id = this.authenticationService.getUserFromLocalCache().id;
       this.movieService.addMovieToWatchList(this.movieAPI, id).subscribe(res => {
 
@@ -219,24 +219,24 @@ export class MoviePageComponent implements OnInit {
       }).then((result) => {
         if (result.isConfirmed) {
 
-         
-          let userId = this.authenticationService.getUserFromLocalCache().id;
-        
-          this.movieService.removeWatchListMovieFromUser(this.movieAPI.id,userId).subscribe(res => {
 
-           console.log(res);
-           Swal.fire(
-            'The movie was removed!',
-          )
-          this.isInWatchList = false;
-      
+          let userId = this.authenticationService.getUserFromLocalCache().id;
+
+          this.movieService.removeWatchListMovieFromUser(this.movieAPI.id, userId).subscribe(res => {
+
+            console.log(res);
+            Swal.fire(
+              'The movie was removed!',
+            )
+            this.isInWatchList = false;
+
           }, err => {
             console.log(err)
             console.log("Error while fetching data")
           });
-      
 
 
+          this.refreshUserFromLocalChash(userId);
 
         }
       })

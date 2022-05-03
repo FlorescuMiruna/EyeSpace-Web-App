@@ -56,7 +56,6 @@ export class MovieComponent implements OnInit {
 
 
     this.router.navigate(['/movie-page'])
-    // this.movieService.setMovieIdImdb(movieSearchDetails.idIMDB);
     localStorage.setItem("movieIdImdb", movieSearchDetails.idIMDB)
 
 

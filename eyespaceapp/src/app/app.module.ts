@@ -16,6 +16,7 @@ import { UserComponent } from './user/user.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MovieComponent } from './component/movie/movie.component';
 import { MoviePageComponent } from './component/movie-page/movie-page.component';
+import { MyMoviesComponent } from './component/my-movies/my-movies.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { MoviePageComponent } from './component/movie-page/movie-page.component'
     RegisterComponent,
     UserComponent,
     MovieComponent,
-    MoviePageComponent
+    MoviePageComponent,
+    MyMoviesComponent
   ],
   imports: [
     BrowserModule,

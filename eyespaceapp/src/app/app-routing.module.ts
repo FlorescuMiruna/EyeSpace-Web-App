@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MoviePageComponent } from './component/movie-page/movie-page.component';
 import { MovieComponent } from './component/movie/movie.component';
+import { MyMoviesComponent } from './component/my-movies/my-movies.component';
 import { AuthenticationGuard } from './guard/authentication.guard';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
@@ -13,6 +14,7 @@ const routes: Routes = [
   {path: 'movie', component:MovieComponent},
   {path: 'movie-page', component:MoviePageComponent},
   { path: 'user/management', component: UserComponent },
+  {path: 'my-movies', component:MyMoviesComponent},
 
   // { path: 'user/management', component: UserComponent, canActivate: [AuthenticationGuard] },
   { path: '', redirectTo: '/login', pathMatch: 'full' }
