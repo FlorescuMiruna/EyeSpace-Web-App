@@ -29,13 +29,20 @@ export class MoviePageComponent implements OnInit {
 
   }
 
-  calculateClasses() {
+  calculateClasses1() {
     if (this.isWatched === false)
       return 'btn btn-outline-success';
     else
       return 'btn btn-success';
   }
 
+  
+  calculateClasses2() {
+    if (this.isWatched === false)
+      return 'btn btn-outline-dark';
+    else
+      return 'btn btn-dark';
+  }
   /*Verific daca filmul este in lista user-ului de filme vazute*/
   checkWatched(): void {
 
@@ -93,7 +100,7 @@ export class MoviePageComponent implements OnInit {
   }
 
 
-  addMovieToWatchList() {
+  addMovieToList() {
     if (!this.isWatched) {
       var id = this.authenticationService.getUserFromLocalCache().id;
       this.movieService.addMovie(this.movieAPI, id).subscribe(res => {

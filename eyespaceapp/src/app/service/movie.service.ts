@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { CustomHttpRespone } from '../model/custom-http-response';
 import { Movie } from '../model/movie';
 import { MovieSearchDetails } from '../model/movie-search-details';
@@ -10,7 +11,7 @@ import { User } from '../model/user';
   providedIn: 'root'
 })
 export class MovieService {
-
+  private host = environment.apiUrl;
 
 
   addMovieURL: string;
@@ -32,7 +33,7 @@ export class MovieService {
     this.searchURL = 'http://localhost:8026/movie/API/search/';
     this.getAPIMovieURL = 'http://localhost:8026/movie/API/';
 
-    this.deleteUserFromMovieURL = 'http://localhost:8026/movie/remove/'
+    this.deleteUserFromMovieURL = `${this.host}/movie/remove/`;
 
     this.movieIdImdb = 'default';
   }
