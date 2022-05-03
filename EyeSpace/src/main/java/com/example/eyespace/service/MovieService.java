@@ -46,13 +46,31 @@ public class MovieService {
 
         Optional<Movie> optionalMovie = Optional.ofNullable(movieRepository.findById(movie.getId()));
         if(optionalMovie.isPresent()){
-            movie.setUsers(optionalMovie.get().getUsers());
 
-        }else
-            System.out.println("NU E");
+            movie.setUsers1(optionalMovie.get().getUsers1());
+            movie.setUsers2(optionalMovie.get().getUsers2());
+
+        }
 
 
-        movie.getUsers().add(user);
+        movie.getUsers1().add(user);
+
+        return movieRepository.save(movie);
+
+    }
+
+    public Movie addMovieToWatchList(Movie movie,Long userId){
+        User user = userService.findUserById(userId);
+
+        Optional<Movie> optionalMovie = Optional.ofNullable(movieRepository.findById(movie.getId()));
+        if(optionalMovie.isPresent()){
+            movie.setUsers2(optionalMovie.get().getUsers2());
+            movie.setUsers1(optionalMovie.get().getUsers1());
+
+        }
+
+
+        movie.getUsers2().add(user);
 
         return movieRepository.save(movie);
 
@@ -220,7 +238,27 @@ public class MovieService {
 //                users.remove(user);
 //                System.out.println("AFTER:"+ users);
 
-                movieOptional.get().getUsers().remove(user);
+                movieOptional.get().getUsers1().remove(user);
+                movieRepository.save(movieOptional.get());
+                System.out.println("Remvoved movie:"+ movieOptional.get());
+                System.out.println("From user:"+ user);
+            }
+
+            else {
+                throw new NotFoundException("Movie not found in User list!", "movie.not.found.in.user.list");
+            }
+        }else {
+            throw new NotFoundException("Movie not found!", "movie.not.found");
+        }
+    }
+
+    public void removeWatchListMovieFromUser(String movieId, Long userId) {
+        User user = userService.findUserById(userId);
+        Optional<Movie> movieOptional = Optional.ofNullable(movieRepository.findById(movieId));
+        if(movieOptional.isPresent()  ){
+
+            if(user.getMovies_watch_list().contains(movieOptional.get())){
+                movieOptional.get().getUsers2().remove(user);
                 movieRepository.save(movieOptional.get());
                 System.out.println("Remvoved movie:"+ movieOptional.get());
                 System.out.println("From user:"+ user);

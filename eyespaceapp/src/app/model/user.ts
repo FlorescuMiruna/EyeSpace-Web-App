@@ -14,6 +14,7 @@ export class User {
     public role: string;
     public authorities: [];
     public movies:[];
+    public movies_watch_list:[];
   
     constructor() {
        this.id = null as any;
@@ -31,6 +32,7 @@ export class User {
       this.role = '';
       this.authorities = [];
       this.movies = [];
+      this.movies_watch_list = [];
     }
   
   }

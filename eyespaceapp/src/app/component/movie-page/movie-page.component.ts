@@ -18,6 +18,7 @@ export class MoviePageComponent implements OnInit {
 
   movieAPI: Movie = new Movie();
   isWatched: boolean = false;
+  isInWatchList: boolean = false;
 
   constructor(private movieService: MovieService, private authenticationService: AuthenticationService, private userService: UserService) { }
 
@@ -38,21 +39,20 @@ export class MoviePageComponent implements OnInit {
 
   
   calculateClasses2() {
-    if (this.isWatched === false)
+    if (this.isInWatchList === false)
       return 'btn btn-outline-dark';
     else
       return 'btn btn-dark';
   }
+
   /*Verific daca filmul este in lista user-ului de filme vazute*/
   checkWatched(): void {
 
     let found: boolean = false;
     let movies: Movie[] = this.authenticationService.getUserFromLocalCache().movies;
-    // console.log("this.movieAPI", this.movieAPI);
 
     for (let movie of movies) {
       if (movie.id == this.movieAPI.id) {
-        // console.log(movie)
         found = true;
         this.isWatched = true;
         break;
@@ -61,12 +61,30 @@ export class MoviePageComponent implements OnInit {
     if (found == false)
       this.isWatched = false;
   }
+  /*Verific daca filmul este in WATCH-list-ul userului*/
+  checkInWatchList(): void {
+
+    let found: boolean = false;
+    let movies_watch_list: Movie[] = this.authenticationService.getUserFromLocalCache().movies_watch_list;
+
+    for (let movie of movies_watch_list) {
+      if (movie.id == this.movieAPI.id) {
+        found = true;
+        this.isInWatchList = true;
+        break;
+      }
+    }
+    if (found == false)
+      this.isInWatchList = false;
+  }
+
 
   refreshUserFromLocalChash(id: number) {
+ 
     this.userService.getUserById(id).subscribe(res => {
 
       this.authenticationService.addUserToLocalCache(res);
-      console.log("USER FROM LOCAL CACHE AFTER:", this.authenticationService.getUserFromLocalCache())
+     
 
     }, err => {
       console.log("Error while fetching data.")
@@ -90,7 +108,9 @@ export class MoviePageComponent implements OnInit {
       this.movieAPI = res;
       console.log("this.movieAPI:", this.movieAPI)
       this.checkWatched();
+      this.checkInWatchList();
       console.log("ESTE VAZUT FILMUL?", this.isWatched);
+      console.log("ESTE IN WATCH-LIST FILMUL?", this.isInWatchList);
 
     }, err => {
       console.log("Error while fetching data")
@@ -100,7 +120,7 @@ export class MoviePageComponent implements OnInit {
   }
 
 
-  addMovieToList() {
+  addMovie() {
     if (!this.isWatched) {
       var id = this.authenticationService.getUserFromLocalCache().id;
       this.movieService.addMovie(this.movieAPI, id).subscribe(res => {
@@ -141,7 +161,7 @@ export class MoviePageComponent implements OnInit {
          
           let userId = this.authenticationService.getUserFromLocalCache().id;
           console.log("Id-es:",this.movieAPI.id,userId );
-          this.movieService.deleteUserFromMovie(this.movieAPI.id,userId).subscribe(res => {
+          this.movieService.removeMovieFromUser(this.movieAPI.id,userId).subscribe(res => {
 
            console.log(res);
            Swal.fire(
@@ -160,6 +180,68 @@ export class MoviePageComponent implements OnInit {
         }
       })
     }
+  }
+
+  addMovieToWatchList(){
+
+    if(!this.isInWatchList){
+      var id = this.authenticationService.getUserFromLocalCache().id;
+      this.movieService.addMovieToWatchList(this.movieAPI, id).subscribe(res => {
+
+        // console.log("Filmul a fost adaugat cu sucess:", res);
+
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'The movie was added to your WATCH list',
+          showConfirmButton: false,
+          timer: 1500
+        })
+
+
+        this.refreshUserFromLocalChash(this.authenticationService.getUserFromLocalCache().id);
+        this.isInWatchList = true;
+        console.log("ESTE IN WATCH FILMUL?", this.isWatched);
+
+      }, err => {
+        console.log(err);
+
+      });
+    }
+    else {
+      Swal.fire({
+        title: 'Do you want to remove the movie from your WATCH list?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#4E9A9B',
+        confirmButtonText: 'Yes, remove it!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+
+         
+          let userId = this.authenticationService.getUserFromLocalCache().id;
+        
+          this.movieService.removeWatchListMovieFromUser(this.movieAPI.id,userId).subscribe(res => {
+
+           console.log(res);
+           Swal.fire(
+            'The movie was removed!',
+          )
+          this.isInWatchList = false;
+      
+          }, err => {
+            console.log(err)
+            console.log("Error while fetching data")
+          });
+      
+
+
+
+        }
+      })
+    }
+
   }
 
 

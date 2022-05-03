@@ -23,16 +23,31 @@ public class MovieController {
         this.movieService = movieService;
     }
 
-    @PostMapping("/user/{userId}")
+    @PostMapping("/watched/user/{userId}")
     public Movie addMovie(@RequestBody Movie movie,@PathVariable Long userId){
 
          movieService.addMovie(movie,userId);
          return movie;
     }
+
+    @PostMapping("/watch-list/user/{userId}")
+    public Movie addMovieToWatchList(@RequestBody Movie movie,@PathVariable Long userId){
+
+        movieService.addMovieToWatchList(movie,userId);
+        return movie;
+    }
     @PutMapping("/remove/{movieId}/user/{userId}")
     public void removeMovieFromUser(@PathVariable String movieId,@PathVariable Long userId){
-
+        System.out.println("************* removeMovieFromUser ************");
         movieService.removeMovieFromUser(movieId,userId);
+
+    }
+
+    @PutMapping("/remove/watch-list/{movieId}/user/{userId}")
+    public void removeWatchListMovieFromUser(@PathVariable String movieId,@PathVariable Long userId){
+        System.out.println("************* removeWatchListMovieFromUser ************");
+
+        movieService.removeWatchListMovieFromUser(movieId,userId);
 
     }
 

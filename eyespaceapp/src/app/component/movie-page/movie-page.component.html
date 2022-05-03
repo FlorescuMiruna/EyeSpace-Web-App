@@ -18,10 +18,10 @@
     </div>
 
     <div>
-        <button [ngClass]="calculateClasses1()" (click)="addMovieToList()"> {{isWatched==true ? "Watched" : "Mark as watched"}}</button>
+        <button [ngClass]="calculateClasses1()" (click)="addMovie()"> {{isWatched==true ? "Watched" : "Mark as watched"}}</button>
     </div>
     <div>
-        <button [ngClass]="calculateClasses2()"> {{isWatched==true ? " Add to Watch list " : "Added to Watch list "}}</button>
+        <button [ngClass]="calculateClasses2()" (click)="addMovieToWatchList()"> {{isInWatchList==true ? " Added to Watch list " : "Add to Watch list "}}</button>
     </div>
 
 

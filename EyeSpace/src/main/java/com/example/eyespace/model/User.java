@@ -46,40 +46,19 @@ public class User implements Serializable {
 //    private Set<Movie> movies = new HashSet<>();
 
     //@JsonIgnore
-    @ManyToMany(mappedBy = "users")
+    @ManyToMany(mappedBy = "users1")
     private Set<Movie> movies = new HashSet<>();
 
-    public Set<Movie> getMovies() {
-        return movies;
-    }
+    //@JsonIgnore
+    @ManyToMany(mappedBy = "users2")
+    private Set<Movie> movies_watch_list = new HashSet<>();
 
-    public void setMovies(Set<Movie> movies) {
-        this.movies = movies;
-    }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", userId='" + userId + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
-                ", profileImageUrl='" + profileImageUrl + '\'' +
-                ", lastLoginDate=" + lastLoginDate +
-                ", lastLoginDateDisplay=" + lastLoginDateDisplay +
-                ", joinDate=" + joinDate +
-                ", role='" + role + '\'' +
-                ", authorities=" + Arrays.toString(authorities) +
-                ", isActive=" + isActive +
-                ", isNotLocked=" + isNotLocked +
-               // ", movies=" + movies +
-                '}';
-    }
 
-    public User(Long id, String userId, String firstName, String lastName, String username, String password, String email, String profileImageUrl, Date lastLoginDate, Date lastLoginDateDisplay, Date joinDate, String role, String[] authorities, boolean isActive, boolean isNotLocked, Set<Movie> movies) {
+
+    public User(){}
+
+    public User(Long id, String userId, String firstName, String lastName, String username, String password, String email, String profileImageUrl, Date lastLoginDate, Date lastLoginDateDisplay, Date joinDate, String role, String[] authorities, boolean isActive, boolean isNotLocked, Set<Movie> movies, Set<Movie> movies_watch_list) {
         this.id = id;
         this.userId = userId;
         this.firstName = firstName;
@@ -96,9 +75,10 @@ public class User implements Serializable {
         this.isActive = isActive;
         this.isNotLocked = isNotLocked;
         this.movies = movies;
+        this.movies_watch_list = movies_watch_list;
     }
 
-    public User(){}
+
 
 
 
@@ -224,5 +204,42 @@ public class User implements Serializable {
         isNotLocked = notLocked;
     }
 
+    public Set<Movie> getMovies_watch_list() {
+        return movies_watch_list;
+    }
 
+    public void setMovies_watch_list(Set<Movie> movies_watch_list) {
+        this.movies_watch_list = movies_watch_list;
+    }
+
+    public Set<Movie> getMovies() {
+        return movies;
+    }
+
+    public void setMovies(Set<Movie> movies) {
+        this.movies = movies;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", userId='" + userId + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", profileImageUrl='" + profileImageUrl + '\'' +
+                ", lastLoginDate=" + lastLoginDate +
+                ", lastLoginDateDisplay=" + lastLoginDateDisplay +
+                ", joinDate=" + joinDate +
+                ", role='" + role + '\'' +
+                ", authorities=" + Arrays.toString(authorities) +
+                ", isActive=" + isActive +
+                ", isNotLocked=" + isNotLocked +
+                //  ", movies=" + movies +
+                // ", movies_watch_list=" + movies_watch_list +
+                '}';
+    }
 }

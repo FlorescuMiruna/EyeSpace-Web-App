@@ -1,13 +1,9 @@
 package com.example.eyespace.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.sun.istack.NotNull;
 import lombok.*;
-
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -22,15 +18,10 @@ import java.util.Set;
 
 public class Movie {
 
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @NotNull
-//    private int id;
+
     @Id
     private String id;
 
-    //@Column(name = "title")
-//    @JsonProperty("title")
     private String title;
     private String director;
     private String genre;
@@ -51,10 +42,18 @@ public class Movie {
     @JsonIgnore
     @ManyToMany
     @JoinTable(
-            name = "movie_user",
+            name = "movie_user_1",
             joinColumns = @JoinColumn(name = "movie_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
-    private  Set<User> users = new HashSet<>();
+    private  Set<User> users1 = new HashSet<>();
+
+    @JsonIgnore
+    @ManyToMany
+    @JoinTable(
+            name = "movie_user_2",
+            joinColumns = @JoinColumn(name = "movie_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private  Set<User> users2 = new HashSet<>();
 
 
     @Override
@@ -68,7 +67,8 @@ public class Movie {
                 ", plot='" + plot + '\'' +
                 ", rating='" + rating + '\'' +
                 ", posterUrl='" + posterUrl + '\'' +
-                ", users=" + users +
+                ", users1=" + users1 +
+                ", users2=" + users2 +
                 '}';
     }
 }
