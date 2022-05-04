@@ -13,7 +13,6 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
 public class Comment {
 
 
@@ -41,5 +40,15 @@ public class Comment {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
-
+    @Override
+    public String toString() {
+        return "Comment{" +
+                "id=" + id +
+                ", text='" + text + '\'' +
+                ", likes=" + likes +
+                ", date=" + date +
+                ", movie ID =" + movie.getId() +
+                ", user=" + user.getUsername() +
+                '}';
+    }
 }

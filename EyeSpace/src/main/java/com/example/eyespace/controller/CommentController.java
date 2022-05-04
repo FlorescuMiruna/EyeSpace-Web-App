@@ -44,7 +44,7 @@ public class CommentController {
 
 
         commentService.deletComment(id);
-       logger.info("Deleted comment with {}", id);
+
     }
 
     @PutMapping("/{id}")
@@ -52,7 +52,7 @@ public class CommentController {
 
         comment = commentService.updateComment(id, comment);
 
-        logger.info("Updated subject {}", comment);
+        logger.info("Updated comment {}", comment);
         return comment;
     }
 
