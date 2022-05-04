@@ -12,7 +12,6 @@ import java.util.*;
 @Entity
 //@Data
 @Table
-//@ToString
 public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -35,15 +34,6 @@ public class User implements Serializable {
     private boolean isActive;
     private boolean isNotLocked;
 
-    //O lista cu id-urile IMDB ale filmelor (reprezentand filmele vazut de user-ul respectiv
-   // private  List<String> movies = new ArrayList<>();
-
-//    @ManyToMany
-//    @JoinTable(
-//            name = "user_movies",
-//            joinColumns = @JoinColumn(name = "user_id"),
-//            inverseJoinColumns = @JoinColumn(name = "movie_id"))
-//    private Set<Movie> movies = new HashSet<>();
 
     //@JsonIgnore
     @ManyToMany(mappedBy = "users1")
@@ -54,11 +44,13 @@ public class User implements Serializable {
     private Set<Movie> movies_watch_list = new HashSet<>();
 
 
-
+//    @JsonIgnore
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    private List<Comment> comments = new ArrayList<>();
 
     public User(){}
 
-    public User(Long id, String userId, String firstName, String lastName, String username, String password, String email, String profileImageUrl, Date lastLoginDate, Date lastLoginDateDisplay, Date joinDate, String role, String[] authorities, boolean isActive, boolean isNotLocked, Set<Movie> movies, Set<Movie> movies_watch_list) {
+    public User(Long id, String userId, String firstName, String lastName, String username, String password, String email, String profileImageUrl, Date lastLoginDate, Date lastLoginDateDisplay, Date joinDate, String role, String[] authorities, boolean isActive, boolean isNotLocked, Set<Movie> movies, Set<Movie> movies_watch_list, List<Comment> comments) {
         this.id = id;
         this.userId = userId;
         this.firstName = firstName;
@@ -76,13 +68,8 @@ public class User implements Serializable {
         this.isNotLocked = isNotLocked;
         this.movies = movies;
         this.movies_watch_list = movies_watch_list;
+        this.comments = comments;
     }
-
-
-
-
-
-
 
     public Long getId() {
         return id;
@@ -220,6 +207,15 @@ public class User implements Serializable {
         this.movies = movies;
     }
 
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -238,8 +234,9 @@ public class User implements Serializable {
                 ", authorities=" + Arrays.toString(authorities) +
                 ", isActive=" + isActive +
                 ", isNotLocked=" + isNotLocked +
-                //  ", movies=" + movies +
-                // ", movies_watch_list=" + movies_watch_list +
+               // ", movies=" + movies +
+               // ", movies_watch_list=" + movies_watch_list +
+                ", comments=" + comments +
                 '}';
     }
 }

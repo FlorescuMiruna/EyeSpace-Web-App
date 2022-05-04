@@ -3,7 +3,9 @@ package com.example.eyespace.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -30,14 +32,10 @@ public class Movie {
     @Lob
     @Column( name = "plot")
     private String plot;
+
     private String rating;
     private String posterUrl;
 
-
-
-  //  @JsonIgnore
-//    @ManyToMany(mappedBy = "movies")
-//    private Set<User> users = new HashSet<>();
 
     @JsonIgnore
     @ManyToMany
@@ -55,6 +53,9 @@ public class Movie {
             inverseJoinColumns = @JoinColumn(name = "user_id"))
     private  Set<User> users2 = new HashSet<>();
 
+//    @JsonIgnore
+    @OneToMany(mappedBy = "movie",cascade = CascadeType.ALL)
+    private List<Comment> comments = new ArrayList<>();
 
     @Override
     public String toString() {
@@ -69,6 +70,7 @@ public class Movie {
                 ", posterUrl='" + posterUrl + '\'' +
                 ", users1=" + users1 +
                 ", users2=" + users2 +
+                ", comments=" + comments +
                 '}';
     }
 }

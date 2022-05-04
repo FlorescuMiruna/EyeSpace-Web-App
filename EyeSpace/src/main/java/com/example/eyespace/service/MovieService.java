@@ -27,7 +27,7 @@ public class MovieService {
     @Value("${apiIMDBKey}")
     private String apiIMDBKey;
 
-//    @Autowired
+
    private final MovieRepository movieRepository;
    private final UserService userService;
 
