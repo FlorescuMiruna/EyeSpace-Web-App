@@ -47,6 +47,15 @@ public class CommentController {
        logger.info("Deleted comment with {}", id);
     }
 
+    @PutMapping("/{id}")
+    public Comment updateComment(@PathVariable Long id, @RequestBody Comment comment) {
+
+        comment = commentService.updateComment(id, comment);
+
+        logger.info("Updated subject {}", comment);
+        return comment;
+    }
+
 
 
 

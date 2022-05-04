@@ -68,4 +68,22 @@ public class CommentService {
     }
 
 
+    public Comment updateComment(Long id, Comment commentUpdated){
+        Optional<Comment> commentOptional = commentRepository.findById(id);
+        if(commentOptional.isPresent()){
+            commentUpdated.setId(id);
+            commentUpdated.setMovie(commentOptional.get().getMovie());
+           commentUpdated.setUser(commentOptional.get().getUser());
+            commentUpdated.setText(commentUpdated.getText() == null ? commentOptional.get().getText() : commentUpdated.getText());
+            commentUpdated.setDate(commentUpdated.getDate() == null ? commentOptional.get().getDate() : commentUpdated.getDate());
+
+
+            return commentRepository.save(commentUpdated);
+        }else {
+            throw new NotFoundException("Comment not found!", "comment.not.found");
+        }
+
+    }
+
+
 }
