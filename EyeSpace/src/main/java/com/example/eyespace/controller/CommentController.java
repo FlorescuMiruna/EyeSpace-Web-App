@@ -56,6 +56,18 @@ public class CommentController {
         return comment;
     }
 
+    @PutMapping("/{id}/like/{userId}")
+    public void likeComment(@PathVariable Long id, @PathVariable Long userId){
+        commentService.likeComment(id,userId);
+    }
+
+    @PutMapping("/{id}/unlike/{userId}")
+    public void unlikeComment(@PathVariable Long id, @PathVariable Long userId){
+        commentService.unlikeComment(id,userId);
+    }
+
+
+
 
 
 

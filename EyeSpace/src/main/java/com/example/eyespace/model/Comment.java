@@ -6,6 +6,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Entity
@@ -23,7 +25,10 @@ public class Comment {
     @Lob
     private String text;
     //private String photo;
-    private int likes=0;
+
+    @ElementCollection
+    private Set<Long> likes = new HashSet<>();
+//    private int likes=0;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate date;
@@ -47,7 +52,7 @@ public class Comment {
                 ", text='" + text + '\'' +
                 ", likes=" + likes +
                 ", date=" + date +
-                ", movie ID =" + movie.getId() +
+                ", movie id=" + movie.getId() +
                 ", user=" + user.getUsername() +
                 '}';
     }

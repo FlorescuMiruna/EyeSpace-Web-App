@@ -14,10 +14,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class CommentService {
@@ -76,6 +73,7 @@ public class CommentService {
            commentUpdated.setUser(commentOptional.get().getUser());
             commentUpdated.setText(commentUpdated.getText() == null ? commentOptional.get().getText() : commentUpdated.getText());
             commentUpdated.setDate(commentUpdated.getDate() == null ? commentOptional.get().getDate() : commentUpdated.getDate());
+            commentUpdated.setLikes(commentUpdated.getLikes() == null ? commentOptional.get().getLikes() : commentUpdated.getLikes());
 
 
             return commentRepository.save(commentUpdated);
@@ -85,5 +83,29 @@ public class CommentService {
 
     }
 
+
+    public void likeComment(Long id, Long userId) {
+        Optional<Comment> commentOptional = commentRepository.findById(id);
+        if(commentOptional.isPresent()){
+            Set<Long> likes =  commentOptional.get().getLikes();
+            likes.add(userId);
+            commentOptional.get().setLikes(likes);
+            commentRepository.save(commentOptional.get());
+        }else {
+            throw new NotFoundException("Comment not found!", "comment.not.found");
+        }
+    }
+
+    public void unlikeComment(Long id, Long userId) {
+        Optional<Comment> commentOptional = commentRepository.findById(id);
+        if(commentOptional.isPresent()){
+            Set<Long> likes =  commentOptional.get().getLikes();
+            likes.remove(userId);
+            commentOptional.get().setLikes(likes);
+            commentRepository.save(commentOptional.get());
+        }else {
+            throw new NotFoundException("Comment not found!", "comment.not.found");
+        }
+    }
 
 }
