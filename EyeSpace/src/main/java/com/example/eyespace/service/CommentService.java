@@ -1,6 +1,7 @@
 package com.example.eyespace.service;
 
 
+import com.example.eyespace.exception.domain.NotFoundException;
 import com.example.eyespace.model.Comment;
 import com.example.eyespace.model.Movie;
 import com.example.eyespace.model.User;
@@ -8,6 +9,7 @@ import com.example.eyespace.repository.CommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.security.auth.Subject;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -15,6 +17,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 
 @Service
 public class CommentService {
@@ -49,13 +52,20 @@ public class CommentService {
         return comment;
     }
 
-    public Comment addComment2(Comment comment) {
-        commentRepository.save(comment);
-
-
-
-        comment.setDate(LocalDate.now());
-
-        return comment;
+    public Comment getComment(Long id) {
+        Optional<Comment> optionalSubject = commentRepository.findById(id);
+        return optionalSubject.orElseThrow(() -> new NotFoundException("Comment not found!", "comment.not.found"));
     }
+
+    public void deletComment(Long id){
+        Optional<Comment> commentOptional = commentRepository.findById(id);
+
+        if(commentOptional.isPresent()){
+            commentRepository.delete(commentOptional.get());
+        }else {
+            throw new NotFoundException("Comment not found!", "comment.not.found");
+        }
+    }
+
+
 }

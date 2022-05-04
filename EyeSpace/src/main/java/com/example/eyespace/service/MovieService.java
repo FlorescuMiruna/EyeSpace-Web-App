@@ -96,6 +96,7 @@ public class MovieService {
     }
 
     public void deleteMovie(String id) {
+
             Optional<Movie> movieOptional = Optional.ofNullable(movieRepository.findById(id));
             if(movieOptional.isPresent()){
                 movieRepository.delete(movieOptional.get());

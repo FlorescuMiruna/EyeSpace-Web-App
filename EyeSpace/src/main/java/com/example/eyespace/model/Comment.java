@@ -30,12 +30,14 @@ public class Comment {
     private LocalDate date;
 
     @JsonIgnore
-    @ManyToOne(cascade = CascadeType.ALL)
+  //  @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "movie_id", referencedColumnName = "id")
     private Movie movie;
 
     @JsonIgnore
-    @ManyToOne(cascade = CascadeType.ALL)
+   // @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
