@@ -33,17 +33,20 @@ public class Comment {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate date;
 
-    @JsonIgnore
-  //  @ManyToOne(cascade = CascadeType.ALL)
+    //@JsonIgnore
     @ManyToOne
     @JoinColumn(name = "movie_id", referencedColumnName = "id")
     private Movie movie;
 
-    @JsonIgnore
-   // @ManyToOne(cascade = CascadeType.ALL)
+    //@JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
+
+
+
+
+
 
     @Override
     public String toString() {
@@ -52,8 +55,9 @@ public class Comment {
                 ", text='" + text + '\'' +
                 ", likes=" + likes +
                 ", date=" + date +
-                ", movie id=" + movie.getId() +
+                ", movie=" + movie.getId() +
                 ", user=" + user.getUsername() +
+
                 '}';
     }
 }

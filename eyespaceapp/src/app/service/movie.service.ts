@@ -68,7 +68,7 @@ export class MovieService {
 
 
   getAllMovies(): Observable<Movie[]> {
-    console.log("movie originea", this.http.get<Movie[]>(this.getMovieURL))
+  
     return this.http.get<Movie[]>(this.getMovieURL);
   }
   updateMovie(movie: Movie): Observable<Movie> {

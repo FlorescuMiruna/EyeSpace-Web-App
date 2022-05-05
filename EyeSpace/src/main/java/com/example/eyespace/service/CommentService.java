@@ -8,12 +8,7 @@ import com.example.eyespace.model.User;
 import com.example.eyespace.repository.CommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.security.auth.Subject;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Service
@@ -34,6 +29,10 @@ public class CommentService {
         return commentRepository.findAll();
     }
 
+    public List<Comment> getAllCommentsByMovieId(String movieId) {
+        return commentRepository.findByMovieId(movieId);
+    }
+
     public Comment addComment(Comment comment, String movieId, Long userId) {
 
         comment.setDate(LocalDate.now());
@@ -43,6 +42,7 @@ public class CommentService {
 
         comment.setMovie(movie);
         comment.setUser(user);
+
 
         commentRepository.save(comment);
 

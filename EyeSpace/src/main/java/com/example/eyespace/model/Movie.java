@@ -53,7 +53,7 @@ public class Movie {
             inverseJoinColumns = @JoinColumn(name = "user_id"))
     private  Set<User> users2 = new HashSet<>();
 
-//    @JsonIgnore
+    @JsonIgnore
     @OneToMany(mappedBy = "movie",cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
 

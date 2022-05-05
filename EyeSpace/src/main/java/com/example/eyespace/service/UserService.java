@@ -2,6 +2,7 @@ package com.example.eyespace.service;
 
 import com.example.eyespace.model.User;
 import com.example.eyespace.exception.domain.*;
+import com.example.eyespace.model.UserDto;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.mail.MessagingException;
@@ -31,4 +32,6 @@ public interface UserService {
     User updateProfileImage(String username, MultipartFile profileImage) throws UserNotFoundException, UsernameExistException, EmailExistException, IOException, NotAnImageFileException;
 
 //     User assignMovieToUser(Long userId, String movieId) throws IOException, InterruptedException;
+
+    UserDto mapToDto(User user);
 }

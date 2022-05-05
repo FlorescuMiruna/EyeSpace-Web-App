@@ -2,6 +2,7 @@ package com.example.eyespace.service.impl;
 
 import com.example.eyespace.model.Movie;
 import com.example.eyespace.model.User;
+import com.example.eyespace.model.UserDto;
 import com.example.eyespace.model.UserPrincipal;
 import com.example.eyespace.enumeration.Role;
 import com.example.eyespace.exception.domain.*;
@@ -296,4 +297,14 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         }
     }
 
+
+    @Override
+    public UserDto mapToDto(User user) {
+       UserDto userDto = new UserDto();
+       userDto.setId(user.getId());
+       userDto.setUsername(user.getUsername());
+       userDto.setProfileImageUrl(user.getProfileImageUrl());
+       return userDto;
+
+    }
 }

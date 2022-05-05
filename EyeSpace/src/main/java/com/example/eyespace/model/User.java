@@ -44,7 +44,7 @@ public class User implements Serializable {
     private Set<Movie> movies_watch_list = new HashSet<>();
 
 
-//    @JsonIgnore
+    @JsonIgnore
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
 

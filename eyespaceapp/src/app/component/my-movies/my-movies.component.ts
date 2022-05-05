@@ -21,6 +21,7 @@ export class MyMoviesComponent implements OnInit {
   }
 
   initializeLists(){
+    console.log("USER",this.authenticationService.getUserFromLocalCache())
     this.movies = this.authenticationService.getUserFromLocalCache().movies;
     this.movies_watch_list = this.authenticationService.getUserFromLocalCache().movies_watch_list;
 

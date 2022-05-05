@@ -102,6 +102,7 @@ public class UserController extends ExceptionHandling {
     @GetMapping("/{id}")
     public ResponseEntity<User> getUserById(@PathVariable("id") Long id) {
         User user = userService.findUserById(id);
+//        System.out.println("User DTO: "+ userService.mapToDto(user));
         return new ResponseEntity<>(user, OK);
     }
 
@@ -149,12 +150,7 @@ public class UserController extends ExceptionHandling {
         return byteArrayOutputStream.toByteArray();
     }
 
-//    @PutMapping("/{userId}/movie/{movieId}")
-//    User assignMovieToUser (@PathVariable Long userId, @PathVariable String movieId) throws IOException, InterruptedException {
-//
-//        User user = userService.assignMovieToUser(userId,movieId);
-//        return user;
-//    }
+
 
     private ResponseEntity<HttpResponse> response(HttpStatus httpStatus, String message) {
         return new ResponseEntity<>(new HttpResponse(httpStatus.value(), httpStatus, httpStatus.getReasonPhrase().toUpperCase(),

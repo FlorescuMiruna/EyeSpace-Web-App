@@ -27,6 +27,11 @@ public class CommentController {
         return commentService.getAllComments();
     }
 
+    @GetMapping("/movie/{movieId}")
+    public List<Comment> getAllCommentsByMovieId(@PathVariable String movieId){
+        return commentService.getAllCommentsByMovieId(movieId);
+    }
+
     @GetMapping("/{id}")
     public Comment getComment(@PathVariable("id") Long id) {
         Comment comment = commentService.getComment(id);

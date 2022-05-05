@@ -4,6 +4,7 @@ import { NotificationType } from 'src/app/enum/notification-type.enum';
 import { Movie } from 'src/app/model/movie';
 import { User } from 'src/app/model/user';
 import { AuthenticationService } from 'src/app/service/authentication.service';
+import { CommentService } from 'src/app/service/comment.service';
 import { MovieService } from 'src/app/service/movie.service';
 import { UserService } from 'src/app/service/user.service';
 import Swal from 'sweetalert2';
@@ -20,7 +21,7 @@ export class MoviePageComponent implements OnInit {
   isWatched: boolean = false;
   isInWatchList: boolean = false;
 
-  constructor(private movieService: MovieService, private authenticationService: AuthenticationService, private userService: UserService) { }
+  constructor(private movieService: MovieService, private authenticationService: AuthenticationService, private userService: UserService, private commentService: CommentService) { }
 
   ngOnInit(): void {
 
@@ -111,11 +112,24 @@ export class MoviePageComponent implements OnInit {
       this.checkInWatchList();
       console.log("ESTE VAZUT FILMUL?", this.isWatched);
       console.log("ESTE IN WATCH-LIST FILMUL?", this.isInWatchList);
+      this.initializeComments();
 
     }, err => {
       console.log("Error while fetching data")
     });
 
+
+  }
+
+  initializeComments(){
+    this.commentService.getAllCommentsByMovieId(this.movieAPI.id).subscribe(res => {
+
+     console.log("Comments:", res)
+
+    }, err => {
+      console.log("Error while fetching data")
+      console.log(err);
+    });
 
   }
 
