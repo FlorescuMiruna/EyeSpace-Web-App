@@ -1,5 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { NotificationType } from 'src/app/enum/notification-type.enum';
 import { Comm } from 'src/app/model/comm';
 import { Movie } from 'src/app/model/movie';
@@ -22,19 +23,41 @@ export class MoviePageComponent implements OnInit {
   movieAPI: Movie = new Movie();
   isWatched: boolean = false;
   isInWatchList: boolean = false;
-
+  text: string = '';
   comments: Comm[] = [];
-
-  constructor(private movieService: MovieService, private authenticationService: AuthenticationService, private userService: UserService, private commentService: CommentService) { }
+  myCommObj: Comm = new Comm()
+  commDetails !: FormGroup;
+  constructor(private movieService: MovieService, private authenticationService: AuthenticationService, private userService: UserService, private commentService: CommentService, private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
 
     this.initializeMovie();
-    
 
+    this.commDetails = this.formBuilder.group({
+      text: ['']
+    });
 
 
   }
+  addComm() {
+
+    console.log(this.commDetails);
+    console.log(this.commDetails.value);
+    this.myCommObj.text = this.commDetails.value.text;
+
+    let userId = this.authenticationService.getUserFromLocalCache().id;
+
+    this.commentService.addComment(this.myCommObj, this.movieAPI.id, userId).subscribe(res => {
+      console.log(res);
+      this.initializeComments();
+
+    }, err => {
+      console.log("EROARE");
+      console.log(err);
+
+    });
+  }
+
 
   calculateClasses1() {
     if (this.isWatched === false)
@@ -126,12 +149,12 @@ export class MoviePageComponent implements OnInit {
 
   }
 
-  initializeComments(){
+  initializeComments() {
     this.commentService.getAllCommentsByMovieId(this.movieAPI.id).subscribe(res => {
 
 
-    this.comments = res;
-    console.log("Comments:",this.comments);
+      this.comments = res;
+      console.log("Comments:", this.comments);
 
 
     }, err => {

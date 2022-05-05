@@ -31,6 +31,9 @@
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 <div class="container">
     <div class="row">
+
+
+
         <div class="col-md-10">
             <div class="media g-mb-30 media-comment" *ngFor="let comment of comments ">
                 <img class="d-flex g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15" src="{{comment.user.profileImageUrl}}" lt="Image Description ">
@@ -45,26 +48,48 @@
                     <p>{{comment.text}}</p>
 
                     <ul class="list-inline d-sm-flex my-0 ">
-                        <!-- <li class="list-inline-item g-mr-20 ">
-                            <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover " href="#! ">
-                                <i class="fa fa-thumbs-up g-pos-rel g-top-1 g-mr-3 "></i> 178
-                            </a>
-                        </li>
-                        <li class="list-inline-item g-mr-20 ">
-                            <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover " href="#! ">
-                                <i class="fa fa-thumbs-down g-pos-rel g-top-1 g-mr-3 "></i> 34
-                            </a>
-                        </li> -->
+
                         <li class="list-inline-item ml-auto ">
-                            <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover " href="#! ">
-                                <i class="fa fa-thumbs-up g-pos-rel g-top-1 g-mr-3 "></i> {{comment.likes.length}}
+                            <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover ">
+                                <i class="fa fa-heart text-danger "></i> {{comment.likes.length}}
                             </a>
                         </li>
                     </ul>
                 </div>
             </div>
+
+            <form [formGroup]="commDetails">
+                <div class="mb-3">
+                    <label for="exampleInputText" class="form-label">Text</label>
+                    <input type="text" formControlName="text" class="form-control" id="text" aria-describedby="textHelp">
+
+                </div>
+
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-primary" (click)="addComm()">Add comm</button>
+                </div>
+            </form>
+
+            <!-- 
+            <div class="panel">
+                <div class="panel-body">
+
+                    <input type="text" class="form-control" id="text" name="text" rows="6" [(ngModel)]="text" placeholder="What are you thinking?">
+                    <div class="mar-top clearfix">
+                        <button class="btn btn-sm btn-primary pull-right" type="submit"><i class="fa fa-pencil fa-fw"></i> Share</button>
+                        <a class="btn btn-trans btn-icon fa fa-video-camera add-tooltip" href="#"></a>
+                        <a class="btn btn-trans btn-icon fa fa-camera add-tooltip" href="#"></a>
+                        <a class="btn btn-trans btn-icon fa fa-file add-tooltip" href="#"></a>
+                    </div>
+                </div>
+            </div> -->
         </div>
 
 
+
+
+
     </div>
+
 </div>

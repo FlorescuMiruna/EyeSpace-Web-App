@@ -1,7 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700&display=swap');
 .container {
     margin-top: 1%;
-    margin-top: 2%;
 }
 
 .inner {
@@ -34,9 +33,6 @@
 }
 
 * {
-    /* margin: 0; */
-    /* padding: 0; */
-    /* color: #f2f2f2; */
     box-sizing: border-box;
     font-family: 'Montserrat', sans-serif;
 }
@@ -273,4 +269,27 @@ body {
 
 .media-comment {
     margin-top: 20px
+}
+
+.panel {
+    box-shadow: 0 2px 0 rgba(0, 0, 0, 0.075);
+    border-radius: 0;
+    border: 0;
+    margin-bottom: 15px;
+}
+
+.panel .panel-footer,
+.panel>:last-child {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.panel .panel-heading,
+.panel>:first-child {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.panel-body {
+    padding: 25px 20px;
 }
