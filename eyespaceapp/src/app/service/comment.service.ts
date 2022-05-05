@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { Comm } from '../model/comm';
 
 @Injectable({
   providedIn: 'root'
@@ -17,9 +18,9 @@ export class CommentService {
     this.getAllCommentsByMovieIdURL = `${this.host}/comment/movie/`;
   }
 
-  getAllCommentsByMovieId(movieId: String): Observable<Comment[]> {
+  getAllCommentsByMovieId(movieId: String): Observable<Comm[]> {
 
     var URL = this.getAllCommentsByMovieIdURL + movieId;
-    return this.http.get<Comment[]>(URL);
+    return this.http.get<Comm[]>(URL);
   }
 }

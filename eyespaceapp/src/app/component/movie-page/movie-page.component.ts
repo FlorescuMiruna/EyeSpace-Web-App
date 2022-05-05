@@ -1,8 +1,10 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NotificationType } from 'src/app/enum/notification-type.enum';
+import { Comm } from 'src/app/model/comm';
 import { Movie } from 'src/app/model/movie';
 import { User } from 'src/app/model/user';
+
 import { AuthenticationService } from 'src/app/service/authentication.service';
 import { CommentService } from 'src/app/service/comment.service';
 import { MovieService } from 'src/app/service/movie.service';
@@ -21,11 +23,14 @@ export class MoviePageComponent implements OnInit {
   isWatched: boolean = false;
   isInWatchList: boolean = false;
 
+  comments: Comm[] = [];
+
   constructor(private movieService: MovieService, private authenticationService: AuthenticationService, private userService: UserService, private commentService: CommentService) { }
 
   ngOnInit(): void {
 
     this.initializeMovie();
+    
 
 
 
@@ -124,7 +129,10 @@ export class MoviePageComponent implements OnInit {
   initializeComments(){
     this.commentService.getAllCommentsByMovieId(this.movieAPI.id).subscribe(res => {
 
-     console.log("Comments:", res)
+
+    this.comments = res;
+    console.log("Comments:",this.comments);
+
 
     }, err => {
       console.log("Error while fetching data")
@@ -201,8 +209,6 @@ export class MoviePageComponent implements OnInit {
     if (!this.isInWatchList) {
       var id = this.authenticationService.getUserFromLocalCache().id;
       this.movieService.addMovieToWatchList(this.movieAPI, id).subscribe(res => {
-
-        // console.log("Filmul a fost adaugat cu sucess:", res);
 
         Swal.fire({
           position: 'center',
