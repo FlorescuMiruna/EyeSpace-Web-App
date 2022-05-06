@@ -51,9 +51,13 @@
 
                         <li class="list-inline-item ml-auto ">
                             <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover ">
+
                                 <i class="fa fa-heart text-danger "></i> {{comment.likes.length}}
                             </a>
+
                         </li>
+                        <i style="font-size:24px" class="fa" (click)="deleteComm(comment)">&#xf014;</i>
+
                     </ul>
                 </div>
             </div>

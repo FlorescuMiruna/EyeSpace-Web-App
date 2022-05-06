@@ -58,6 +58,16 @@ export class MoviePageComponent implements OnInit {
     });
   }
 
+  deleteComm(comm: Comm){
+    console.log("INTRA aici");
+    this.commentService.deleteComment(comm).subscribe(res=>{
+        console.log(res);
+        this.initializeComments();
+    }, err => {
+      console.log("ERROR:", err);
+      
+    })
+  }
 
   calculateClasses1() {
     if (this.isWatched === false)
