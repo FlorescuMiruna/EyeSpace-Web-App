@@ -27,6 +27,7 @@ export class MoviePageComponent implements OnInit {
   comments: Comm[] = [];
   myCommObj: Comm = new Comm()
   commDetails !: FormGroup;
+  user: User = this.authenticationService.getUserFromLocalCache();
   constructor(private movieService: MovieService, private authenticationService: AuthenticationService, private userService: UserService, private commentService: CommentService, private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {

@@ -40,6 +40,10 @@ export class CommentService {
     return this.http.delete<Comm>(this.deleteCommentURL +comm.id);
   }
 
+  isShown() {
+    return false;
+  }
+
 
 
 }
