@@ -29,7 +29,7 @@
 
 
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-<div class="container">
+<div class="container" [hidden]="!isWatched">
     <div class="row">
 
 
@@ -52,8 +52,7 @@
                         <li class="list-inline-item ml-auto ">
                             <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover ">
                                 <i [ngClass]="calculateLikeClass(comment)" (click)="likeComm(comment, user.id)"></i> {{comment.likes.length}}
-                                <!-- <i class="fa fa-heart text " (click)="likeComm(comment, user.id)"></i> {{comment.likes.length}} -->
-                                <!-- <i class="fa fa-heart text-danger "></i> {{comment.likes.length}} -->
+
                             </a>
 
                         </li>
@@ -76,19 +75,7 @@
                 </div>
             </form>
 
-            <!-- 
-            <div class="panel">
-                <div class="panel-body">
 
-                    <input type="text" class="form-control" id="text" name="text" rows="6" [(ngModel)]="text" placeholder="What are you thinking?">
-                    <div class="mar-top clearfix">
-                        <button class="btn btn-sm btn-primary pull-right" type="submit"><i class="fa fa-pencil fa-fw"></i> Share</button>
-                        <a class="btn btn-trans btn-icon fa fa-video-camera add-tooltip" href="#"></a>
-                        <a class="btn btn-trans btn-icon fa fa-camera add-tooltip" href="#"></a>
-                        <a class="btn btn-trans btn-icon fa fa-file add-tooltip" href="#"></a>
-                    </div>
-                </div>
-            </div> -->
         </div>
 
 
