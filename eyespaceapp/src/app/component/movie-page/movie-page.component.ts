@@ -316,16 +316,30 @@ export class MoviePageComponent implements OnInit {
 
   likeComm(comm: Comm, userId: number) {
 
-    this.commentService.likeComm(comm, userId).subscribe(res => {
+    if(!this.likedComms.includes(comm)){
+      this.commentService.likeComm(comm, userId).subscribe(res => {
 
-      
-      console.log("likedComms",this.likedComms);
+  
+        this.initializeComments();
+  
+      }, err => {
+        console.log("ERROR:", err);
+  
+      })
+    }
+    else {
+      this.commentService.unlikeComm(comm, userId).subscribe(res => {
+  
+        this.initializeComments();
+  
+      }, err => {
+        console.log("ERROR:", err);
+  
+      })
 
-      this.initializeComments();
-    }, err => {
-      console.log("ERROR:", err);
+    }
 
-    })
+
 
   }
 
