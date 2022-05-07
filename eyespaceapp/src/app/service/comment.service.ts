@@ -16,11 +16,16 @@ export class CommentService {
   getAllCommentsByMovieIdURL: string;
   addCommentURL: string;
   deleteCommentURL: string;
+  likeCommURL : string;
+  unlikeCommURL: string;
 
   constructor(private http: HttpClient) {
     this.getAllCommentsByMovieIdURL = `${this.host}/comment/movie/`;
     this.addCommentURL = `${this.host}/comment/movie/`;
-    this.deleteCommentURL = `${this.host}/comment/`
+    this.deleteCommentURL = `${this.host}/comment/`;
+    this.likeCommURL =  `${this.host}/comment/`;
+    this.unlikeCommURL =  `${this.host}/comment/`;
+
 
   }
 
@@ -32,7 +37,6 @@ export class CommentService {
 
   addComment(comm : Comm, movieId : string, userId: number ): Observable<Comm> {
     var URL = this.getAllCommentsByMovieIdURL + movieId + '/user/' + userId;
-    console.log("URL:",URL);
     return this.http.post<Comm>(URL,comm);
   }
 
@@ -40,9 +44,22 @@ export class CommentService {
     return this.http.delete<Comm>(this.deleteCommentURL +comm.id);
   }
 
-  isShown() {
-    return false;
+  likeComm(comm: Comm, userId: number): Observable<Comm>{
+    var URL = this.likeCommURL + comm.id + '/like/' + userId;
+    console.log(URL);
+    return this.http.put<Comm>(URL, comm);
+
   }
+
+  unlikeComm(comm: Comm, userId: number): Observable<Comm>{
+    var URL = this.likeCommURL + comm.id + '/unlike/' + userId;
+    console.log(URL);
+    return this.http.put<Comm>(URL, comm);
+
+  }
+
+
+
 
 
 

@@ -51,8 +51,9 @@
 
                         <li class="list-inline-item ml-auto ">
                             <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover ">
-
-                                <i class="fa fa-heart text-danger "></i> {{comment.likes.length}}
+                                <i [ngClass]="calculateLikeClass(comment)" (click)="likeComm(comment, user.id)"></i> {{comment.likes.length}}
+                                <!-- <i class="fa fa-heart text " (click)="likeComm(comment, user.id)"></i> {{comment.likes.length}} -->
+                                <!-- <i class="fa fa-heart text-danger "></i> {{comment.likes.length}} -->
                             </a>
 
                         </li>

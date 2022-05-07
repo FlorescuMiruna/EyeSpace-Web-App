@@ -28,6 +28,9 @@ export class MoviePageComponent implements OnInit {
   myCommObj: Comm = new Comm()
   commDetails !: FormGroup;
   user: User = this.authenticationService.getUserFromLocalCache();
+  // likedComms: number[] = [];
+
+   likedComms : Comm[] = [];
   constructor(private movieService: MovieService, private authenticationService: AuthenticationService, private userService: UserService, private commentService: CommentService, private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
@@ -59,14 +62,14 @@ export class MoviePageComponent implements OnInit {
     });
   }
 
-  deleteComm(comm: Comm){
-    console.log("INTRA aici");
-    this.commentService.deleteComment(comm).subscribe(res=>{
-        console.log(res);
-        this.initializeComments();
+  deleteComm(comm: Comm) {
+
+    this.commentService.deleteComment(comm).subscribe(res => {
+      console.log(res);
+      this.initializeComments();
     }, err => {
       console.log("ERROR:", err);
-      
+
     })
   }
 
@@ -83,6 +86,13 @@ export class MoviePageComponent implements OnInit {
       return 'btn btn-outline-dark';
     else
       return 'btn btn-dark';
+  }
+
+  calculateLikeClass(comm: Comm){
+    if(this.likedComms.includes(comm))
+      return 'fa fa-heart text-danger';
+    else
+    return 'fa fa-heart text';
   }
 
   /*Verific daca filmul este in lista user-ului de filme vazute*/
@@ -165,8 +175,14 @@ export class MoviePageComponent implements OnInit {
 
 
       this.comments = res;
-      console.log("Comments:", this.comments);
+      
+      // Iau din lista doar comentariile carora le-am dat like
 
+      this.likedComms = this.comments.filter(val => val.likes.includes(this.user.id))
+
+      console.log("Comments:", this.comments);
+      console.log("Liked comments:", this.likedComms);
+ 
 
     }, err => {
       console.log("Error while fetching data")
@@ -298,7 +314,20 @@ export class MoviePageComponent implements OnInit {
 
   }
 
+  likeComm(comm: Comm, userId: number) {
 
+    this.commentService.likeComm(comm, userId).subscribe(res => {
+
+      
+      console.log("likedComms",this.likedComms);
+
+      this.initializeComments();
+    }, err => {
+      console.log("ERROR:", err);
+
+    })
+
+  }
 
 
 }
