@@ -23,7 +23,7 @@ export class MoviePageComponent implements OnInit {
   movieAPI: Movie = new Movie();
   isWatched: boolean = false;
   isInWatchList: boolean = false;
-  isFavorite : boolean = false;
+  isFavorite: boolean = false;
   text: string = '';
   comments: Comm[] = [];
   myCommObj: Comm = new Comm()
@@ -45,7 +45,7 @@ export class MoviePageComponent implements OnInit {
   }
   addComm() {
 
-    console.log("this.commDetails.value",this.commDetails.value);
+    console.log("this.commDetails.value", this.commDetails.value);
     this.myCommObj.text = this.commDetails.value.text;
 
     let userId = this.authenticationService.getUserFromLocalCache().id;
@@ -71,18 +71,18 @@ export class MoviePageComponent implements OnInit {
     })
   }
 
-  editComm(comm: Comm){
+  editComm(comm: Comm) {
     // this.commDetails.controls['id'].setValue(comm.id);
     // this.commDetails.controls['text'].setValue(comm.text);
     // this.commDetails.controls['likes'].setValue(comm.likes);
     // this.commDetails.controls['date'].setValue(comm.date);
     // this.commDetails.controls['movie'].setValue(comm.movie);
     // this.commDetails.controls['user'].setValue(comm.user);
-    console.log("this.commDetails",this.commDetails.value)
+    console.log("this.commDetails", this.commDetails.value)
   }
 
-  updateComm(){
-  //  console.log("here")
+  updateComm() {
+    //  console.log("here")
   }
 
   calculateClasses1() {
@@ -99,11 +99,11 @@ export class MoviePageComponent implements OnInit {
     else
       return 'btn btn-dark';
   }
-  calculateFavoriteClass(){
+  calculateFavoriteClass() {
     if (this.isFavorite === false)
-    return 'fa fa-heart-o';
-  else
-    return 'fa fa-heart';
+      return 'fa fa-heart-o';
+    else
+      return 'fa fa-heart';
   }
 
 
@@ -243,7 +243,6 @@ export class MoviePageComponent implements OnInit {
           timer: 1500
         })
 
-
         this.refreshUserFromLocalChash(this.authenticationService.getUserFromLocalCache().id);
         this.isWatched = true;
         console.log("ESTE VAZUT FILMUL?", this.isWatched);
@@ -257,7 +256,6 @@ export class MoviePageComponent implements OnInit {
     else {
       Swal.fire({
         title: 'Do you want to remove the movie from your list?',
-        // text: "You won't be able to revert this!",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -271,11 +269,30 @@ export class MoviePageComponent implements OnInit {
 
           this.movieService.removeMovieFromUser(this.movieAPI.id, userId).subscribe(res => {
 
-            // console.log(res);
+ 
             Swal.fire(
               'The movie was removed!',
             )
             this.isWatched = false;
+
+              //Atunci cand sterg filmul din lista il sterg si din lista favoritelor
+
+            this.movieService.removeMovieFromFavorites(this.movieAPI.id, userId).subscribe(res => {
+
+        
+              this.isFavorite = false;
+
+            }, err => {
+              console.log(err)
+              console.log("Error while fetching data")
+            });
+
+
+            this.refreshUserFromLocalChash(userId);
+
+
+
+
 
           }, err => {
             console.log(err)
@@ -379,9 +396,9 @@ export class MoviePageComponent implements OnInit {
 
   }
 
-  addMovieToFavorites(movie: Movie, userId: number){
+  addMovieToFavorites(movie: Movie, userId: number) {
 
-    if(!this.isFavorite){
+    if (!this.isFavorite) {
       this.movieService.addMovieToFavorites(movie, userId).subscribe(res => {
         Swal.fire({
           position: 'center',
@@ -401,7 +418,7 @@ export class MoviePageComponent implements OnInit {
         console.log("ERROR:", err);
 
       })
-    }    else {
+    } else {
       Swal.fire({
         title: 'Do you want to remove the movie from FAVORITES?',
         icon: 'warning',
@@ -436,8 +453,8 @@ export class MoviePageComponent implements OnInit {
     }
 
 
-    
- 
-    }
+
+
+  }
 
 }

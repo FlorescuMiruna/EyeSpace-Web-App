@@ -23,6 +23,7 @@
 <h1>TIME SPENT WATCHING MOVIES: {{time[0]}} Days {{time[1]}} Hours </h1>
 <h1>MOVIES WATCHED: {{movies.length}}</h1>
 <h1>MY MOVIES</h1>
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 <div class="row">
 
     <div class="col-md-3" *ngFor="let movie of movies " (click)="goToMovie(movie)">
@@ -36,9 +37,16 @@
                 <h5 class="card-title ">{{movie.title}}</h5>
                 <p class="card-text ">{{movie.date}}</p>
                 <p class="card-text ">{{movie.director}}</p>
+
+                <i *ngIf="favorites_ids.includes(movie.id)" class="fa fa-heart" style="font-size:20px;"></i>
+
+
             </div>
+
+
         </div>
     </div>
+
 
 </div>
 <h1>WATCH LIST</h1>
@@ -56,6 +64,29 @@
                 <p class="card-text ">{{movie.date}}</p>
                 <p class="card-text ">{{movie.director}}</p>
             </div>
+
+        </div>
+    </div>
+
+</div>
+
+<h1>FAVORITE MOVIES</h1>
+<div class="row">
+
+    <div class="col-md-3" *ngFor="let movie of favorites " (click)="goToMovie(movie)">
+
+        <div class=" card shadow ">
+            <div class="inner ">
+                <img src={{movie.posterUrl}} class="card-img-top " alt="... ">
+
+            </div>
+            <div class="card-body ">
+                <h5 class="card-title ">{{movie.title}}</h5>
+                <p class="card-text ">{{movie.date}}</p>
+                <p class="card-text ">{{movie.director}}</p>
+                <i *ngIf="favorites_ids.includes(movie.id)" class="fa fa-heart" style="font-size:20px;"></i>
+            </div>
+
         </div>
     </div>
 

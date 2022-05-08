@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700&display=swap');
 .card:hover {
     background-color: rgba(183, 105, 205, 0.416);
 }
@@ -250,4 +251,9 @@ nav ul li.btn span.show:before {
     font-size: 28px;
     font-weight: 600;
     color: #202020;
+}
+
+.fa.fa-heart {
+    font-size: 10px;
+    color: rgb(202, 65, 109);
 }

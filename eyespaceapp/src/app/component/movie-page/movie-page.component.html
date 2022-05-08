@@ -18,7 +18,7 @@
         <!-- <i class="fa fa-heart-o" style="font-size:40px;"></i> -->
 
         <!-- <img src="assets/like.png" alt="Heart icon" id="heart"> -->
-        <i [ngClass]="calculateFavoriteClass()" (click)="addMovieToFavorites(movieAPI, user.id)" style="font-size:40px;"></i>
+        <i [hidden]="!isWatched" [ngClass]="calculateFavoriteClass()" (click)="addMovieToFavorites(movieAPI, user.id)" style="font-size:40px;"></i>
 
     </div>
 
