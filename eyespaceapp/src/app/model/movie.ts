@@ -8,5 +8,6 @@ export class Movie {
     plot: string='';
     rating :string ='';
     posterUrl:string='';
+    duration:number=0;
 
 }

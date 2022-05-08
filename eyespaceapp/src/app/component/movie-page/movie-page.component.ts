@@ -28,9 +28,8 @@ export class MoviePageComponent implements OnInit {
   myCommObj: Comm = new Comm()
   commDetails !: FormGroup;
   user: User = this.authenticationService.getUserFromLocalCache();
-  // likedComms: number[] = [];
+  likedComms: Comm[] = [];
 
-   likedComms : Comm[] = [];
   constructor(private movieService: MovieService, private authenticationService: AuthenticationService, private userService: UserService, private commentService: CommentService, private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
@@ -45,14 +44,13 @@ export class MoviePageComponent implements OnInit {
   }
   addComm() {
 
-    console.log(this.commDetails);
-    console.log(this.commDetails.value);
+    console.log("this.commDetails.value",this.commDetails.value);
     this.myCommObj.text = this.commDetails.value.text;
 
     let userId = this.authenticationService.getUserFromLocalCache().id;
 
     this.commentService.addComment(this.myCommObj, this.movieAPI.id, userId).subscribe(res => {
-      console.log(res);
+      // console.log("res", res);
       this.initializeComments();
 
     }, err => {
@@ -65,12 +63,25 @@ export class MoviePageComponent implements OnInit {
   deleteComm(comm: Comm) {
 
     this.commentService.deleteComment(comm).subscribe(res => {
-      console.log(res);
       this.initializeComments();
     }, err => {
       console.log("ERROR:", err);
 
     })
+  }
+
+  editComm(comm: Comm){
+    // this.commDetails.controls['id'].setValue(comm.id);
+    // this.commDetails.controls['text'].setValue(comm.text);
+    // this.commDetails.controls['likes'].setValue(comm.likes);
+    // this.commDetails.controls['date'].setValue(comm.date);
+    // this.commDetails.controls['movie'].setValue(comm.movie);
+    // this.commDetails.controls['user'].setValue(comm.user);
+    console.log("this.commDetails",this.commDetails.value)
+  }
+
+  updateComm(){
+  //  console.log("here")
   }
 
   calculateClasses1() {
@@ -88,11 +99,11 @@ export class MoviePageComponent implements OnInit {
       return 'btn btn-dark';
   }
 
-  calculateLikeClass(comm: Comm){
-    if(this.likedComms.includes(comm))
+  calculateLikeClass(comm: Comm) {
+    if (this.likedComms.includes(comm))
       return 'fa fa-heart text-danger';
     else
-    return 'fa fa-heart text';
+      return 'fa fa-heart text';
   }
 
   /*Verific daca filmul este in lista user-ului de filme vazute*/
@@ -151,16 +162,15 @@ export class MoviePageComponent implements OnInit {
       var idIMDB = temp;
     }
 
-    console.log('idIMDB:', idIMDB)
+
 
     this.movieService.getAPIMovie(idIMDB).subscribe(res => {
 
       this.movieAPI = res;
-      console.log("this.movieAPI:", this.movieAPI)
       this.checkWatched();
       this.checkInWatchList();
-      console.log("ESTE VAZUT FILMUL?", this.isWatched);
-      console.log("ESTE IN WATCH-LIST FILMUL?", this.isInWatchList);
+      // console.log("ESTE VAZUT FILMUL?", this.isWatched);
+      // console.log("ESTE IN WATCH-LIST FILMUL?", this.isInWatchList);
       this.initializeComments();
 
     }, err => {
@@ -175,14 +185,14 @@ export class MoviePageComponent implements OnInit {
 
 
       this.comments = res;
-      
+
       // Iau din lista doar comentariile carora le-am dat like
 
       this.likedComms = this.comments.filter(val => val.likes.includes(this.user.id))
 
-      console.log("Comments:", this.comments);
-      console.log("Liked comments:", this.likedComms);
- 
+      // console.log("Comments:", this.comments);
+      // console.log("Liked comments:", this.likedComms);
+
 
     }, err => {
       console.log("Error while fetching data")
@@ -316,25 +326,25 @@ export class MoviePageComponent implements OnInit {
 
   likeComm(comm: Comm, userId: number) {
 
-    if(!this.likedComms.includes(comm)){
+    if (!this.likedComms.includes(comm)) {
       this.commentService.likeComm(comm, userId).subscribe(res => {
 
-  
+
         this.initializeComments();
-  
+
       }, err => {
         console.log("ERROR:", err);
-  
+
       })
     }
     else {
       this.commentService.unlikeComm(comm, userId).subscribe(res => {
-  
+
         this.initializeComments();
-  
+
       }, err => {
         console.log("ERROR:", err);
-  
+
       })
 
     }

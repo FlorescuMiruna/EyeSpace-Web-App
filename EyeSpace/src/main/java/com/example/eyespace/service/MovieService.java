@@ -1,5 +1,4 @@
 package com.example.eyespace.service;
-
 import com.example.eyespace.exception.domain.NotFoundException;
 import com.example.eyespace.model.Movie;
 import com.example.eyespace.model.MovieSearchDetails;
@@ -11,7 +10,6 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -20,13 +18,12 @@ import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
+
 
 @Service
 public class MovieService {
     @Value("${apiIMDBKey}")
     private String apiIMDBKey;
-
 
    private final MovieRepository movieRepository;
    private final UserService userService;
@@ -41,20 +38,28 @@ public class MovieService {
         return movieRepository.findAll();
     }
 
+    public Movie getMovieById(String id){
+
+        Optional<Movie> movieOptional = Optional.ofNullable(movieRepository.findById(id));
+
+        return movieOptional.orElseThrow(() -> new NotFoundException("Movie not found!", "movie.not.found"));
+
+
+    }
+
+    public Movie getMovieByTitle(String title){
+        return movieRepository.findByTitle(title);
+    }
+
     public Movie addMovie(Movie movie,Long userId){
        User user = userService.findUserById(userId);
 
         Optional<Movie> optionalMovie = Optional.ofNullable(movieRepository.findById(movie.getId()));
         if(optionalMovie.isPresent()){
-
             movie.setUsers1(optionalMovie.get().getUsers1());
             movie.setUsers2(optionalMovie.get().getUsers2());
-
         }
-
-
         movie.getUsers1().add(user);
-
         return movieRepository.save(movie);
 
     }
@@ -76,24 +81,9 @@ public class MovieService {
 
     }
 
-
-
-    public List<Movie> addAllMovies(List<Movie> movies) {
-        return  movieRepository.saveAll(movies);
-    }
-
-    public Movie getMovieById(String id){
-//        return movieRepository.findById(id);
-        Optional<Movie> movieOptional = Optional.ofNullable(movieRepository.findById(id));
-
-        return movieOptional.orElseThrow(() -> new NotFoundException("Movie not found!", "movie.not.found"));
-
-
-    }
-
-    public Movie getMovieByTitle(String title){
-        return movieRepository.findByTitle(title);
-    }
+//    public List<Movie> addAllMovies(List<Movie> movies) {
+//        return  movieRepository.saveAll(movies);
+//    }
 
     public void deleteMovie(String id) {
 
@@ -104,21 +94,6 @@ public class MovieService {
                 throw new NotFoundException("Movie not found!", "movie.not.found");
             }
     }
-//
-//    public Movie updateMovie(Movie movie) {
-//        Movie existingMovie = movieRepository.findById(movie.getId()).orElse(null);
-//        System.out.println(movie);
-//        if(existingMovie == null) {
-//            System.out.println("Movie not found");
-//            return  movieRepository.save(movie);
-//        }else  {
-//            existingMovie.setTitle(movie.getTitle());
-//            existingMovie.setDirector(movie.getDirector());
-//            existingMovie.setRating(movie.getRating());
-//            movieRepository.save(existingMovie);
-//        }
-//        return movie;
-//    }
 
     public JSONObject MovieAPI() throws IOException, InterruptedException {
         HttpRequest request = HttpRequest.newBuilder()
@@ -189,11 +164,6 @@ public class MovieService {
         System.out.println(json.get("id"));
         System.out.println(json.getClass());
 
-
-//        ObjectMapper mapper = new ObjectMapper();
-//        Movie movie = mapper.readValue(response.body(), Movie.class);
-//        System.out.println(movie.toString());
-
         Movie movie = jsonToMovie(json);
         System.out.println("Movie din getMovieByIdApiIMDB:" + movie.toString());
         return movie;
@@ -208,7 +178,6 @@ public class MovieService {
         movieSearchDetails.setYear((String) jsonObject.get("description"));
         movieSearchDetails.setPosterUrl((String) jsonObject.get("image"));
 
-        System.out.println("el la inceput: " + movieSearchDetails.toString());
         return  movieSearchDetails;
     }
 
@@ -222,8 +191,8 @@ public class MovieService {
         movie.setDate((String) jsonObject.get("releaseDate"));
         movie.setPlot((String) jsonObject.get("plot"));
         movie.setPosterUrl((String) jsonObject.get("image"));
-        System.out.println();
-      //  System.out.println("Movie din jsonToMovie:" + movie.toString());
+        movie.setDuration(Integer.parseInt( (String) jsonObject.get("runtimeMins")));
+
         return movie;
     }
 
@@ -234,10 +203,6 @@ public class MovieService {
         if(movieOptional.isPresent()  ){
 
             if(user.getMovies().contains(movieOptional.get())){
-//               Set<User> users =  movieOptional.get().getUsers();
-//                System.out.println("BEFORE:"+ users);
-//                users.remove(user);
-//                System.out.println("AFTER:"+ users);
 
                 movieOptional.get().getUsers1().remove(user);
                 movieRepository.save(movieOptional.get());

@@ -45,16 +45,16 @@ public class MovieController {
 
     @PutMapping("/remove/watch-list/{movieId}/user/{userId}")
     public void removeWatchListMovieFromUser(@PathVariable String movieId,@PathVariable Long userId){
-        System.out.println("************* removeWatchListMovieFromUser ************");
+        //System.out.println("************* removeWatchListMovieFromUser ************");
 
         movieService.removeWatchListMovieFromUser(movieId,userId);
 
     }
 
-    @PostMapping("/all")
-    public List<Movie> addAllMovies(@RequestBody List<Movie> movies) {
-        return movieService.addAllMovies(movies);
-    }
+//    @PostMapping("/all")
+//    public List<Movie> addAllMovies(@RequestBody List<Movie> movies) {
+//        return movieService.addAllMovies(movies);
+//    }
 
 
 

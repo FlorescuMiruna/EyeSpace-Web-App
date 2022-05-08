@@ -36,6 +36,8 @@ public class Movie {
     private String rating;
     private String posterUrl;
 
+    private Integer duration = 0;
+
 
     @JsonIgnore
     @ManyToMany
@@ -68,6 +70,7 @@ public class Movie {
                 ", plot='" + plot + '\'' +
                 ", rating='" + rating + '\'' +
                 ", posterUrl='" + posterUrl + '\'' +
+                ", duration=" + duration +
                 ", users1=" + users1 +
                 ", users2=" + users2 +
                 ", comments=" + comments +

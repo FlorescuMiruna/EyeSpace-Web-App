@@ -32,9 +32,8 @@
 <div class="container" [hidden]="!isWatched">
     <div class="row">
 
-
-
         <div class="col-md-10">
+
             <div class="media g-mb-30 media-comment" *ngFor="let comment of comments ">
                 <img class="d-flex g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15" src="{{comment.user.profileImageUrl}}" lt="Image Description ">
                 <div class="media-body u-shadow-v18 g-bg-secondary g-pa-30 ">
@@ -57,6 +56,11 @@
 
                         </li>
                         <i style="font-size:24px" *ngIf="comment.user.id===user.id" class="fa" (click)="deleteComm(comment)">&#xf014;</i>
+                        <button type="button" *ngIf="comment.user.id===user.id" class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#editComm" (click)="editComm(comment)">Edit</button>
+                        <!-- <i style="font-size:24px" *ngIf="comment.user.id===user.id" class="fa">&#xf044;</i> -->
+
+
+
 
                     </ul>
                 </div>
@@ -75,13 +79,35 @@
                 </div>
             </form>
 
+            <!-- <button class="btn btn-success" type="submit" data-bs-toggle="modal" data-bs-target="#addComm">Add comm</button> -->
+
 
         </div>
-
-
-
-
 
     </div>
 
 </div>
+
+<!-- Add Movie Modal -->
+<!-- <div class="modal fade" id="addComm" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add new Comm</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="commDetails">
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Text</label>
+                        <input type="text" formControlName="text" class="form-control" id="text" aria-describedby="textHelp">
+
+                    </div>
+
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div> -->
