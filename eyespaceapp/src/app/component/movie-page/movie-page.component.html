@@ -13,7 +13,12 @@
             <p class="card-text ">{{movieAPI.plot}}</p>
             <p class="card-text ">{{movieAPI.rating}}</p>
         </div>
+        <!-- 
+        <i class="bi bi-heart" style="font-size:48px;"></i> -->
+        <!-- <i class="fa fa-heart-o" style="font-size:40px;"></i> -->
 
+        <!-- <img src="assets/like.png" alt="Heart icon" id="heart"> -->
+        <i [ngClass]="calculateFavoriteClass()" (click)="addMovieToFavorites(movieAPI, user.id)" style="font-size:40px;"></i>
 
     </div>
 

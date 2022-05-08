@@ -38,6 +38,9 @@ public class Movie {
 
     private Integer duration = 0;
 
+//    @ElementCollection
+//    private Set<Long> favorites = new HashSet<>();
+
 
     @JsonIgnore
     @ManyToMany
@@ -54,6 +57,14 @@ public class Movie {
             joinColumns = @JoinColumn(name = "movie_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
     private  Set<User> users2 = new HashSet<>();
+
+    @JsonIgnore
+    @ManyToMany
+    @JoinTable(
+            name = "movie_user_3",
+            joinColumns = @JoinColumn(name = "movie_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private  Set<User> users3 = new HashSet<>();
 
     @JsonIgnore
     @OneToMany(mappedBy = "movie",cascade = CascadeType.ALL)

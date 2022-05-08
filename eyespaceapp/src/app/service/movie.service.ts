@@ -25,6 +25,8 @@ export class MovieService {
   removeMovieFromUserURL: string;
   addMovieToWatchListURL: string;
   removeWatchListMovieFromUserURL: string;
+  addMovieToFavoritesURL: string;
+  removeMovieFromFavoritesURL:string;
 
   constructor(private http: HttpClient) {
     this.addMovieURL = `${this.host}/movie/watched/user/`;
@@ -39,6 +41,9 @@ export class MovieService {
 
     this.removeMovieFromUserURL = `${this.host}/movie/remove/`;
     this.removeWatchListMovieFromUserURL = `${this.host}/movie/remove/watch-list/`;
+
+    this.addMovieToFavoritesURL =`${this.host}/movie/favorite/user/`
+    this.removeMovieFromFavoritesURL =`${this.host}/movie/remove-favorite/`
 
     this.movieIdImdb = 'default';
   }
@@ -55,14 +60,14 @@ export class MovieService {
   addMovie(movie: Movie, id: number): Observable<Movie> {
     var URL = "";
     URL = this.addMovieURL + id.toString();
-    console.log("URL:", URL);
+
     return this.http.post<Movie>(URL, movie);
   }
 
   addMovieToWatchList(movie: Movie, id: number): Observable<Movie> {
     var URL = "";
     URL = this.addMovieToWatchListURL + id.toString();
-    console.log("URL:", URL);
+
     return this.http.post<Movie>(URL, movie);
   }
 
@@ -105,6 +110,24 @@ export class MovieService {
     return this.http.get<Movie>(URL);
 
   }
+
+  addMovieToFavorites(movie: Movie, id: number): Observable<Movie> {
+    var URL = "";
+    URL = this.addMovieToFavoritesURL + id.toString();
+ 
+
+    return this.http.post<Movie>(URL, movie);
+  }
+
+  public removeMovieFromFavorites(movieId: string, userId: number): Observable<any> {
+
+    var URL = this.removeMovieFromFavoritesURL + movieId + '/user/' + userId.toString();
+    console.log("URL de remove",URL)
+    return this.http.put<any>(URL, null);
+  }
+
+
+
 
 
 

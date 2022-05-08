@@ -38,7 +38,7 @@ public class MovieController {
     }
     @PutMapping("/remove/{movieId}/user/{userId}")
     public void removeMovieFromUser(@PathVariable String movieId,@PathVariable Long userId){
-        System.out.println("************* removeMovieFromUser ************");
+       // System.out.println("************* removeMovieFromUser ************");
         movieService.removeMovieFromUser(movieId,userId);
 
     }
@@ -48,6 +48,13 @@ public class MovieController {
         //System.out.println("************* removeWatchListMovieFromUser ************");
 
         movieService.removeWatchListMovieFromUser(movieId,userId);
+
+    }
+
+    @PutMapping("/remove-favorite/{movieId}/user/{userId}")
+    public void removeMovieFromFavorites(@PathVariable String movieId,@PathVariable Long userId){
+
+        movieService.removeMovieFromFavorites(movieId,userId);
 
     }
 
@@ -102,6 +109,20 @@ public class MovieController {
          movieService.deleteMovie(id);
 
     }
+
+    @PostMapping("/favorite/user/{userId}")
+    public Movie addMovieToFavorites(@RequestBody Movie movie, @PathVariable Long userId){
+        movieService.addMovieToFavorites(movie,userId);
+        return movie;
+    }
+
+//    @PutMapping("/{id}/remove-favorite/user/{userId}")
+//    public void removeMovieFromFavorites(@PathVariable String id, @PathVariable Long userId){
+//        movieService.removeMovieFromFavorites(id,userId);
+//    }
+
+
+
 //    @PutMapping("")
 //    public Movie updateMovie(@RequestBody Movie movie) {
 //        return movieService.updateMovie(movie);

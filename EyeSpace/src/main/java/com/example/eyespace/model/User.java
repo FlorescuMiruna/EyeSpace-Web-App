@@ -43,6 +43,8 @@ public class User implements Serializable {
     @ManyToMany(mappedBy = "users2")
     private Set<Movie> movies_watch_list = new HashSet<>();
 
+    @ManyToMany(mappedBy = "users3")
+    private Set<Movie> favorites = new HashSet<>();
 
     @JsonIgnore
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
@@ -50,7 +52,7 @@ public class User implements Serializable {
 
     public User(){}
 
-    public User(Long id, String userId, String firstName, String lastName, String username, String password, String email, String profileImageUrl, Date lastLoginDate, Date lastLoginDateDisplay, Date joinDate, String role, String[] authorities, boolean isActive, boolean isNotLocked, Set<Movie> movies, Set<Movie> movies_watch_list, List<Comment> comments) {
+    public User(Long id, String userId, String firstName, String lastName, String username, String password, String email, String profileImageUrl, Date lastLoginDate, Date lastLoginDateDisplay, Date joinDate, String role, String[] authorities, boolean isActive, boolean isNotLocked, Set<Movie> movies, Set<Movie> movies_watch_list, Set<Movie> favorites, List<Comment> comments) {
         this.id = id;
         this.userId = userId;
         this.firstName = firstName;
@@ -68,6 +70,7 @@ public class User implements Serializable {
         this.isNotLocked = isNotLocked;
         this.movies = movies;
         this.movies_watch_list = movies_watch_list;
+        this.favorites = favorites;
         this.comments = comments;
     }
 
@@ -191,14 +194,6 @@ public class User implements Serializable {
         isNotLocked = notLocked;
     }
 
-    public Set<Movie> getMovies_watch_list() {
-        return movies_watch_list;
-    }
-
-    public void setMovies_watch_list(Set<Movie> movies_watch_list) {
-        this.movies_watch_list = movies_watch_list;
-    }
-
     public Set<Movie> getMovies() {
         return movies;
     }
@@ -207,6 +202,21 @@ public class User implements Serializable {
         this.movies = movies;
     }
 
+    public Set<Movie> getMovies_watch_list() {
+        return movies_watch_list;
+    }
+
+    public void setMovies_watch_list(Set<Movie> movies_watch_list) {
+        this.movies_watch_list = movies_watch_list;
+    }
+
+    public Set<Movie> getFavorites() {
+        return favorites;
+    }
+
+    public void setFavorites(Set<Movie> favorites) {
+        this.favorites = favorites;
+    }
 
     public List<Comment> getComments() {
         return comments;

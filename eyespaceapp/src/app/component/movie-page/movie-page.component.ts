@@ -23,6 +23,7 @@ export class MoviePageComponent implements OnInit {
   movieAPI: Movie = new Movie();
   isWatched: boolean = false;
   isInWatchList: boolean = false;
+  isFavorite : boolean = false;
   text: string = '';
   comments: Comm[] = [];
   myCommObj: Comm = new Comm()
@@ -98,6 +99,13 @@ export class MoviePageComponent implements OnInit {
     else
       return 'btn btn-dark';
   }
+  calculateFavoriteClass(){
+    if (this.isFavorite === false)
+    return 'fa fa-heart-o';
+  else
+    return 'fa fa-heart';
+  }
+
 
   calculateLikeClass(comm: Comm) {
     if (this.likedComms.includes(comm))
@@ -139,6 +147,22 @@ export class MoviePageComponent implements OnInit {
       this.isInWatchList = false;
   }
 
+  checkFavorite(): void {
+
+    let found: boolean = false;
+    let movies: Movie[] = this.authenticationService.getUserFromLocalCache().favorites;
+
+    for (let movie of movies) {
+      if (movie.id == this.movieAPI.id) {
+        found = true;
+        this.isFavorite = true;
+        break;
+      }
+    }
+    if (found == false)
+      this.isFavorite = false;
+  }
+
 
   refreshUserFromLocalChash(id: number) {
 
@@ -167,8 +191,10 @@ export class MoviePageComponent implements OnInit {
     this.movieService.getAPIMovie(idIMDB).subscribe(res => {
 
       this.movieAPI = res;
+      console.log("favorites:", this.user.favorites)
       this.checkWatched();
       this.checkInWatchList();
+      this.checkFavorite();
       // console.log("ESTE VAZUT FILMUL?", this.isWatched);
       // console.log("ESTE IN WATCH-LIST FILMUL?", this.isInWatchList);
       this.initializeComments();
@@ -190,7 +216,7 @@ export class MoviePageComponent implements OnInit {
 
       this.likedComms = this.comments.filter(val => val.likes.includes(this.user.id))
 
-      // console.log("Comments:", this.comments);
+      console.log("Comments:", this.comments);
       // console.log("Liked comments:", this.likedComms);
 
 
@@ -245,7 +271,7 @@ export class MoviePageComponent implements OnInit {
 
           this.movieService.removeMovieFromUser(this.movieAPI.id, userId).subscribe(res => {
 
-            console.log(res);
+            // console.log(res);
             Swal.fire(
               'The movie was removed!',
             )
@@ -353,5 +379,65 @@ export class MoviePageComponent implements OnInit {
 
   }
 
+  addMovieToFavorites(movie: Movie, userId: number){
+
+    if(!this.isFavorite){
+      this.movieService.addMovieToFavorites(movie, userId).subscribe(res => {
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'The movie was added to your FAVORITES',
+          showConfirmButton: false,
+          timer: 1500
+        })
+
+
+        this.refreshUserFromLocalChash(this.authenticationService.getUserFromLocalCache().id);
+        this.isFavorite = true;
+        console.log("ESTE VAZUT FILMUL?", this.isWatched);
+
+
+      }, err => {
+        console.log("ERROR:", err);
+
+      })
+    }    else {
+      Swal.fire({
+        title: 'Do you want to remove the movie from FAVORITES?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#4E9A9B',
+        confirmButtonText: 'Yes, remove it!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+
+
+          let userId = this.authenticationService.getUserFromLocalCache().id;
+
+          this.movieService.removeMovieFromFavorites(this.movieAPI.id, userId).subscribe(res => {
+
+            console.log(res);
+            Swal.fire(
+              'The movie was removed!',
+            )
+            this.isFavorite = false;
+
+          }, err => {
+            console.log(err)
+            console.log("Error while fetching data")
+          });
+
+
+          this.refreshUserFromLocalChash(userId);
+
+        }
+      })
+    }
+
+
+    
+ 
+    }
 
 }

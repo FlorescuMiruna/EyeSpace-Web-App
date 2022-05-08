@@ -293,3 +293,9 @@ body {
 .panel-body {
     padding: 25px 20px;
 }
+
+.fa.fa-heart {
+    font-size: 40px;
+    color: rgb(202, 65, 109);
+    font-size: 40px;
+}

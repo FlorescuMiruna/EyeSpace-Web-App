@@ -15,6 +15,7 @@ export class User {
     public authorities: [];
     public movies:[];
     public movies_watch_list:[];
+    public favorites:[];
   
     constructor() {
        this.id = null as any;
@@ -33,6 +34,7 @@ export class User {
       this.authorities = [];
       this.movies = [];
       this.movies_watch_list = [];
+      this.favorites = [];
     }
   
   }

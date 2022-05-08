@@ -1,5 +1,6 @@
 package com.example.eyespace.service;
 import com.example.eyespace.exception.domain.NotFoundException;
+import com.example.eyespace.model.Comment;
 import com.example.eyespace.model.Movie;
 import com.example.eyespace.model.MovieSearchDetails;
 import com.example.eyespace.model.User;
@@ -18,6 +19,7 @@ import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 
 @Service
@@ -58,6 +60,7 @@ public class MovieService {
         if(optionalMovie.isPresent()){
             movie.setUsers1(optionalMovie.get().getUsers1());
             movie.setUsers2(optionalMovie.get().getUsers2());
+            movie.setUsers3(optionalMovie.get().getUsers3());
         }
         movie.getUsers1().add(user);
         return movieRepository.save(movie);
@@ -71,6 +74,7 @@ public class MovieService {
         if(optionalMovie.isPresent()){
             movie.setUsers2(optionalMovie.get().getUsers2());
             movie.setUsers1(optionalMovie.get().getUsers1());
+            movie.setUsers3(optionalMovie.get().getUsers3());
 
         }
 
@@ -237,4 +241,69 @@ public class MovieService {
             throw new NotFoundException("Movie not found!", "movie.not.found");
         }
     }
+
+    public Movie addMovieToFavorites(Movie movie,Long userId){
+        User user = userService.findUserById(userId);
+
+        Optional<Movie> optionalMovie = Optional.ofNullable(movieRepository.findById(movie.getId()));
+        if(optionalMovie.isPresent()){
+            movie.setUsers2(optionalMovie.get().getUsers2());
+            movie.setUsers1(optionalMovie.get().getUsers1());
+            movie.setUsers3(optionalMovie.get().getUsers3());
+
+        }
+
+
+        movie.getUsers3().add(user);
+
+        return movieRepository.save(movie);
+
+    }
+
+    public void removeMovieFromFavorites(String movieId, Long userId) {
+        User user = userService.findUserById(userId);
+        Optional<Movie> movieOptional = Optional.ofNullable(movieRepository.findById(movieId));
+        if(movieOptional.isPresent()  ){
+
+            if(user.getFavorites().contains(movieOptional.get())){
+
+
+                movieOptional.get().getUsers3().remove(user);
+                movieRepository.save(movieOptional.get());
+                System.out.println("Remvoved movie:"+ movieOptional.get());
+                System.out.println("From user:"+ user);
+            }
+
+            else {
+                throw new NotFoundException("Movie not found in User list!", "movie.not.found.in.user.list");
+            }
+        }else {
+            throw new NotFoundException("Movie not found!", "movie.not.found");
+        }
+    }
+//    public void addMovieToFavorites(String movieId, Long userId){
+//        Optional<Movie> movieOptional = Optional.ofNullable(movieRepository.findById(movieId));
+//
+//        if(movieOptional.isPresent()){
+//            Set<Long> favorite =  movieOptional.get().getFavorites();
+//            favorite.add(userId);
+//            movieOptional.get().setFavorites(favorite);
+//            movieRepository.save(movieOptional.get());
+//        }else {
+//            throw new NotFoundException("Movie not found!", "movie.not.found");
+//        }
+//
+//    }
+//    public void removeMovieFromFavorites(String movieId, Long userId) {
+//        Optional<Movie> movieOptional = Optional.ofNullable(movieRepository.findById(movieId));
+//        if(movieOptional.isPresent()){
+//            Set<Long> favorites =  movieOptional.get().getFavorites();
+//            favorites.remove(userId);
+//            movieOptional.get().setFavorites(favorites);
+//            movieRepository.save(movieOptional.get());
+//        }else {
+//            throw new NotFoundException("Comment not found!", "comment.not.found");
+//        }
+//    }
+
 }
