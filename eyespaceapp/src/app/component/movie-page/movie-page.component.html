@@ -93,19 +93,25 @@
 
 </div>
 
+<form [formGroup]="form">
+
+    <ngx-star-rating formControlName="rating" [id]="'rating'" (click)="rating()"></ngx-star-rating>
+    <div>Rating: {{form.value.rating}}</div>
+    <p>form is valid: {{ form.valid ? 'true' : 'false' }}</p>
+</form>
 <!-- Add Movie Modal -->
-<!-- <div class="modal fade" id="addComm" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Add new Comm</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+<!-- <div class=" modal fade " id="addComm " tabindex="-1 " aria-labelledby="exampleModalLabel " aria-hidden="true ">
+    <div class="modal-dialog ">
+        <div class="modal-content ">
+            <div class="modal-header ">
+                <h5 class="modal-title " id="exampleModalLabel ">Add new Comm</h5>
+                <button type="button " class="btn-close " data-bs-dismiss="modal " aria-label="Close "></button>
             </div>
-            <div class="modal-body">
-                <form [formGroup]="commDetails">
-                    <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">Text</label>
-                        <input type="text" formControlName="text" class="form-control" id="text" aria-describedby="textHelp">
+            <div class="modal-body ">
+                <form [formGroup]="commDetails ">
+                    <div class="mb-3 ">
+                        <label for="exampleInputEmail1 " class="form-label ">Text</label>
+                        <input type="text " formControlName="text " class="form-control " id="text " aria-describedby="textHelp ">
 
                     </div>
 

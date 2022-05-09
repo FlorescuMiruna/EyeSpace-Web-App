@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NotificationType } from 'src/app/enum/notification-type.enum';
 import { Comm } from 'src/app/model/comm';
 import { Movie } from 'src/app/model/movie';
@@ -19,6 +19,7 @@ import Swal from 'sweetalert2';
 })
 export class MoviePageComponent implements OnInit {
 
+  public form !: FormGroup;
 
   movieAPI: Movie = new Movie();
   isWatched: boolean = false;
@@ -30,6 +31,7 @@ export class MoviePageComponent implements OnInit {
   commDetails !: FormGroup;
   user: User = this.authenticationService.getUserFromLocalCache();
   likedComms: Comm[] = [];
+  rating3: number = 0;
 
   constructor(private movieService: MovieService, private authenticationService: AuthenticationService, private userService: UserService, private commentService: CommentService, private formBuilder: FormBuilder) { }
 
@@ -41,6 +43,15 @@ export class MoviePageComponent implements OnInit {
       text: ['']
     });
 
+    // this.rating3 = 0;
+    this.form = this.formBuilder.group({
+      rating: ['', Validators.required],
+    })
+  
+
+  }
+  rating(){
+    console.log("Rating:",this.form.value.rating)
 
   }
   addComm() {

@@ -17,6 +17,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MovieComponent } from './component/movie/movie.component';
 import { MoviePageComponent } from './component/movie-page/movie-page.component';
 import { MyMoviesComponent } from './component/my-movies/my-movies.component';
+import { NgxStarRatingModule } from 'ngx-star-rating';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import { MyMoviesComponent } from './component/my-movies/my-movies.component';
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
-    NotificationModule
+    NotificationModule,
+    NgxStarRatingModule
     
   ],
   providers: [ NotificationService,AuthenticationGuard, AuthenticationService, UserService,
