@@ -70,6 +70,10 @@ public class Movie {
     @OneToMany(mappedBy = "movie",cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "movie",cascade = CascadeType.ALL)
+    private List<Rating> ratings = new ArrayList<>();
+
     @Override
     public String toString() {
         return "Movie{" +
@@ -84,7 +88,9 @@ public class Movie {
                 ", duration=" + duration +
                 ", users1=" + users1 +
                 ", users2=" + users2 +
+                ", users3=" + users3 +
                 ", comments=" + comments +
+                ", ratings=" + ratings +
                 '}';
     }
 }

@@ -25,6 +25,7 @@ import java.io.InputStream;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.HashMap;
 import java.util.List;
 
 import static com.example.eyespace.constant.FileConstant.*;
@@ -124,6 +125,11 @@ public class UserController extends ExceptionHandling {
         userService.deleteUser(username);
         return response(OK , USER_DELETED_SUCCESSFULLY);
     }
+//    @PutMapping("/{userId}/movie/{movieId}/rating/{rating}")
+//    public void addRating(@PathVariable Long userId,@PathVariable String movieId, @PathVariable Integer rating ){
+//        System.out.println("addRating");
+//        userService.addRating(userId,movieId,rating);
+//    }
 
     @PostMapping("/updateProfileImage")
     public ResponseEntity<User> updateProfileImage(@RequestParam("username") String username, @RequestParam(value = "profileImage") MultipartFile profileImage) throws UserNotFoundException, UsernameExistException, EmailExistException, IOException, NotAnImageFileException {

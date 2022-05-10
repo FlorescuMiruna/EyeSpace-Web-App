@@ -35,6 +35,8 @@ public class User implements Serializable {
     private boolean isNotLocked;
 
 
+//    private HashMap<String, Integer> ratings = new HashMap<String, Integer>();
+
     //@JsonIgnore
     @ManyToMany(mappedBy = "users1")
     private Set<Movie> movies = new HashSet<>();
@@ -50,9 +52,13 @@ public class User implements Serializable {
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    private List<Rating> ratings = new ArrayList<>();
+
     public User(){}
 
-    public User(Long id, String userId, String firstName, String lastName, String username, String password, String email, String profileImageUrl, Date lastLoginDate, Date lastLoginDateDisplay, Date joinDate, String role, String[] authorities, boolean isActive, boolean isNotLocked, Set<Movie> movies, Set<Movie> movies_watch_list, Set<Movie> favorites, List<Comment> comments) {
+    public User(Long id, String userId, String firstName, String lastName, String username, String password, String email, String profileImageUrl, Date lastLoginDate, Date lastLoginDateDisplay, Date joinDate, String role, String[] authorities, boolean isActive, boolean isNotLocked, Set<Movie> movies, Set<Movie> movies_watch_list, Set<Movie> favorites, List<Comment> comments, List<Rating> ratings) {
         this.id = id;
         this.userId = userId;
         this.firstName = firstName;
@@ -72,6 +78,15 @@ public class User implements Serializable {
         this.movies_watch_list = movies_watch_list;
         this.favorites = favorites;
         this.comments = comments;
+        this.ratings = ratings;
+    }
+
+    public List<Rating> getRatings() {
+        return ratings;
+    }
+
+    public void setRatings(List<Rating> ratings) {
+        this.ratings = ratings;
     }
 
     public Long getId() {
@@ -244,9 +259,11 @@ public class User implements Serializable {
                 ", authorities=" + Arrays.toString(authorities) +
                 ", isActive=" + isActive +
                 ", isNotLocked=" + isNotLocked +
-               // ", movies=" + movies +
-               // ", movies_watch_list=" + movies_watch_list +
+//                ", movies=" + movies +
+//                ", movies_watch_list=" + movies_watch_list +
+//                ", favorites=" + favorites +
                 ", comments=" + comments +
+                ", ratings=" + ratings +
                 '}';
     }
 }

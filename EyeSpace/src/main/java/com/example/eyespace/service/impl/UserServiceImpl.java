@@ -33,10 +33,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static com.example.eyespace.constant.FileConstant.*;
 import static com.example.eyespace.constant.FileConstant.DEFAULT_USER_IMAGE_PATH;
@@ -66,6 +63,17 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
 
+//    @Override
+//    public void addRating( Long userId,String movieId, Integer rating ){
+//
+//        User user = findUserById(userId);
+//        HashMap<String,Integer> ratings = user.getRatings();
+//        System.out.println("ratings: " + ratings);
+//
+////        ratings.put(movieId,rating);
+////        user.setRatings(ratings);
+//         userRepository.save(user);
+//    }
 
 
     @Override
@@ -219,21 +227,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         }
     }
 
-//    public User assignMovieToUser(Long userId, String movieId) {
-//
-//        User user = findUserById(userId);
-//
-//        Movie movie = movieService.getMovieById(movieId);
-//
-//
-//        user.getMovies().add(movie);
-////        User user1 = (User) movie.getUsers().toArray()[1];
-////        System.out.println(user1.getUsername());
-//        System.out.println("MOVIE: " );
-//        System.out.println("USER: " + user);
-//
-//        return userRepository.save(user);
-//    }
+
     private String setProfileImageUrl(String username) {
         return ServletUriComponentsBuilder.fromCurrentContextPath().path(USER_IMAGE_PATH + username + FORWARD_SLASH
                 + username + DOT + JPG_EXTENSION).toUriString();

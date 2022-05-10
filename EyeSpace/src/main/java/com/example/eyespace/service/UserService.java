@@ -31,7 +31,8 @@ public interface UserService {
 
     User updateProfileImage(String username, MultipartFile profileImage) throws UserNotFoundException, UsernameExistException, EmailExistException, IOException, NotAnImageFileException;
 
-//     User assignMovieToUser(Long userId, String movieId) throws IOException, InterruptedException;
 
     UserDto mapToDto(User user);
+
+   // void addRating( Long userId,String movieId, Integer rating );
 }
