@@ -31,6 +31,8 @@ export class MoviePageComponent implements OnInit {
   comments: Comm[] = [];
   ratings: Rating[] = [];
   myRating: Rating = new Rating();
+
+
   myCommObj: Comm = new Comm();
   myRatingObj: Rating = new Rating();
   commDetails !: FormGroup;
@@ -60,7 +62,7 @@ export class MoviePageComponent implements OnInit {
 
     // console.log("Rating:",this.form.value.rating !== "")
 
-  //  if (this.form.value.rating !== "") {
+    if (this.form.value.rating !== "") {
       this.myRatingObj.ratingValue = this.form.value.rating;
 
 
@@ -74,7 +76,7 @@ export class MoviePageComponent implements OnInit {
         console.log(err);
 
       });
-  //  }
+    }
 
 
   }
@@ -243,38 +245,28 @@ export class MoviePageComponent implements OnInit {
   initializeRating() {
 
     this.ratingService.getAllRatingsByMovieId(this.movieAPI.id).subscribe(res => {
-      this.ratings = res;
-      var myRating =
-        console.log("Ratings:", this.ratings)
 
+      this.ratings = res;
+      /**
+       * Verific daca am mai dat un rating acestui film si daca este in baza de date pentru a 
+       * putea initializa form-ul
+       */
+      var temp = this.ratings.filter(rating => rating.user.id == this.user.id);
+      this.myRating = temp[temp.length - 1];
+
+      if(this.myRating !== undefined){
+        this.form = this.formBuilder.group({
+          rating: [this.myRating.ratingValue.toString(), Validators.required],
+        })
+      }
 
     }, err => {
       console.log("Error while fetching data")
       console.log(err);
     });
 
-    // if (this.myRating.ratingValue !== 0) {
-
-      this.ratingService.getRatingByUserAndMovie(this.movieAPI.id, this.user.id).subscribe(res => {
-        this.myRating = res;
-       
-
-        this.form = this.formBuilder.group({
-          rating: [this.myRating.ratingValue.toString(), Validators.required],
-        })
 
 
-      }, err => {
-        
-        console.log("Error while fetching data (getRatingByUserAndMovie)")
-        console.log(err);
-      });
-    // }
-
-    // console.log("my Rating:", this.myRating.ratingValue.toString())
-    // this.form = this.formBuilder.group({
-    //   rating: [this.myRating.ratingValue.toString(), Validators.required],
-    // })
   }
 
   initializeComments() {
@@ -287,8 +279,6 @@ export class MoviePageComponent implements OnInit {
 
       this.likedComms = this.comments.filter(val => val.likes.includes(this.user.id))
 
-      console.log("Comments:", this.comments);
-      // console.log("Liked comments:", this.likedComms);
 
 
     }, err => {
