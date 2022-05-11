@@ -41,25 +41,16 @@ public class RatingService {
 
 
         List<Rating> ratings = getAllRatings();
+
+        /***
+         * Daca am deja un Rating dat de acest user la acest film, nu vreau sa mai adaug un rating nou,
+         * ci sa ii modific valoarea Ratingului deja existent.
+         */
         for (Rating rating1 : ratings) {
 
             if (rating1.getUser().getId() == userId && rating1.getMovie().getId().equals(movieId)) {
-                System.out.println("HERE");
-//                rating1.setRatingValue(rating.getRatingValue());
-
-                Rating ratingUpdated = new Rating();
-
-                ratingUpdated.setId(rating1.getId());
-                ratingUpdated.setRatingValue(rating.getRatingValue());
-                ratingUpdated.setMovie(rating1.getMovie());
-                ratingUpdated.setUser(rating1.getUser());
-
-
-                ratingRepository.save(ratingUpdated);
-//                System.out.println(ratingUpdated);
-//                System.out.println(ratingRepository.getById(ratingUpdated.getId()));
-//                System.out.println(getRating(ratingUpdated.getId()));
-                return ratingUpdated;
+                rating.setId(rating1.getId());
+                break;
             }
         }
 
@@ -67,6 +58,7 @@ public class RatingService {
         User user = userService.findUserById(userId);
         rating.setMovie(movie);
         rating.setUser(user);
+
 
         return ratingRepository.save(rating);
 

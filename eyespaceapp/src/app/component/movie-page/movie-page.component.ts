@@ -4,11 +4,13 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NotificationType } from 'src/app/enum/notification-type.enum';
 import { Comm } from 'src/app/model/comm';
 import { Movie } from 'src/app/model/movie';
+import { Rating } from 'src/app/model/rating';
 import { User } from 'src/app/model/user';
 
 import { AuthenticationService } from 'src/app/service/authentication.service';
 import { CommentService } from 'src/app/service/comment.service';
 import { MovieService } from 'src/app/service/movie.service';
+import { RatingService } from 'src/app/service/rating.service';
 import { UserService } from 'src/app/service/user.service';
 import Swal from 'sweetalert2';
 
@@ -27,13 +29,14 @@ export class MoviePageComponent implements OnInit {
   isFavorite: boolean = false;
   text: string = '';
   comments: Comm[] = [];
-  myCommObj: Comm = new Comm()
+  myCommObj: Comm = new Comm();
+  myRatingObj: Rating = new Rating();
   commDetails !: FormGroup;
   user: User = this.authenticationService.getUserFromLocalCache();
   likedComms: Comm[] = [];
-  rating3: number = 0;
+  // rating3: number = 0;
 
-  constructor(private movieService: MovieService, private authenticationService: AuthenticationService, private userService: UserService, private commentService: CommentService, private formBuilder: FormBuilder) { }
+  constructor(private movieService: MovieService, private authenticationService: AuthenticationService, private userService: UserService, private commentService: CommentService, private formBuilder: FormBuilder, private ratingService: RatingService) { }
 
   ngOnInit(): void {
 
@@ -50,8 +53,28 @@ export class MoviePageComponent implements OnInit {
   
 
   }
-  rating(){
-    console.log("Rating:",this.form.value.rating)
+  rate(){
+
+
+    console.log("Rating:",this.form.value.rating !== "")
+
+    if(this.form.value.rating !== ""){
+      this.myRatingObj.ratingValue =this.form.value.rating;
+      console.log("OBJ:", this.myRatingObj);
+  
+      let userId = this.authenticationService.getUserFromLocalCache().id;
+  
+      this.ratingService.addRating(this.myRatingObj, this.movieAPI.id, userId).subscribe(res => {
+        // console.log("res", res);
+        //this.initializeComments();
+  
+      }, err => {
+        console.log("EROARE");
+        console.log(err);
+  
+      });
+    }
+   
 
   }
   addComm() {

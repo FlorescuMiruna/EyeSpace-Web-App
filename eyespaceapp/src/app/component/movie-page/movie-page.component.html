@@ -93,9 +93,9 @@
 
 </div>
 
-<form [formGroup]="form">
+<form [formGroup]="form" [hidden]="!isWatched">
 
-    <ngx-star-rating formControlName="rating" [id]="'rating'" (click)="rating()"></ngx-star-rating>
+    <ngx-star-rating formControlName="rating" [id]="'rating'" (click)="rate()"></ngx-star-rating>
     <div>Rating: {{form.value.rating}}</div>
     <p>form is valid: {{ form.valid ? 'true' : 'false' }}</p>
 </form>
