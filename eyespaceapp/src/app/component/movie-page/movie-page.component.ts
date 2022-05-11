@@ -29,6 +29,8 @@ export class MoviePageComponent implements OnInit {
   isFavorite: boolean = false;
   text: string = '';
   comments: Comm[] = [];
+  ratings: Rating[] = [];
+  myRating: Rating = new Rating();
   myCommObj: Comm = new Comm();
   myRatingObj: Rating = new Rating();
   commDetails !: FormGroup;
@@ -46,35 +48,34 @@ export class MoviePageComponent implements OnInit {
       text: ['']
     });
 
-    // this.rating3 = 0;
+
     this.form = this.formBuilder.group({
       rating: ['', Validators.required],
     })
-  
+
 
   }
-  rate(){
+  rate() {
 
 
-    console.log("Rating:",this.form.value.rating !== "")
+    // console.log("Rating:",this.form.value.rating !== "")
 
-    if(this.form.value.rating !== ""){
-      this.myRatingObj.ratingValue =this.form.value.rating;
-      console.log("OBJ:", this.myRatingObj);
-  
+  //  if (this.form.value.rating !== "") {
+      this.myRatingObj.ratingValue = this.form.value.rating;
+
+
       let userId = this.authenticationService.getUserFromLocalCache().id;
-  
+
       this.ratingService.addRating(this.myRatingObj, this.movieAPI.id, userId).subscribe(res => {
-        // console.log("res", res);
-        //this.initializeComments();
-  
+        this.myRating = this.myRatingObj;
+
       }, err => {
         console.log("EROARE");
         console.log(err);
-  
+
       });
-    }
-   
+  //  }
+
 
   }
   addComm() {
@@ -229,15 +230,51 @@ export class MoviePageComponent implements OnInit {
       this.checkWatched();
       this.checkInWatchList();
       this.checkFavorite();
-      // console.log("ESTE VAZUT FILMUL?", this.isWatched);
-      // console.log("ESTE IN WATCH-LIST FILMUL?", this.isInWatchList);
       this.initializeComments();
+      this.initializeRating();
 
     }, err => {
       console.log("Error while fetching data")
     });
 
 
+  }
+
+  initializeRating() {
+
+    this.ratingService.getAllRatingsByMovieId(this.movieAPI.id).subscribe(res => {
+      this.ratings = res;
+      var myRating =
+        console.log("Ratings:", this.ratings)
+
+
+    }, err => {
+      console.log("Error while fetching data")
+      console.log(err);
+    });
+
+    // if (this.myRating.ratingValue !== 0) {
+
+      this.ratingService.getRatingByUserAndMovie(this.movieAPI.id, this.user.id).subscribe(res => {
+        this.myRating = res;
+       
+
+        this.form = this.formBuilder.group({
+          rating: [this.myRating.ratingValue.toString(), Validators.required],
+        })
+
+
+      }, err => {
+        
+        console.log("Error while fetching data (getRatingByUserAndMovie)")
+        console.log(err);
+      });
+    // }
+
+    // console.log("my Rating:", this.myRating.ratingValue.toString())
+    // this.form = this.formBuilder.group({
+    //   rating: [this.myRating.ratingValue.toString(), Validators.required],
+    // })
   }
 
   initializeComments() {
@@ -303,17 +340,17 @@ export class MoviePageComponent implements OnInit {
 
           this.movieService.removeMovieFromUser(this.movieAPI.id, userId).subscribe(res => {
 
- 
+
             Swal.fire(
               'The movie was removed!',
             )
             this.isWatched = false;
 
-              //Atunci cand sterg filmul din lista il sterg si din lista favoritelor
+            //Atunci cand sterg filmul din lista il sterg si din lista favoritelor
 
             this.movieService.removeMovieFromFavorites(this.movieAPI.id, userId).subscribe(res => {
 
-        
+
               this.isFavorite = false;
 
             }, err => {

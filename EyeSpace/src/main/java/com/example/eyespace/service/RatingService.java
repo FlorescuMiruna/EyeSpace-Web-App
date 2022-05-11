@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import javax.security.auth.Subject;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class RatingService {
@@ -36,6 +37,11 @@ public class RatingService {
         Optional<Rating> optionalRating = ratingRepository.findById(id);
         return optionalRating.orElseThrow(() -> new NotFoundException("Rating not found!", "rating.not.found"));
     }
+    public List<Rating> getAllRatingsByMovieId(String movieId) {
+        return ratingRepository.findByMovieId(movieId);
+    }
+
+
 
     public Rating addRating(Rating rating, String movieId, Long userId) {
 
@@ -61,6 +67,22 @@ public class RatingService {
 
 
         return ratingRepository.save(rating);
+
+    }
+
+    public Rating getRatingByUserAndMovie(String movieId, Long userId) {
+        List<Rating> ratings = ratingRepository.findByMovieId(movieId);
+          ratings = ratings.stream()
+                .filter(c -> c.getUser().getId() == userId)
+                .collect(Collectors.toList());
+
+        System.out.println("ratings:" + ratings.get(0));
+        return  ratings.get(ratings.size()-1);
+
+//        for (Rating rating1 : ratings){
+//            if(rating1.getUser().getId() == userId)
+//
+//        }
 
     }
 }

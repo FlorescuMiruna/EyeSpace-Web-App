@@ -24,11 +24,20 @@ public class RatingController {
         return ratingService.getAllRatings();
     }
 
+    @GetMapping("/movie/{movieId}")
+    public List<Rating> getAllRatingsByMovieId(@PathVariable String movieId){
+        return ratingService.getAllRatingsByMovieId(movieId);
+    }
+
     @GetMapping("/{id}")
     public Rating getRating(@PathVariable Long id){
         return ratingService.getRating(id);
     }
 
+    @GetMapping("/movie/{movieId}/user/{userId}")
+    public Rating getRatingByUserAndMovie( @PathVariable String movieId, @PathVariable  Long userId){
+         return ratingService.getRatingByUserAndMovie(movieId,userId);
+    }
     @PostMapping("/movie/{movieId}/user/{userId}")
     public Rating addRating(@RequestBody Rating rating, @PathVariable String movieId, @PathVariable  Long userId){
         ratingService.addRating(rating,movieId,userId);
