@@ -38,6 +38,7 @@ export class MoviePageComponent implements OnInit {
   commDetails !: FormGroup;
   user: User = this.authenticationService.getUserFromLocalCache();
   likedComms: Comm[] = [];
+  averageRating: number = 0;
   // rating3: number = 0;
 
   constructor(private movieService: MovieService, private authenticationService: AuthenticationService, private userService: UserService, private commentService: CommentService, private formBuilder: FormBuilder, private ratingService: RatingService) { }
@@ -60,16 +61,14 @@ export class MoviePageComponent implements OnInit {
   rate() {
 
 
-    // console.log("Rating:",this.form.value.rating !== "")
-
     if (this.form.value.rating !== "") {
+
       this.myRatingObj.ratingValue = this.form.value.rating;
-
-
       let userId = this.authenticationService.getUserFromLocalCache().id;
 
       this.ratingService.addRating(this.myRatingObj, this.movieAPI.id, userId).subscribe(res => {
-        this.myRating = this.myRatingObj;
+        // this.myRating = this.myRatingObj;
+        this.initializeRating();
 
       }, err => {
         console.log("EROARE");
@@ -253,12 +252,16 @@ export class MoviePageComponent implements OnInit {
        */
       var temp = this.ratings.filter(rating => rating.user.id == this.user.id);
       this.myRating = temp[temp.length - 1];
+      if (this.ratings.length > 0)
+        this.averageRating = this.calculateAverageRating(this.ratings)
 
-      if(this.myRating !== undefined){
+      if (this.myRating !== undefined) {
         this.form = this.formBuilder.group({
           rating: [this.myRating.ratingValue.toString(), Validators.required],
         })
       }
+
+
 
     }, err => {
       console.log("Error while fetching data")
@@ -269,13 +272,24 @@ export class MoviePageComponent implements OnInit {
 
   }
 
+  calculateAverageRating(ratings: Rating[]) {
+    let average = 0;
+    for (let rating of ratings) {
+      average += rating.ratingValue;
+
+    }
+    console.log("type:", typeof (average / ratings.length))
+    return Math.round(average * 100 / ratings.length) / 100;
+
+  }
+
   initializeComments() {
     this.commentService.getAllCommentsByMovieId(this.movieAPI.id).subscribe(res => {
 
 
       this.comments = res;
 
-      // Iau din lista doar comentariile carora le-am dat like
+      /**Iau din lista doar comentariile carora le-am dat like*/
 
       this.likedComms = this.comments.filter(val => val.likes.includes(this.user.id))
 
