@@ -1,5 +1,6 @@
 package com.example.eyespace.service;
 
+import com.example.eyespace.exception.domain.NotFoundException;
 import com.example.eyespace.model.Comment;
 import com.example.eyespace.model.Movie;
 import com.example.eyespace.model.Rating;
@@ -8,8 +9,9 @@ import com.example.eyespace.repository.RatingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
+import javax.security.auth.Subject;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class RatingService {
@@ -25,24 +27,48 @@ public class RatingService {
         this.userService = userService;
     }
 
-    public List<Rating> getAllRatings(){
+    public List<Rating> getAllRatings() {
         return ratingRepository.findAll();
 
+    }
+
+    public Rating getRating(Long id) {
+        Optional<Rating> optionalRating = ratingRepository.findById(id);
+        return optionalRating.orElseThrow(() -> new NotFoundException("Rating not found!", "rating.not.found"));
     }
 
     public Rating addRating(Rating rating, String movieId, Long userId) {
 
 
+        List<Rating> ratings = getAllRatings();
+        for (Rating rating1 : ratings) {
+
+            if (rating1.getUser().getId() == userId && rating1.getMovie().getId().equals(movieId)) {
+                System.out.println("HERE");
+//                rating1.setRatingValue(rating.getRatingValue());
+
+                Rating ratingUpdated = new Rating();
+
+                ratingUpdated.setId(rating1.getId());
+                ratingUpdated.setRatingValue(rating.getRatingValue());
+                ratingUpdated.setMovie(rating1.getMovie());
+                ratingUpdated.setUser(rating1.getUser());
+
+
+                ratingRepository.save(ratingUpdated);
+//                System.out.println(ratingUpdated);
+//                System.out.println(ratingRepository.getById(ratingUpdated.getId()));
+//                System.out.println(getRating(ratingUpdated.getId()));
+                return ratingUpdated;
+            }
+        }
 
         Movie movie = movieService.getMovieById(movieId);
         User user = userService.findUserById(userId);
-
         rating.setMovie(movie);
         rating.setUser(user);
 
+        return ratingRepository.save(rating);
 
-        ratingRepository.save(rating);
-
-        return rating;
     }
 }

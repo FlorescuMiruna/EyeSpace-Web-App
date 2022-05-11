@@ -43,7 +43,6 @@ public class CommentService {
         comment.setMovie(movie);
         comment.setUser(user);
 
-
         commentRepository.save(comment);
 
         return comment;

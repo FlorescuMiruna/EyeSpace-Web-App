@@ -24,6 +24,11 @@ public class RatingController {
         return ratingService.getAllRatings();
     }
 
+    @GetMapping("/{id}")
+    public Rating getRating(@PathVariable Long id){
+        return ratingService.getRating(id);
+    }
+
     @PostMapping("/movie/{movieId}/user/{userId}")
     public Rating addRating(@RequestBody Rating rating, @PathVariable String movieId, @PathVariable  Long userId){
         ratingService.addRating(rating,movieId,userId);

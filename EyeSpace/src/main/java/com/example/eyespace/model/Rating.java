@@ -1,9 +1,6 @@
 package com.example.eyespace.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -12,6 +9,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Getter
 @Setter
+
 public class Rating {
 
     @Id
@@ -29,4 +27,14 @@ public class Rating {
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
+
+    @Override
+    public String toString() {
+        return "Rating{" +
+                "id=" + id +
+                ", ratingValue=" + ratingValue +
+                ", movie=" + movie.getId() +
+                ", user=" + user.getUsername() +
+                '}';
+    }
 }
