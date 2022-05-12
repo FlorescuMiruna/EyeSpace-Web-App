@@ -10,6 +10,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.net.URI;
@@ -85,9 +86,6 @@ public class MovieService {
 
     }
 
-//    public List<Movie> addAllMovies(List<Movie> movies) {
-//        return  movieRepository.saveAll(movies);
-//    }
 
     public void deleteMovie(String id) {
 
@@ -145,12 +143,34 @@ public class MovieService {
         for(int i = 0; i < dim; i++)
         {
             JSONObject movieJson = array.getJSONObject(i);
-//            System.out.println("MOVIE JSON" + movieJson);
             movieSearchDetailsList.add(jsonToMovieSearchDetails(movieJson));
 
         }
 
         return movieSearchDetailsList;
+    }
+
+    public ArrayList<Movie> getMostPopularAPIMovies() throws IOException, InterruptedException {
+        ArrayList<Movie> movies = new ArrayList<Movie>();
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create("https://imdb-api.com/en/API/MostPopularMovies/" + apiIMDBKey))
+                .method("GET", HttpRequest.BodyPublishers.noBody())
+                .build();
+        HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+        JSONObject json = new JSONObject(response.body());
+
+        JSONArray array = (JSONArray) json.get("items");
+
+        for(int i = 0; i < array.length(); i++)
+        {
+            JSONObject movieJson = array.getJSONObject(i);
+            movies.add(jsonToMovieMostPopular(movieJson));
+
+        }
+
+        return movies;
+
+
     }
 
     public Movie getMovieByIdApiIMDB(String id) throws IOException, InterruptedException {
@@ -196,6 +216,19 @@ public class MovieService {
         movie.setPlot((String) jsonObject.get("plot"));
         movie.setPosterUrl((String) jsonObject.get("image"));
         movie.setDuration(Integer.parseInt( (String) jsonObject.get("runtimeMins")));
+
+        return movie;
+    }
+
+    public Movie jsonToMovieMostPopular(JSONObject jsonObject){
+        Movie movie = new Movie();
+        movie.setId((String) jsonObject.get("id"));
+        movie.setTitle((String) jsonObject.get("title"));
+        movie.setRating((String) jsonObject.get("imDbRating"));
+        movie.setDate((String) jsonObject.get("year"));
+        movie.setPosterUrl((String) jsonObject.get("image"));
+        movie.setRankk(Integer.parseInt( (String) jsonObject.get("rank")));
+
 
         return movie;
     }
@@ -281,29 +314,35 @@ public class MovieService {
             throw new NotFoundException("Movie not found!", "movie.not.found");
         }
     }
-//    public void addMovieToFavorites(String movieId, Long userId){
-//        Optional<Movie> movieOptional = Optional.ofNullable(movieRepository.findById(movieId));
-//
-//        if(movieOptional.isPresent()){
-//            Set<Long> favorite =  movieOptional.get().getFavorites();
-//            favorite.add(userId);
-//            movieOptional.get().setFavorites(favorite);
-//            movieRepository.save(movieOptional.get());
-//        }else {
-//            throw new NotFoundException("Movie not found!", "movie.not.found");
-//        }
-//
-//    }
-//    public void removeMovieFromFavorites(String movieId, Long userId) {
-//        Optional<Movie> movieOptional = Optional.ofNullable(movieRepository.findById(movieId));
-//        if(movieOptional.isPresent()){
-//            Set<Long> favorites =  movieOptional.get().getFavorites();
-//            favorites.remove(userId);
-//            movieOptional.get().setFavorites(favorites);
-//            movieRepository.save(movieOptional.get());
-//        }else {
-//            throw new NotFoundException("Comment not found!", "comment.not.found");
-//        }
-//    }
+
+
+    public List<Movie> addAllMostPopularMovies() throws IOException, InterruptedException {
+
+        ArrayList<Movie> movies = new ArrayList<Movie>();
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create("https://imdb-api.com/en/API/MostPopularMovies/" + apiIMDBKey))
+                .method("GET", HttpRequest.BodyPublishers.noBody())
+                .build();
+        HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+        JSONObject json = new JSONObject(response.body());
+
+        JSONArray array = (JSONArray) json.get("items");
+
+        for(int i = 0; i < array.length(); i++)
+        {
+            JSONObject movieJson = array.getJSONObject(i);
+            Movie movie = jsonToMovieMostPopular(movieJson);
+            movie.setIsPopular(true);
+            movies.add(movie);
+
+        }
+
+       // return movies;
+        return  movieRepository.saveAll(movies);
+    }
+
+    public ArrayList<Movie> getMostPopularMovies(){
+        return movieRepository.findByIsPopular(true, Sort.by(Sort.Direction.ASC, "rankk"));
+    }
 
 }

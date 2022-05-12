@@ -38,6 +38,10 @@ public class Movie {
 
     private Integer duration = 0;
 
+    private Boolean isPopular = false;
+
+    private Integer rankk = 0;
+
 //    @ElementCollection
 //    private Set<Long> favorites = new HashSet<>();
 
@@ -91,6 +95,8 @@ public class Movie {
                 ", users3=" + users3 +
                 ", comments=" + comments +
                 ", ratings=" + ratings +
+                ", isPopular=" + isPopular +
+                ", rank=" + rankk +
                 '}';
     }
 }

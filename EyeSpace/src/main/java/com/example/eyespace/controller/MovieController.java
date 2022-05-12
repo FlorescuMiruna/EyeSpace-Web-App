@@ -81,12 +81,22 @@ public class MovieController {
         return movieService.getAllMovies();
     }
 
+    @GetMapping("/API/most-popular")
+    public ArrayList<Movie> getMostPopularAPIMovies() throws IOException, InterruptedException {
+        return movieService.getMostPopularAPIMovies();
+    }
+    @PostMapping("/all/most-popular")
+    public List<Movie> addAllMovies() throws IOException, InterruptedException {
+        return movieService.addAllMostPopularMovies();
+    }
+    @GetMapping("/most-popular")
+    public ArrayList<Movie> getMostPopularMovies() throws IOException, InterruptedException {
+        return movieService.getMostPopularMovies();
+    }
+
 
 
     @GetMapping("/API/search/{title}")
-
-
-
     public ArrayList<MovieSearchDetails> searchMovieApiIMDB(@PathVariable String title) throws IOException, InterruptedException {
 //[a-zA-Z0-9_ ]*
         return movieService.searchMovieApiIMDB(title);
