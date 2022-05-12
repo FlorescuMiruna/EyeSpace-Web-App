@@ -62,6 +62,8 @@ public class MovieService {
             movie.setUsers1(optionalMovie.get().getUsers1());
             movie.setUsers2(optionalMovie.get().getUsers2());
             movie.setUsers3(optionalMovie.get().getUsers3());
+            movie.setRankk(optionalMovie.get().getRankk());
+            movie.setIsPopular(optionalMovie.get().getIsPopular());
         }
         movie.getUsers1().add(user);
         return movieRepository.save(movie);
@@ -76,6 +78,8 @@ public class MovieService {
             movie.setUsers2(optionalMovie.get().getUsers2());
             movie.setUsers1(optionalMovie.get().getUsers1());
             movie.setUsers3(optionalMovie.get().getUsers3());
+            movie.setRankk(optionalMovie.get().getRankk());
+            movie.setIsPopular(optionalMovie.get().getIsPopular());
 
         }
 
@@ -283,6 +287,8 @@ public class MovieService {
             movie.setUsers2(optionalMovie.get().getUsers2());
             movie.setUsers1(optionalMovie.get().getUsers1());
             movie.setUsers3(optionalMovie.get().getUsers3());
+            movie.setRankk(optionalMovie.get().getRankk());
+            movie.setIsPopular(optionalMovie.get().getIsPopular());
 
         }
 
@@ -328,7 +334,9 @@ public class MovieService {
 
         JSONArray array = (JSONArray) json.get("items");
 
-        for(int i = 0; i < array.length(); i++)
+      int  size = Math.min(array.length(),20);
+
+        for(int i = 0; i<size; i++)
         {
             JSONObject movieJson = array.getJSONObject(i);
             Movie movie = jsonToMovieMostPopular(movieJson);
