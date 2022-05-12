@@ -24,8 +24,6 @@
 <div class="container-fluid">
 
 
-
-
     <div class="row-md-4" *ngFor="let movieSearch of movieSearchList " (click)="goToMovie(movieSearch)">
 
         <div class=" card shadow ">
@@ -42,7 +40,32 @@
     </div>
 
 
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <div class="row">
 
+        <div class="col-md-3" id="col-md-3-popular" *ngFor="let movie of mostPopularMovies " (click)="goToPopularMovie(movie)">
+
+            <div class=" card shadow " id="card-populars">
+                <div class="inner ">
+                    <img src={{movie.posterUrl}} class="card-img-top " alt="... ">
+
+                </div>
+                <div class="card-body " id="card-body-populars">
+                    <h5 class="card-title ">{{movie.title}}</h5>
+                    <p class="card-text ">{{movie.date}}</p>
+                    <p class="card-text ">{{movie.director}}</p>
+
+                    <!-- <i *ngIf="favorites_ids.includes(movie.id)" class="fa fa-heart" style="font-size:20px;"></i> -->
+
+
+                </div>
+
+
+            </div>
+        </div>
+
+
+    </div>
 
 
 

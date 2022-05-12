@@ -222,3 +222,42 @@ nav ul li.btn span.show:before {
     font-weight: 600;
     color: #202020;
 }
+
+
+/* #card-populars {
+    width: 22rem;
+    height: 40rem;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    flex-direction: column;
+}
+
+#card-body-populars {
+    text-align: center;
+    border: 10px solid rgb(22, 35, 175);
+}
+
+#col-md-3-popular {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+} */
+
+
+/* .inner {
+    overflow: hidden;
+    border: 10px solid rgb(11, 175, 110);
+}
+
+.inner img {
+    transition: 1.50s ease;
+}
+
+.inner:hover img {
+    transform: scale(1.5);
+} */
+
+
+/* #card.shadow.populars {
+    border: 10px solid red;
+} */

@@ -15,35 +15,46 @@ export class MovieService {
 
 
   addMovieURL: string;
+  addMovieToWatchListURL: string;
+  addMovieToFavoritesURL: string;
+
   getMovieURL: string;
+  getAPIMovieURL: string;
+  getMostPopularMoviesURL: string;
+  searchURL: string;
+
+  removeMovieFromUserURL: string;
+  removeWatchListMovieFromUserURL: string;
+  removeMovieFromFavoritesURL:string;
+
+ 
   updateMovieURL: string;
   deleteMovieURL: string;
-  searchURL: string;
-  getAPIMovieURL: string;
+
   movieIdImdb: string;
-  assignMovieToUserURL: string;
-  removeMovieFromUserURL: string;
-  addMovieToWatchListURL: string;
-  removeWatchListMovieFromUserURL: string;
-  addMovieToFavoritesURL: string;
-  removeMovieFromFavoritesURL:string;
+
+    // assignMovieToUserURL: string;
 
   constructor(private http: HttpClient) {
     this.addMovieURL = `${this.host}/movie/watched/user/`;
     this.addMovieToWatchListURL = `${this.host}/movie/watch-list/user/`;
+    this.addMovieToFavoritesURL =`${this.host}/movie/favorite/user/`
 
     this.getMovieURL = `${this.host}/movie`;
+    this.getAPIMovieURL = `${this.host}/movie/API/`;
+    this.getMostPopularMoviesURL = `${this.host}/movie/most-popular`
+    this.searchURL = `${this.host}/movie/API/search/`;
+
     this.updateMovieURL = `${this.host}/movie`;
     this.deleteMovieURL = `${this.host}/movie`;
-    this.assignMovieToUserURL = `${this.host}/user/`;
-    this.searchURL = `${this.host}/movie/API/search/`;
-    this.getAPIMovieURL = `${this.host}/movie/API/`;
+    // this.assignMovieToUserURL = `${this.host}/user/`;
+
+  
 
     this.removeMovieFromUserURL = `${this.host}/movie/remove/`;
     this.removeWatchListMovieFromUserURL = `${this.host}/movie/remove/watch-list/`;
-
-    this.addMovieToFavoritesURL =`${this.host}/movie/favorite/user/`
     this.removeMovieFromFavoritesURL =`${this.host}/movie/remove-favorite/`
+
 
     this.movieIdImdb = 'default';
   }
@@ -71,6 +82,11 @@ export class MovieService {
     return this.http.post<Movie>(URL, movie);
   }
 
+
+  getMostPopularMovies(): Observable<Movie[]> {
+    console.log(this.getMostPopularMoviesURL)
+    return this.http.get<Movie[]>(this.getMostPopularMoviesURL);
+  }
 
   getAllMovies(): Observable<Movie[]> {
   
