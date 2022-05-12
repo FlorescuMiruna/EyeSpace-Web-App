@@ -34,10 +34,10 @@ public class RatingController {
         return ratingService.getRating(id);
     }
 
-    @GetMapping("/movie/{movieId}/user/{userId}")
-    public Rating getRatingByUserAndMovie( @PathVariable String movieId, @PathVariable  Long userId){
-         return ratingService.getRatingByUserAndMovie(movieId,userId);
-    }
+//    @GetMapping("/movie/{movieId}/user/{userId}")
+//    public Rating getRatingByUserAndMovie( @PathVariable String movieId, @PathVariable  Long userId){
+//         return ratingService.getRatingByUserAndMovie(movieId,userId);
+//    }
     @PostMapping("/movie/{movieId}/user/{userId}")
     public Rating addRating(@RequestBody Rating rating, @PathVariable String movieId, @PathVariable  Long userId){
         ratingService.addRating(rating,movieId,userId);

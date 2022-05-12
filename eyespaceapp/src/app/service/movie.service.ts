@@ -95,6 +95,7 @@ export class MovieService {
 
   getAllSearchMovies(TITLE: String): Observable<MovieSearchDetails[]> {
     var URL = "";
+    TITLE = TITLE.replace(/\s/g, "");
 
     URL = this.searchURL + TITLE;
 

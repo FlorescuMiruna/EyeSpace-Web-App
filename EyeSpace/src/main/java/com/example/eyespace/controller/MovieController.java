@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 @RestController
 @RequestMapping("/movie")
@@ -38,14 +39,14 @@ public class MovieController {
     }
     @PutMapping("/remove/{movieId}/user/{userId}")
     public void removeMovieFromUser(@PathVariable String movieId,@PathVariable Long userId){
-       // System.out.println("************* removeMovieFromUser ************");
+
         movieService.removeMovieFromUser(movieId,userId);
 
     }
 
     @PutMapping("/remove/watch-list/{movieId}/user/{userId}")
     public void removeWatchListMovieFromUser(@PathVariable String movieId,@PathVariable Long userId){
-        //System.out.println("************* removeWatchListMovieFromUser ************");
+
 
         movieService.removeWatchListMovieFromUser(movieId,userId);
 
@@ -58,10 +59,7 @@ public class MovieController {
 
     }
 
-//    @PostMapping("/all")
-//    public List<Movie> addAllMovies(@RequestBody List<Movie> movies) {
-//        return movieService.addAllMovies(movies);
-//    }
+
 
 
 
@@ -83,14 +81,14 @@ public class MovieController {
         return movieService.getAllMovies();
     }
 
-    @GetMapping("/hello")
-    public String hello() throws IOException, InterruptedException {
-        return "Hello from my spring boot app";
-    }
+
 
     @GetMapping("/API/search/{title}")
-    public ArrayList<MovieSearchDetails> searchMovieApiIMDB(@PathVariable String title) throws IOException, InterruptedException {
 
+
+
+    public ArrayList<MovieSearchDetails> searchMovieApiIMDB(@PathVariable String title) throws IOException, InterruptedException {
+//[a-zA-Z0-9_ ]*
         return movieService.searchMovieApiIMDB(title);
     }
 

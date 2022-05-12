@@ -39,7 +39,7 @@ export class MoviePageComponent implements OnInit {
   user: User = this.authenticationService.getUserFromLocalCache();
   likedComms: Comm[] = [];
   averageRating: number = 0;
-  // rating3: number = 0;
+
 
   constructor(private movieService: MovieService, private authenticationService: AuthenticationService, private userService: UserService, private commentService: CommentService, private formBuilder: FormBuilder, private ratingService: RatingService) { }
 
@@ -67,7 +67,6 @@ export class MoviePageComponent implements OnInit {
       let userId = this.authenticationService.getUserFromLocalCache().id;
 
       this.ratingService.addRating(this.myRatingObj, this.movieAPI.id, userId).subscribe(res => {
-        // this.myRating = this.myRatingObj;
         this.initializeRating();
 
       }, err => {

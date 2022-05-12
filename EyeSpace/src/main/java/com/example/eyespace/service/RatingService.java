@@ -70,19 +70,16 @@ public class RatingService {
 
     }
 
-    public Rating getRatingByUserAndMovie(String movieId, Long userId) {
-        List<Rating> ratings = ratingRepository.findByMovieId(movieId);
-          ratings = ratings.stream()
-                .filter(c -> c.getUser().getId() == userId)
-                .collect(Collectors.toList());
-
-        System.out.println("ratings:" + ratings.get(0));
-        return  ratings.get(ratings.size()-1);
-
-//        for (Rating rating1 : ratings){
-//            if(rating1.getUser().getId() == userId)
+//    public Rating getRatingByUserAndMovie(String movieId, Long userId) {
+//        List<Rating> ratings = ratingRepository.findByMovieId(movieId);
+//          ratings = ratings.stream()
+//                .filter(c -> c.getUser().getId() == userId)
+//                .collect(Collectors.toList());
 //
-//        }
-
-    }
+//        System.out.println("ratings:" + ratings.get(0));
+//        return  ratings.get(ratings.size()-1);
+//
+//
+//
+//    }
 }
