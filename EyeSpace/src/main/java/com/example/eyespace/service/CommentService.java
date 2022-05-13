@@ -65,11 +65,14 @@ public class CommentService {
 
 
     public Comment updateComment(Long id, Comment commentUpdated){
+        System.out.println("commentUpdated" + commentUpdated.toString());
         Optional<Comment> commentOptional = commentRepository.findById(id);
         if(commentOptional.isPresent()){
             commentUpdated.setId(id);
             commentUpdated.setMovie(commentOptional.get().getMovie());
-           commentUpdated.setUser(commentOptional.get().getUser());
+            commentUpdated.setUser(commentOptional.get().getUser());
+            commentUpdated.setLikes(commentOptional.get().getLikes());
+            
             commentUpdated.setText(commentUpdated.getText() == null ? commentOptional.get().getText() : commentUpdated.getText());
             commentUpdated.setDate(commentUpdated.getDate() == null ? commentOptional.get().getDate() : commentUpdated.getDate());
             commentUpdated.setLikes(commentUpdated.getLikes() == null ? commentOptional.get().getLikes() : commentUpdated.getLikes());

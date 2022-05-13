@@ -51,8 +51,8 @@ public class Comment {
                 ", text='" + text + '\'' +
                 ", likes=" + likes +
                 ", date=" + date +
-                ", movie=" + movie.getId() +
-                ", user=" + user.getUsername() +
+              //  ", movie=" + movie.getId() +
+              //  ", user=" + user.getUsername() +
 
                 '}';
     }
