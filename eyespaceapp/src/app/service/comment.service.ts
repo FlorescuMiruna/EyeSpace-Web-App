@@ -16,6 +16,8 @@ export class CommentService {
   getAllCommentsByMovieIdURL: string;
   addCommentURL: string;
   deleteCommentURL: string;
+
+  updateCommURL: string;
   likeCommURL : string;
   unlikeCommURL: string;
 
@@ -25,6 +27,7 @@ export class CommentService {
     this.deleteCommentURL = `${this.host}/comment/`;
     this.likeCommURL =  `${this.host}/comment/`;
     this.unlikeCommURL =  `${this.host}/comment/`;
+    this.updateCommURL = `${this.host}/comment/`;
 
 
   }
@@ -46,20 +49,22 @@ export class CommentService {
 
   likeComm(comm: Comm, userId: number): Observable<Comm>{
     var URL = this.likeCommURL + comm.id + '/like/' + userId;
-    console.log(URL);
+    // console.log(URL);
     return this.http.put<Comm>(URL, comm);
 
   }
 
   unlikeComm(comm: Comm, userId: number): Observable<Comm>{
     var URL = this.likeCommURL + comm.id + '/unlike/' + userId;
-    console.log(URL);
+    // console.log(URL);
     return this.http.put<Comm>(URL, comm);
 
   }
 
+  updateComm(comm : Comm): Observable<Comm>{
+    return this.http.put<Comm>(this.updateCommURL + comm.id, comm);
 
-
+  }
 
 
 

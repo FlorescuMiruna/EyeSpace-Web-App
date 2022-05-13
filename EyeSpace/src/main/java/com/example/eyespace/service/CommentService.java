@@ -72,7 +72,7 @@ public class CommentService {
             commentUpdated.setMovie(commentOptional.get().getMovie());
             commentUpdated.setUser(commentOptional.get().getUser());
             commentUpdated.setLikes(commentOptional.get().getLikes());
-            
+
             commentUpdated.setText(commentUpdated.getText() == null ? commentOptional.get().getText() : commentUpdated.getText());
             commentUpdated.setDate(commentUpdated.getDate() == null ? commentOptional.get().getDate() : commentUpdated.getDate());
             commentUpdated.setLikes(commentUpdated.getLikes() == null ? commentOptional.get().getLikes() : commentUpdated.getLikes());

@@ -61,7 +61,10 @@
 
                         </li>
                         <i style="font-size:24px" *ngIf="comment.user.id===user.id" class="fa" (click)="deleteComm(comment)">&#xf014;</i>
-                        <button type="button" *ngIf="comment.user.id===user.id" class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#editComm" (click)="editComm(comment)">Edit</button>
+                        <!-- <button type="button" class="btn btn-outline-primary me-2" data-bs-toggle="modal" data-bs-target="#editComm" (click)="editComm(comment)">Edit</button> -->
+                        <i style="font-size:24px" *ngIf="comment.user.id===user.id" class='fa fa-edit' data-bs-toggle="modal" data-bs-target="#editComm" (click)="editComm(comment)"></i>
+
+
                         <!-- <i style="font-size:24px" *ngIf="comment.user.id===user.id" class="fa">&#xf044;</i> -->
 
 
@@ -84,7 +87,7 @@
                 </div>
             </form>
 
-            <!-- <button class="btn btn-success" type="submit" data-bs-toggle="modal" data-bs-target="#addComm">Add comm</button> -->
+
 
 
         </div>
@@ -105,26 +108,32 @@
     <div *ngIf="averageRating === 0"> Not enough Data</div>
 
 </form>
-<!-- Add Movie Modal -->
-<!-- <div class=" modal fade " id="addComm " tabindex="-1 " aria-labelledby="exampleModalLabel " aria-hidden="true ">
-    <div class="modal-dialog ">
-        <div class="modal-content ">
-            <div class="modal-header ">
-                <h5 class="modal-title " id="exampleModalLabel ">Add new Comm</h5>
-                <button type="button " class="btn-close " data-bs-dismiss="modal " aria-label="Close "></button>
+
+<!-- Edit Comm Modal -->
+<div class="modal fade" id="editComm" tabindex="-1" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit Comm details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body ">
-                <form [formGroup]="commDetails ">
-                    <div class="mb-3 ">
-                        <label for="exampleInputEmail1 " class="form-label ">Text</label>
-                        <input type="text " formControlName="text " class="form-control " id="text " aria-describedby="textHelp ">
+            <div class="modal-body">
+                <form [formGroup]="commDetailsEdit">
+                    <div class="mb-3">
+                        <label for="exampleInputEmail2" class="form-label">Text</label>
+                        <input type="text" formControlName="textt" class="form-control" id="textt" aria-describedby="emailHelp">
 
                     </div>
 
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="updateComm()">Update comm</button>
+                    </div>
 
                 </form>
             </div>
 
         </div>
     </div>
-</div> -->
+</div>

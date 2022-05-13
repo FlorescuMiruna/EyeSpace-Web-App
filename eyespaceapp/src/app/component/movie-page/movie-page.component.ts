@@ -34,8 +34,10 @@ export class MoviePageComponent implements OnInit {
 
 
   myCommObj: Comm = new Comm();
+  myCommObjEdit : Comm = new Comm();
   myRatingObj: Rating = new Rating();
   commDetails !: FormGroup;
+  commDetailsEdit !: FormGroup;
   user: User = this.authenticationService.getUserFromLocalCache();
   likedComms: Comm[] = [];
   averageRating: number = 0;
@@ -48,7 +50,15 @@ export class MoviePageComponent implements OnInit {
     this.initializeMovie();
 
     this.commDetails = this.formBuilder.group({
-      text: ['']
+
+      text: [''],
+ 
+    });
+
+    this.commDetailsEdit = this.formBuilder.group({
+      id: [''],
+      textt: ['']
+      
     });
 
 
@@ -80,8 +90,10 @@ export class MoviePageComponent implements OnInit {
   }
   addComm() {
 
-    console.log("this.commDetails.value", this.commDetails.value);
+
+    
     this.myCommObj.text = this.commDetails.value.text;
+  
 
     let userId = this.authenticationService.getUserFromLocalCache().id;
 
@@ -107,17 +119,34 @@ export class MoviePageComponent implements OnInit {
   }
 
   editComm(comm: Comm) {
-    // this.commDetails.controls['id'].setValue(comm.id);
-    // this.commDetails.controls['text'].setValue(comm.text);
-    // this.commDetails.controls['likes'].setValue(comm.likes);
-    // this.commDetails.controls['date'].setValue(comm.date);
-    // this.commDetails.controls['movie'].setValue(comm.movie);
-    // this.commDetails.controls['user'].setValue(comm.user);
-    console.log("this.commDetails", this.commDetails.value)
+ 
+   this.commDetailsEdit.controls['id'].setValue(comm.id);
+    this.commDetailsEdit.controls['textt'].setValue(comm.text);
+
+
   }
 
   updateComm() {
-    //  console.log("here")
+   
+  
+    this.myCommObjEdit.id = this.commDetailsEdit.value.id;
+   this.myCommObjEdit.text = this.commDetailsEdit.value.textt;
+
+
+    this.commentService.updateComm(this.myCommObjEdit).subscribe(res=>{
+      console.log("res",res);
+
+      this.commDetailsEdit = this.formBuilder.group({
+        id : [''],
+        textt : ['']
+
+  
+      });  
+     
+      this.initializeComments();
+    },err=>{
+      console.log(err);
+    })
   }
 
   calculateClasses1() {
@@ -292,6 +321,12 @@ export class MoviePageComponent implements OnInit {
       /**Iau din lista doar comentariile carora le-am dat like*/
 
       this.likedComms = this.comments.filter(val => val.likes.includes(this.user.id))
+
+      this.commDetails = this.formBuilder.group({
+        id: [''],
+        text: [''],
+        date:['']
+      });
 
 
 
