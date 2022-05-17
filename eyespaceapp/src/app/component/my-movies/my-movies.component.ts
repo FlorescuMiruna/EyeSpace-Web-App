@@ -83,4 +83,19 @@ export class MyMoviesComponent implements OnInit {
     });
   }
 
+  goToProfile(){
+    this.router.navigate(['/user/management']);
+    localStorage.setItem('page', 'Profile');
+  }
+
+  goToUsers(){
+    this.router.navigate(['/user/management']);
+    localStorage.setItem('page', 'Users');
+  }
+
+  goToSettings(){
+    this.router.navigate(['/user/management']);
+    localStorage.setItem('page', 'Settings');
+  }
+
 }

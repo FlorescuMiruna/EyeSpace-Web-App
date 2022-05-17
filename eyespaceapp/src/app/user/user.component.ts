@@ -36,16 +36,32 @@ export class UserComponent implements OnInit, OnDestroy {
     private userService: UserService, private notificationService: NotificationService) { }
 
   ngOnInit(): void {
+
+    this.checkPage();
     this.user = this.authenticationService.getUserFromLocalCache();
-    console.log("USER",this.user)
+    console.log("USER", this.user)
     this.getUsers(true);
+    
   }
   ngOnDestroy(): void {
     this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
+  checkPage() {
+    this.changeTitle(localStorage.getItem('page') || '');
+
+    if (localStorage.getItem('page') === 'Profile')
+      this.clickButton('goToProfile');
+    if (localStorage.getItem('page') === 'Settings')
+      this.clickButton('goToSettings');
+    if (localStorage.getItem('page') === 'Users')
+      this.clickButton('goToUsers');
+  }
+
   public changeTitle(title: string): void {
+
     this.titleSubject.next(title);
+    localStorage.setItem('page', title);
   }
   public getUsers(showNotification: boolean): void {
     this.refreshing = true;
@@ -106,10 +122,10 @@ export class UserComponent implements OnInit, OnDestroy {
 
   public onProfileImageChange(fileName: string, profileImage: File): void {
     console.log("** onProfileImageChange")
-    console.log(fileName,profileImage);
-    this.fileName =  fileName;
+    console.log(fileName, profileImage);
+    this.fileName = fileName;
     this.profileImage = profileImage;
-    console.log("Name:",fileName);
+    console.log("Name:", fileName);
     console.log(profileImage)
   }
 
@@ -136,17 +152,17 @@ export class UserComponent implements OnInit, OnDestroy {
           this.profileImage = null as any;
         }
       )
-      );
+    );
   }
   public searchUsers(searchTerm: string): void {
     const results: User[] = [];
     for (const user of this.userService.getUsersFromLocalCache()) {
       if (user.firstName.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1 ||
-          user.lastName.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1 ||
-          user.username.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1 ||
-          user.userId.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1) {
-          results.push(user);
-          console.log(results);
+        user.lastName.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1 ||
+        user.username.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1 ||
+        user.userId.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1) {
+        results.push(user);
+        console.log(results);
       }
     }
     this.users = results;
@@ -175,7 +191,7 @@ export class UserComponent implements OnInit, OnDestroy {
           this.profileImage = null;
         }
       )
-      );
+    );
   }
   public onDeleteUser(username: string): void {
     this.subscriptions.push(
@@ -207,7 +223,7 @@ export class UserComponent implements OnInit, OnDestroy {
         () => emailForm.reset()
       )
     );
-  } 
+  }
   public onUpdateProfileImage(): void {
     console.log("** onUpdateProfileImage")
     const formData = new FormData();
@@ -244,13 +260,13 @@ export class UserComponent implements OnInit, OnDestroy {
           this.profileImage = null;
         }
       )
-      );
+    );
   }
   private reportUploadProgress(event: HttpEvent<any>): void {
     switch (event.type) {
       case HttpEventType.UploadProgress:
-        if(event.total)
-        this.fileStatus.percentage = Math.round(100 * event.loaded / event.total);
+        if (event.total)
+          this.fileStatus.percentage = Math.round(100 * event.loaded / event.total);
         this.fileStatus.status = 'progress';
         break;
       case HttpEventType.Response:
