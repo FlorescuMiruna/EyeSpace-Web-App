@@ -110,13 +110,37 @@ export class MoviePageComponent implements OnInit {
   }
 
   deleteComm(comm: Comm) {
+          Swal.fire({
+        title: 'Do you want to delete your comment?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#4E9A9B',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.isConfirmed) {
 
-    this.commentService.deleteComment(comm).subscribe(res => {
-      this.initializeComments();
-    }, err => {
-      console.log("ERROR:", err);
 
-    })
+          this.commentService.deleteComment(comm).subscribe(res => {
+            Swal.fire(
+              'The comment was deleted!',
+            )
+            this.initializeComments();
+          }, err => {
+            
+            console.log("ERROR:", err);
+      
+          })
+
+  
+
+
+
+
+        }
+      })
+
+
   }
 
   editComm(comm: Comm) {
@@ -545,7 +569,7 @@ export class MoviePageComponent implements OnInit {
 
           this.movieService.removeMovieFromFavorites(this.movieAPI.id, userId).subscribe(res => {
 
-            console.log(res);
+            // console.log(res);
             Swal.fire(
               'The movie was removed!',
             )
