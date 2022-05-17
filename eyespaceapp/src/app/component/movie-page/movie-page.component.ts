@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { NotificationType } from 'src/app/enum/notification-type.enum';
 import { Comm } from 'src/app/model/comm';
 import { Movie } from 'src/app/model/movie';
@@ -43,7 +44,7 @@ export class MoviePageComponent implements OnInit {
   averageRating: number = 0;
 
 
-  constructor(private movieService: MovieService, private authenticationService: AuthenticationService, private userService: UserService, private commentService: CommentService, private formBuilder: FormBuilder, private ratingService: RatingService) { }
+  constructor(private movieService: MovieService, private authenticationService: AuthenticationService, private userService: UserService, private commentService: CommentService, private formBuilder: FormBuilder, private ratingService: RatingService , private router: Router) { }
 
   ngOnInit(): void {
 
@@ -565,6 +566,22 @@ export class MoviePageComponent implements OnInit {
 
 
 
+  }
+
+
+  goToProfile(){
+    this.router.navigate(['/user/management']);
+    localStorage.setItem('page', 'Profile');
+  }
+
+  goToUsers(){
+    this.router.navigate(['/user/management']);
+    localStorage.setItem('page', 'Users');
+  }
+
+  goToSettings(){
+    this.router.navigate(['/user/management']);
+    localStorage.setItem('page', 'Settings');
   }
 
 }

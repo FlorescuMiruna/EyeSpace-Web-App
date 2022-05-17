@@ -114,7 +114,7 @@ export class UserComponent implements OnInit, OnDestroy {
     this.clickButton('openUserInfo');
   }
   private clickButton(buttonId: string): void {
-    console.log("click")
+
     const element = document.getElementById(buttonId);
     if (element !== null)
       element.click();
@@ -290,6 +290,24 @@ export class UserComponent implements OnInit, OnDestroy {
   }
   private getUserRole(): string {
     return this.authenticationService.getUserFromLocalCache().role;
+  }
+
+  goToProfile(){
+    
+    localStorage.setItem('page', 'Profile');
+    this.checkPage();
+  }
+
+  goToUsers(){
+   
+    localStorage.setItem('page', 'Users');
+    this.checkPage();
+  }
+
+  goToSettings(){
+
+    localStorage.setItem('page', 'Settings');
+    this.checkPage();
   }
 
 }

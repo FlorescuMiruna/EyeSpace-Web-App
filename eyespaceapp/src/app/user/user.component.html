@@ -6,14 +6,16 @@
 
         <li class="btn"><span class="fas fa-bars"></span></li>
         <div class="items">
-            <li><a href="/movie">Home</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Services</a></li>
+            <li><a href="#">Home</a></li>
+            <li><a href="/movie">Descover Movies</a></li>
             <li><a routerLink="/my-movies">My Movies</a></li>
-            <li><a (click)="changeTitle('Profile')" data-toggle="tab" href="#profile">Profile</a></li>
-            <li><a (click)="changeTitle('Users')" data-toggle="tab" href="#users">User portal</a>
-                <li><a (click)="changeTitle('Settings')" data-toggle="tab" href="#Settings">Settings</a>
-                </li>
+            <!-- <li><a (click)="changeTitle('Profile')" data-toggle="tab" href="#profile">Profile</a></li>
+            <li><a (click)="changeTitle('Users')" data-toggle="tab" href="#users">User portal</a></li>
+            <li><a (click)="changeTitle('Settings')" data-toggle="tab" href="#reset-password">Settings</a></li> -->
+
+            <li><a (click)="goToProfile()">Profile</a></li>
+            <li><a (click)="goToUsers()">User portal</a></li>
+            <li><a (click)="goToSettings()">Settings</a></li>
         </div>
 
 
