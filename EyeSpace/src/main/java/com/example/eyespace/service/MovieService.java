@@ -183,7 +183,7 @@ public class MovieService {
                 .method("GET", HttpRequest.BodyPublishers.noBody())
                 .build();
         HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
-        System.out.println(response.body());
+        System.out.println("body:" + response.body());
         JSONObject json = new JSONObject(response.body());
 
         System.out.println(json);
@@ -210,16 +210,28 @@ public class MovieService {
     }
 
     public Movie jsonToMovie(JSONObject jsonObject){
+
         Movie movie = new Movie();
+        
         movie.setId((String) jsonObject.get("id"));
         movie.setTitle((String) jsonObject.get("title"));
         movie.setDirector((String) jsonObject.get("directors"));
-        movie.setRating((String) jsonObject.get("imDbRating"));
+
+        if(!jsonObject.isNull("imDbRating") ) {
+                movie.setRating((String) jsonObject.get("imDbRating"));
+        }
+
         movie.setGenre((String) jsonObject.get("genres"));
         movie.setDate((String) jsonObject.get("releaseDate"));
         movie.setPlot((String) jsonObject.get("plot"));
         movie.setPosterUrl((String) jsonObject.get("image"));
-        movie.setDuration(Integer.parseInt( (String) jsonObject.get("runtimeMins")));
+
+        if(!jsonObject.isNull("runtimeMins") ) {
+            movie.setDuration(Integer.parseInt( (String) jsonObject.get("runtimeMins")));
+        }
+
+
+
 
         return movie;
     }

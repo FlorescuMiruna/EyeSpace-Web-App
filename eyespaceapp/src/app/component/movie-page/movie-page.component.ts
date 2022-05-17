@@ -288,8 +288,9 @@ export class MoviePageComponent implements OnInit {
       this.initializeRating();
 
     }, err => {
-      console.log(err)
-      console.log("Error while fetching data")
+
+      console.log("Error while fetching data");
+      console.log(err);
     });
 
 

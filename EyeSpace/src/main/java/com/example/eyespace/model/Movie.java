@@ -33,7 +33,7 @@ public class Movie {
     @Column( name = "plot")
     private String plot;
 
-    private String rating;
+    private String rating = "";
     private String posterUrl;
 
     private Integer duration = 0;
