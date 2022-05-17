@@ -280,6 +280,10 @@ export class MoviePageComponent implements OnInit {
     this.movieService.getAPIMovie(idIMDB).subscribe(res => {
 
       this.movieAPI = res;
+     
+
+      // console.log("Exista?",this.checkPosterExists(this.movieAPI.posterUrl));
+      // console.log(this.movieAPI.posterUrl);
       console.log("favorites:", this.user.favorites)
       this.checkWatched();
       this.checkInWatchList();
@@ -608,5 +612,25 @@ export class MoviePageComponent implements OnInit {
     this.router.navigate(['/user/management']);
     localStorage.setItem('page', 'Settings');
   }
+
+  // checkPosterExists(poserUrl: string) : any{
+   
+  //   this.movieService.getPoster(poserUrl).subscribe(res => {
+  
+  
+  //     console.log("res",res.status)
+  //     return true;
+
+
+  //   }, err => {
+  //     //  this.movieAPI.posterUrl='assets/poster.jpg'
+  //     console.log("??")
+  //       //return false;
+  //     console.log("Error while fetching photo");
+  //     console.log(err);
+  //   });
+  // }
+
+
 
 }

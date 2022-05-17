@@ -9,9 +9,6 @@
             <li><a href="#">Home</a></li>
             <li><a href="/movie">Descover Movies</a></li>
             <li><a routerLink="/my-movies">My Movies</a></li>
-            <!-- <li><a (click)="changeTitle('Profile')" data-toggle="tab" href="#profile">Profile</a></li>
-            <li><a (click)="changeTitle('Users')" data-toggle="tab" href="#users">User portal</a></li>
-            <li><a (click)="changeTitle('Settings')" data-toggle="tab" href="#reset-password">Settings</a></li> -->
 
             <li><a (click)="goToProfile()">Profile</a></li>
             <li><a (click)="goToUsers()">User portal</a></li>
@@ -34,7 +31,7 @@
     </div>
 
     <!-- nav bar -->
-    <nav class="navbar navbar-expand-md breadcrumb">
+    <nav [hidden]="true" class="navbar navbar-expand-md breadcrumb">
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="nav nav-pills">
                 <a class="nav-item nav-link active ml-1" id="goToUsers" (click)="changeTitle('Users')" data-toggle="tab" href="#users">

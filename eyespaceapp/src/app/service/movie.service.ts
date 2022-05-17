@@ -143,6 +143,10 @@ export class MovieService {
     return this.http.put<any>(URL, null);
   }
 
+  // public getPoster(posterUrl: string): Observable<any> {
+  //   return this.http.get<any>(posterUrl);
+  // }
+
 
 
 

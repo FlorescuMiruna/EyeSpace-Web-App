@@ -212,7 +212,7 @@ public class MovieService {
     public Movie jsonToMovie(JSONObject jsonObject){
 
         Movie movie = new Movie();
-        
+
         movie.setId((String) jsonObject.get("id"));
         movie.setTitle((String) jsonObject.get("title"));
         movie.setDirector((String) jsonObject.get("directors"));
@@ -227,7 +227,12 @@ public class MovieService {
         movie.setPosterUrl((String) jsonObject.get("image"));
 
         if(!jsonObject.isNull("runtimeMins") ) {
-            movie.setDuration(Integer.parseInt( (String) jsonObject.get("runtimeMins")));
+            try {
+                movie.setDuration(Integer.parseInt( (String) jsonObject.get("runtimeMins")));
+            }catch (Exception NumberFormatException){
+
+            }
+
         }
 
 
