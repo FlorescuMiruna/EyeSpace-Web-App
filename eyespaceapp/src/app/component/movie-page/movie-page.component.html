@@ -97,10 +97,20 @@
 
             <div class="media g-mb-30 media-comment " *ngFor="let comment of comments ">
                 <img class="d-flex g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15 " src="{{comment.user.profileImageUrl}} " lt="Image Description ">
-                <div class="media-body u-shadow-v18 g-bg-secondary g-pa-30 ">
-                    <div class="g-mb-15 ">
+                <div class="media-body u-shadow-v18 g-bg-secondary g-pa-30" id="comm-ul">
 
+
+                    <li>
                         <h5 class="h5 g-color-gray-dark-v1 mb-0 ">{{comment.user.username}}</h5>
+                    </li>
+                    <li id="commDelete">
+                        <i id="commDelete" style=" font-size:24px " *ngIf="comment.user.id===user.id " class="fa" (click)="deleteComm(comment) ">&#xf014;</i>
+                    </li>
+                    <li id="commEdit">
+                        <i id="commEdit" style="font-size:24px " *ngIf="comment.user.id===user.id " class='fa fa-edit' data-bs-toggle="modal" data-bs-target="#editComm" (click)="editComm(comment)"></i>
+                    </li>
+
+                    <div class="g-mb-15 ">
 
                         <span class="g-color-gray-dark-v4 g-font-size-12 ">{{comment.date}}</span>
                     </div>
@@ -116,12 +126,7 @@
                             </a>
 
                         </li>
-                        <i style="font-size:24px " *ngIf="comment.user.id===user.id " class="fa " (click)="deleteComm(comment) ">&#xf014;</i>
-                        <!-- <button type="button " class="btn btn-outline-primary me-2 " data-bs-toggle="modal " data-bs-target="#editComm " (click)="editComm(comment) ">Edit</button> -->
-                        <i style="font-size:24px" *ngIf="comment.user.id===user.id " class='fa fa-edit' data-bs-toggle="modal" data-bs-target="#editComm" (click)="editComm(comment)"></i>
 
-
-                        <!-- <i style="font-size:24px " *ngIf="comment.user.id===user.id " class="fa ">&#xf044;</i> -->
 
 
 
@@ -130,7 +135,73 @@
                 </div>
             </div>
 
-            <form [formGroup]="commDetails">
+            <form [formGroup]="commDetails ">
+                <div class="mb-3 ">
+                    <label for="exampleInputText" class="form-label ">Text</label>
+                    <input type="text" formControlName="text" class="form-control " id="text" aria-describedby="textHelp ">
+
+                </div>
+
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-primary" (click)="addComm() ">Add comm</button>
+                </div>
+            </form>
+
+
+
+
+        </div>
+
+    </div>
+
+</section>
+
+<!--de test-->
+
+<section class="container " id="comm-place ">
+    <div class="row ">
+
+        <div class="col-md-10 ">
+
+            <div class="media g-mb-30 media-comment ">
+                <img class="d-flex g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15 " src="assets/poster.jpg" lt="Image Description ">
+                <div class="media-body u-shadow-v18 g-bg-secondary g-pa-30" id="comm-ul">
+
+                    <li>
+                        <h5 class="h5 g-color-gray-dark-v1 mb-0 ">Florescu Miruna</h5>
+                    </li>
+                    <li id="commEdit">
+                        <i style="font-size:24px" class='fa fa-edit' data-bs-toggle="modal" data-bs-target="#editComm"></i>
+                    </li>
+                    <li id="commDelete">
+                        <i style=" font-size:24px " class="fa ">&#xf014;</i>
+                    </li>
+
+                    <div class="g-mb-15 ">
+                        <span></span>
+                        <span class="g-color-gray-dark-v4 g-font-size-12 ">14.05.200</span>
+                    </div>
+
+                    <p>bla agafsag babab aasgasg </p>
+
+                    <ul class="list-inline d-sm-flex my-0 ">
+
+                        <li class="list-inline-item ml-auto ">
+                            <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover ">
+                                <i class="fa fa-heart text-danger"></i> 4
+
+                            </a>
+
+                        </li>
+
+
+
+                    </ul>
+                </div>
+            </div>
+
+            <form [formGroup]="commDetails ">
                 <div class="mb-3 ">
                     <label for="exampleInputText" class="form-label ">Text</label>
                     <input type="text" formControlName="text" class="form-control " id="text" aria-describedby="textHelp ">
@@ -151,27 +222,25 @@
     </div>
 
 </section>
-
-
 <!-- Edit Comm Modal -->
-<div class="modal fade" id="editComm" tabindex="-1 " aria-labelledby="exampleModalLabel">
-    <div class="modal-dialog ">
-        <div class="modal-content ">
-            <div class="modal-header ">
+<div class="modal fade" id="editComm" tabindex="-1 " aria-labelledby="exampleModalLabel ">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
                 <h5 class="modal-title " id="exampleModalLabel">Edit Comm details</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close "></button>
             </div>
             <div class="modal-body">
-                <form [formGroup]="commDetailsEdit">
-                    <div class="mb-3">
-                        <label for="exampleInputEmail2 " class="form-label">Text</label>
-                        <input type="text" formControlName="textt" class="form-control" id="textt" aria-describedby="emailHelp">
+                <form [formGroup]="commDetailsEdit ">
+                    <div class="mb-3 ">
+                        <label for="exampleInputEmail2 " class="form-label ">Text</label>
+                        <input type="text" formControlName="textt" class="form-control " id="textt" aria-describedby="emailHelp ">
 
                     </div>
 
 
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <div class="modal-footer ">
+                        <button type="button" class="btn btn-secondary " data-bs-dismiss="modal">Close</button>
 
                         <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="updateComm()">Update comm</button>
                     </div>
