@@ -516,6 +516,10 @@ transform: scale(1.5);
         color: rgb(234, 79, 141);
     }
     
+    .fa.fa-heart.text {
+        color: rgba(153, 159, 159, 0.838);
+    }
+    
     #commDelete {
         float: right;
     }
