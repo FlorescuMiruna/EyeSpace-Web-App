@@ -69,7 +69,7 @@
             <ul class="elems ">
                 <li id="el1"> <button id="addList" [ngClass]=" calculateClasses1() " (click)="addMovie() "> {{isWatched==true ? "Watched " : "Mark as watched "}} </button> </li>
                 <li id="el2">
-                    <img src="assets/accept.png " [hidden]="!isWatched" alt="snow " id="accept">
+                    <img src="assets/accept.png" [hidden]="!isWatched" alt="snow " id="accept">
                 </li>
 
                 <li id="el3"> <button id="addWatchList" [hidden]="isWatched " [ngClass]="calculateClasses2() " (click)="addMovieToWatchList() "> {{isInWatchList==true ? " Added to Watch list " : "Add to Watch list "}}</button></li>

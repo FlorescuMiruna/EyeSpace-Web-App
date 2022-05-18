@@ -42,7 +42,7 @@ nav ul div.items a {
 }
 
 nav ul div.items a:hover {
-    color: cyan;
+    color: rgb(75, 125, 125);
 }
 
 nav ul .search-icon {
@@ -208,7 +208,11 @@ nav ul li.btn span.show:before {
 }
 
 #card-search:hover {
-    background-color: rgba(85, 156, 189, 0.416);
+    background-color: rgba(40, 149, 151, 0.416);
+}
+
+.card:hover {
+    background-color: rgba(40, 149, 151, 0.416);
 }
 
 #card-search ::shadow {

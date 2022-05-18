@@ -1,7 +1,12 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700&display=swap');
-.card:hover {
-    background-color: rgba(183, 105, 205, 0.416);
+.card.shadow:hover {
+    background-color: rgba(40, 149, 151, 0.416);
 }
+
+
+/* #special-card :hover {
+    background-color: rgba(255, 255, 255, 0.416);
+} */
 
 
 /* .container {3
@@ -256,4 +261,38 @@ nav ul li.btn span.show:before {
 .fa.fa-heart {
     font-size: 10px;
     color: rgb(234, 79, 141);
+}
+
+
+/**cards time**/
+
+body {
+    background: #eff3f6;
+    margin-top: 20px;
+}
+
+.thumb-lg {
+    height: 88px;
+    width: 88px;
+}
+
+#special-card {
+    border: none;
+    box-shadow: 1px 0px 20px rgba(0, 0, 0, 0.05);
+}
+
+.m-b-30 {
+    margin-bottom: 30px;
+}
+
+.social-links li a {
+    -webkit-border-radius: 50%;
+    background: #fcfdfd;
+    border-radius: 50%;
+    color: #9f9f9f;
+    display: inline-block;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    width: 30px;
 }
