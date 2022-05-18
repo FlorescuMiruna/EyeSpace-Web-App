@@ -26,7 +26,8 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-8">
-                <img src={{movieAPI.posterUrl}} class="img-responsive" alt="">
+                <img src={{movieAPI.posterUrl}} id="poster" class="img-responsive" alt="">
+                <!-- <img src="https://m.media-amazon.com/images/M/MV5BMzVlMmY2NTctODgwOC00NDMzLWEzMWYtM2RiYmIyNTNhMTI0XkEyXkFqcGdeQXVyNTAzNzgwNTg@._V1_Ratio0.6751_AL_.jpg" id="poster" class="img-responsive" alt=""> -->
             </div>
 
             <div class="col-sm-4">
@@ -45,17 +46,17 @@
                 <div class="box">
                     <ul class="list-unstyled">
                         <li><i class="fa fa-calendar"></i>{{movieAPI.date}}</li>
-                        <li *ngIf="averageRating !== 0"><i class="fa fa-star"></i>Avrage Rating: {{averageRating}}</li>
-                        <li *ngIf="averageRating === 0"><i class="fa fa-star"></i>Avrage Rating: Not enough data</li>
-                        <!-- <li *ngIf="averageRating !== 0"> Avrage Rating: {{averageRating}} <i class="fa fa-star" aria-hidden="true"></i> </li>
-                        <li *ngIf="averageRating === 0"> Not enough Data</li> -->
-                        <!-- <li><i class="fa fa-eye"></i>125 Views</li> -->
-                        <li><i class="fa fa-comment"></i>{{comments.length}} Comments</li>
+                        <li *ngIf="averageRating !== 0"><i class="fa fa-star"></i>Avrage Rating:<b style="color:Tomato;font-size: 20px;">  {{averageRating}}</b></li>
+                        <li *ngIf="averageRating===0 "><i class="fa fa-star "></i>Avrage Rating: Not enough data</li>
+                        <!-- <li *ngIf="averageRating !==0 "> Avrage Rating: {{averageRating}} <i class="fa fa-star " aria-hidden="true "></i> </li>
+                        <li *ngIf="averageRating===0 "> Not enough Data</li> -->
+                        <!-- <li><i class="fa fa-eye "></i>125 Views</li> -->
+                        <li><i class="fa fa-comment "></i>{{comments.length}} Comments</li>
                     </ul>
                 </div>
-                <form [formGroup]="form" [hidden]="!isWatched" id="stars">
+                <form [formGroup]="form " [hidden]="!isWatched " id="stars ">
 
-                    <ngx-star-rating formControlName="rating" [id]="'rating'" (click)="rate()"></ngx-star-rating>
+                    <ngx-star-rating formControlName="rating" [id]="'rating'" (click)="rate() "></ngx-star-rating>
 
                 </form>
 
@@ -64,14 +65,21 @@
             </div>
         </div>
     </div>
-    <div class="buttons">
-        <button id="addList" [ngClass]=" calculateClasses1() " (click)="addMovie() "> {{isWatched==true ? "Watched " : "Mark as watched "}}</button>
 
-        <button id="addWatchList" [hidden]="isWatched " [ngClass]="calculateClasses2() " (click)="addMovieToWatchList() "> {{isInWatchList==true ? " Added to Watch list " : "Add to Watch list "}}</button>
+    <ul class="elems ">
+        <li id="el1"> <button id="addWatchList" [hidden]="isWatched " [ngClass]="calculateClasses2() " (click)="addMovieToWatchList() "> {{isInWatchList==true ? " Added to Watch list " : "Add to Watch list "}}</button></li>
+        <li id="el2"> <button id="addList" [ngClass]=" calculateClasses1() " (click)="addMovie() "> {{isWatched==true ? "Watched " : "Mark as watched "}} </button> </li>
+        <li id="el3" [hidden]="!isWatched">
+            <img src="assets/accept.png " alt="snow " id="accept">
+        </li>
 
+    </ul>
+    <!-- <div class="buttons ">
+        <button id="addList " [ngClass]=" calculateClasses1() " (click)="addMovie() "> {{isWatched==true ? "Watched " : "Mark as watched "}} </button>
 
+        <button id="addWatchList " [hidden]="isWatched " [ngClass]="calculateClasses2() " (click)="addMovieToWatchList() "> {{isInWatchList==true ? " Added to Watch list " : "Add to Watch list "}}</button>
 
-    </div>
+    </div> -->
 
 
 
@@ -110,7 +118,7 @@
                         </li>
                         <i style="font-size:24px " *ngIf="comment.user.id===user.id " class="fa " (click)="deleteComm(comment) ">&#xf014;</i>
                         <!-- <button type="button " class="btn btn-outline-primary me-2 " data-bs-toggle="modal " data-bs-target="#editComm " (click)="editComm(comment) ">Edit</button> -->
-                        <i style="font-size:24px " *ngIf="comment.user.id===user.id " class='fa fa-edit' data-bs-toggle="modal " data-bs-target="#editComm " (click)="editComm(comment) "></i>
+                        <i style="font-size:24px" *ngIf="comment.user.id===user.id " class='fa fa-edit' data-bs-toggle="modal" data-bs-target="#editComm" (click)="editComm(comment)"></i>
 
 
                         <!-- <i style="font-size:24px " *ngIf="comment.user.id===user.id " class="fa ">&#xf044;</i> -->
@@ -122,10 +130,10 @@
                 </div>
             </div>
 
-            <form [formGroup]="commDetails ">
+            <form [formGroup]="commDetails">
                 <div class="mb-3 ">
-                    <label for="exampleInputText " class="form-label ">Text</label>
-                    <input type="text " formControlName="text " class="form-control " id="text " aria-describedby="textHelp ">
+                    <label for="exampleInputText" class="form-label ">Text</label>
+                    <input type="text" formControlName="text" class="form-control " id="text" aria-describedby="textHelp ">
 
                 </div>
 
@@ -146,26 +154,26 @@
 
 
 <!-- Edit Comm Modal -->
-<div class="modal fade " id="editComm " tabindex="-1 " aria-labelledby="exampleModalLabel ">
+<div class="modal fade" id="editComm" tabindex="-1 " aria-labelledby="exampleModalLabel">
     <div class="modal-dialog ">
         <div class="modal-content ">
             <div class="modal-header ">
-                <h5 class="modal-title " id="exampleModalLabel ">Edit Comm details</h5>
-                <button type="button " class="btn-close " data-bs-dismiss="modal " aria-label="Close "></button>
+                <h5 class="modal-title " id="exampleModalLabel">Edit Comm details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close "></button>
             </div>
-            <div class="modal-body ">
-                <form [formGroup]="commDetailsEdit ">
-                    <div class="mb-3 ">
-                        <label for="exampleInputEmail2 " class="form-label ">Text</label>
-                        <input type="text " formControlName="textt " class="form-control " id="textt " aria-describedby="emailHelp ">
+            <div class="modal-body">
+                <form [formGroup]="commDetailsEdit">
+                    <div class="mb-3">
+                        <label for="exampleInputEmail2 " class="form-label">Text</label>
+                        <input type="text" formControlName="textt" class="form-control" id="textt" aria-describedby="emailHelp">
 
                     </div>
 
 
-                    <div class="modal-footer ">
-                        <button type="button " class="btn btn-secondary " data-bs-dismiss="modal ">Close</button>
-                        <img src="/src/assets/accept.png" alt="Snow" style="width:100%">
-                        <button type="button " class="btn btn-primary " data-bs-dismiss="modal " (click)="updateComm() ">Update comm</button>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="updateComm()">Update comm</button>
                     </div>
 
                 </form>
