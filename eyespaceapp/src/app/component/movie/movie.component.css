@@ -1,41 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700&display=swap');
-.container {
-    margin-top: 1%;
-}
-
-.inner {
-    overflow: hidden;
-}
-
-.inner img {
-    max-width: 100px;
-    max-height: 150px;
-    transition: 1.50s ease;
-}
-
-.inner:hover img {
-    transform: scale(1.5);
-}
-
-.row-md-4 {
-    margin: 0 auto;
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
-
-.card:hover {
-    background-color: rgba(183, 105, 205, 0.416);
-}
-
-.card ::shadow {
-    width: 70rem;
-    flex-direction: row;
-}
-
 * {
-    /* margin: 0; */
-    /* padding: 0; */
-    /* color: #f2f2f2; */
     box-sizing: border-box;
     font-family: 'Montserrat', sans-serif;
 }
@@ -199,7 +163,8 @@ nav ul li.btn span.show:before {
     }
 }
 
-.content {
+
+/* .content {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -221,32 +186,42 @@ nav ul li.btn span.show:before {
     font-size: 28px;
     font-weight: 600;
     color: #202020;
-}
-
-
-/* #card-populars {
-    width: 22rem;
-    height: 40rem;
-    margin-top: 5%;
-    margin-bottom: 5%;
-    flex-direction: column;
-}
-
-#card-body-populars {
-    text-align: center;
-    border: 10px solid rgb(22, 35, 175);
-}
-
-#col-md-3-popular {
-    display: flex;
-    align-items: center;
-    justify-content: center;
 } */
 
+.container {
+    margin-top: 1%;
+}
 
-/* .inner {
+.inner-search {
     overflow: hidden;
-    border: 10px solid rgb(11, 175, 110);
+}
+
+.inner-search img {
+    max-width: 100px;
+    max-height: 150px;
+}
+
+#row-md-4-search {
+    margin: 0 auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+#card-search:hover {
+    background-color: rgba(85, 156, 189, 0.416);
+}
+
+#card-search ::shadow {
+    width: 40rem;
+    flex-direction: row;
+    margin-left: 20%;
+}
+
+
+/** de aici pt a 2 -a*/
+
+.inner {
+    overflow: hidden;
 }
 
 .inner img {
@@ -255,9 +230,23 @@ nav ul li.btn span.show:before {
 
 .inner:hover img {
     transform: scale(1.5);
-} */
+}
 
+.col-md-3 {
+    /* border: 10px solid rgb(11, 175, 110); */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
-/* #card.shadow.populars {
-    border: 10px solid red;
-} */
+.card-body {
+    text-align: center;
+}
+
+#card-popular {
+    /* border: solid red; */
+    width: 22rem;
+    height: 40rem;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}

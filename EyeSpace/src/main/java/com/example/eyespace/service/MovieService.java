@@ -351,7 +351,7 @@ public class MovieService {
 
         JSONArray array = (JSONArray) json.get("items");
 
-      int  size = Math.min(array.length(),20);
+      int  size = Math.min(array.length(),10);
 
         for(int i = 0; i<size; i++)
         {

@@ -29,47 +29,61 @@
 <div class="container-fluid">
 
 
-    <div class="row-md-4" *ngFor="let movieSearch of movieSearchList " (click)="goToMovie(movieSearch)">
+    <div class="row-md-4" id="row-md-4-search" *ngFor="let movieSearch of movieSearchList " (click)="goToMovie(movieSearch)">
 
-        <div class=" card shadow ">
-            <div class="inner ">
+        <div class=" card shadow " id="card-search">
+            <div class="inner-search">
 
                 <img src={{movieSearch.posterUrl}} class="card-img-top " alt="... ">
 
             </div>
-            <div class="card-body ">
+            <div class="card-body" id="card-body-search" style="text-align:left">
                 <h5 class="card-title ">{{movieSearch.title}}</h5>
                 <p class="card-text ">{{movieSearch.year}}</p>
-                <p class="card-text ">{{movieSearch.idIMDB}}</p>
+                <!-- <p class="card-text ">{{movieSearch.idIMDB}}</p> -->
             </div>
         </div>
     </div>
 
 
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css " rel="stylesheet " integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN " crossorigin="anonymous ">
-    <div class="row ">
+    <!-- hardcodat-->
 
-        <div class="col-md-3 " id="col-md-3-popular " *ngFor="let movie of mostPopularMovies " (click)="goToPopularMovie(movie) ">
+    <div class="row-md-4" id="row-md-4-search">
 
-            <div class=" card shadow " id="card-populars ">
-                <div class="inner ">
-                    <img src={{movie.posterUrl}} class="card-img-top " alt="... ">
+        <div class="card shadow " id="card-search">
+            <div class="inner-search">
 
-                </div>
-                <div class="card-body " id="card-body-populars ">
-                    <h5 class="card-title ">{{movie.title}}</h5>
-                    <p class="card-text ">{{movie.date}}</p>
-                    <p class="card-text ">{{movie.director}}</p>
+                <img src="https://m.media-amazon.com/images/M/MV5BMTMxNTMwODM0NF5BMl5BanBnXkFtZTcwODAyMTk2Mw@@._V1_Ratio0.6751_AL_.jpg" class="card-img-top " alt="... ">
 
-                    <!-- <i *ngIf="favorites_ids.includes(movie.id) " class="fa fa-heart " style="font-size:20px; "></i> -->
-
-
-                </div>
-
+            </div>
+            <div class="card-body" id="card-body-search" style="text-align:left">
+                <h5 class="card-title ">The dark Knight</h5>
+                <p class="card-text ">2022</p>
 
             </div>
         </div>
+    </div>
 
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css " rel="stylesheet " integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN " crossorigin="anonymous ">
+
+
+    <div class="row">
+
+        <div class="col-md-3" *ngFor="let  movie of mostPopularMovies " (click)="goToPopularMovie(movie)">
+
+            <div class="card shadow" id="card-popular">
+                <div class="inner">
+                    <img src={{movie.posterUrl}} class="card-img-top " alt="... ">
+
+                </div>
+                <div class="card-body ">
+                    <h5 class="card-title ">{{movie.title}}</h5>
+                    <p class="card-text ">{{movie.date}}</p>
+                    <p class="card-text ">{{movie.director}}</p>
+                </div>
+
+            </div>
+        </div>
 
     </div>
 

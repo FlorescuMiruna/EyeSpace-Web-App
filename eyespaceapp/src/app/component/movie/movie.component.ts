@@ -70,6 +70,7 @@ export class MovieComponent implements OnInit {
     this.movieService.getMostPopularMovies().subscribe(res => {
 
       this.mostPopularMovies = res;
+      // this.mostPopularMovies = this.mostPopularMovies.slice(0,5); // de sters
       console.log("most popular:", this.mostPopularMovies)
 
     }, err => {
