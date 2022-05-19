@@ -100,6 +100,16 @@ nav ul li.logo {
     color: #f2f2f2;
 }
 
+nav ul li.logo-img img {
+    height: 70px;
+    width: 70px;
+    margin-left: 2%;
+}
+
+nav ul li.logo-img {
+    margin-right: 1%;
+}
+
 nav ul div.items {
     padding: 0 25px;
     display: inline-flex;

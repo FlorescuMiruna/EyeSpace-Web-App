@@ -27,6 +27,18 @@ nav ul li.logo {
     font-size: 30px;
     font-weight: 700;
     color: #f2f2f2;
+    float: left;
+    /* border: solid red; */
+}
+
+nav ul li.logo-img img {
+    height: 70px;
+    width: 70px;
+    margin-left: 2%;
+}
+
+nav ul li.logo-img {
+    margin-right: 1%;
 }
 
 nav ul div.items {
