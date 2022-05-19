@@ -37,7 +37,7 @@
                         <img class="d-flex mr-3 rounded-circle img-thumbnail thumb-lg " src="assets/watched.png " alt="Generic placeholder image " />
                         <div class="media-body ">
                             <!-- <h5 class="mt-0 font-18 mb-1 ">Time spent watching movies</h5> -->
-                            <h5 class="text-muted font-14 ">Movies watched</h5>
+                            <h5 class="text-muted font-14 "> Watched movies</h5>
                             <h1><b>{{movies.length}}</b> </h1>
 
                         </div>
@@ -74,7 +74,12 @@
 
 <!-- <h1>TIME SPENT WATCHING MOVIES: {{time[0]}} Days {{time[1]}} Hours </h1>
 <h1>MOVIES WATCHED: {{movies.length}}</h1> -->
-<h1>MY MOVIES</h1>
+
+<div class="card bg-light mb-3">
+    <div class="card-header">
+        <h4 class="font-weight-bold ">YOUR MOVIES</h4>
+    </div>
+</div>
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css " rel="stylesheet " integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN " crossorigin="anonymous ">
 <div class="row ">
 
@@ -101,7 +106,11 @@
 
 
 </div>
-<h1>WATCH LIST</h1>
+<div class="card bg-light mb-3">
+    <div class="card-header">
+        <h4 class="font-weight-bold ">WATCH LIST</h4>
+    </div>
+</div>
 <div class="row ">
 
     <div class="col-md-3 " *ngFor="let movie of movies_watch_list " (click)="goToMovie(movie) ">
@@ -122,7 +131,12 @@
 
 </div>
 
-<h1>FAVORITE MOVIES</h1>
+
+<div class="card bg-light mb-3">
+    <div class="card-header">
+        <h4 class="font-weight-bold ">FAVORITE MOVIES</h4>
+    </div>
+</div>
 <div class="row ">
 
     <div class="col-md-3 " *ngFor="let movie of favorites " (click)="goToMovie(movie) ">
