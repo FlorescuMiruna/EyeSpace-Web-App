@@ -69,11 +69,8 @@ public class BookService {
 
         JSONObject json = new JSONObject(response.body());
 
-        System.out.println("json" + json);
-
-
         Book book = jsonToBook(json);
-        System.out.println("Book:" + book.toString());
+//        System.out.println("Book:" + book.toString());
 
         return book;
     }

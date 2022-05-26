@@ -18,6 +18,10 @@ import { MovieComponent } from './component/movie/movie.component';
 import { MoviePageComponent } from './component/movie-page/movie-page.component';
 import { MyMoviesComponent } from './component/my-movies/my-movies.component';
 import { NgxStarRatingModule } from 'ngx-star-rating';
+import { HomeComponent } from './component/home/home.component';
+import { BookComponent } from './component/book/book.component';
+
+
 
 
 @NgModule({
@@ -29,7 +33,9 @@ import { NgxStarRatingModule } from 'ngx-star-rating';
     UserComponent,
     MovieComponent,
     MoviePageComponent,
-    MyMoviesComponent
+    MyMoviesComponent,
+    HomeComponent,
+    BookComponent
   ],
   imports: [
     BrowserModule,
