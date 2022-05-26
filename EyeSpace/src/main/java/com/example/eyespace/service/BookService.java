@@ -59,7 +59,7 @@ public class BookService {
     public Book getBookByIdApi(String id) throws IOException, InterruptedException {
 
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("https://hapi-books.p.rapidapi.com/book/" + apiHAPIBooksKey))
+                .uri(URI.create("https://hapi-books.p.rapidapi.com/book/" + id))
                 .header("X-RapidAPI-Host", "hapi-books.p.rapidapi.com")
                 .header("X-RapidAPI-Key", apiHAPIBooksKey)
                 .method("GET", HttpRequest.BodyPublishers.noBody())
@@ -97,6 +97,9 @@ public class BookService {
         book.setPages((Integer) jsonObject.get("pages"));
         book.setSynopsis((String) jsonObject.get("synopsis"));
         book.setDate((String) jsonObject.get("published_date"));
+
+        JSONArray jsonArray= (JSONArray) jsonObject.get("authors");
+        book.setAuthor((String) jsonArray.get(0));
 
         return book;
     }

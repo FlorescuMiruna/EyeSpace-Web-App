@@ -1,0 +1,96 @@
+<nav>
+
+    <ul>
+        <li class="logo-img"> <img src="assets/eye.png" alt="... " style=""></li>
+        <li class="logo">Eye Space</li>
+
+
+        <li class="btn"><span class="fas fa-bars"></span></li>
+        <div class="items">
+            <li><a href="/home">Home</a></li>
+            <li><a href="/book">Descover Books</a></li>
+
+            <li><a routerLink="/my-books">My Books</a></li>
+            <li><a (click)="goToProfile()">Profile</a></li>
+            <li><a (click)="goToUsers()">User portal</a></li>
+            <li><a (click)="goToSettings()">Settings</a></li>
+        </div>
+
+
+    </ul>
+</nav>
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+
+<section class="content-item grey" id="gallery-item">
+    <i id="fav-heart" style="font-size:40px;"></i>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8">
+                <!-- <div class="inner"> -->
+                <!-- <img src="https://m.media-amazon.com/images/M/MV5BMzVlMmY2NTctODgwOC00NDMzLWEzMWYtM2RiYmIyNTNhMTI0XkEyXkFqcGdeQXVyNTAzNzgwNTg@._V1_Ratio0.6751_AL_.jpg" id="poster" class="img-responsive" alt=""> -->
+                <!-- </div> -->
+                <img src={{bookAPI.coverUrl}} id="poster" class="img-responsive" alt="">
+
+            </div>
+
+            <div class="col-sm-4">
+                <div>
+                    <h1>{{bookAPI.name}}</h1>
+
+
+                </div>
+
+                <!-- <h2>{{bookAPI.genre}}</h2> -->
+
+                <div class="box" id="plot-box">
+                    <!-- {{bookAPI.plot}} -->
+                </div>
+                <h2>Directed by: {{bookAPI.author}}</h2>
+                <div class="box">
+                    <ul class="list-unstyled">
+                        <li><i class="fa fa-calendar"></i>{{bookAPI.date}}</li>
+                        <li><i class="fa fa-star"></i>Avrage Rating:<b style="color:Tomato;font-size: 20px;">  5</b></li>
+                        <li><i class="fa fa-star "></i>Avrage Rating: Not enough data</li>
+                        <!-- <li *ngIf="averageRating !==0 "> Avrage Rating: {{averageRating}} <i class="fa fa-star " aria-hidden="true "></i> </li>
+                        <li *ngIf="averageRating===0 "> Not enough Data</li> -->
+                        <!-- <li><i class="fa fa-eye "></i>125 Views</li> -->
+                        <li><i class="fa fa-comment "></i>5 Comments</li>
+                    </ul>
+                </div>
+                <!-- <form [formGroup]="form " [hidden]="!isWatched " id="stars ">
+
+                    <ngx-star-rating formControlName="rating" [id]="'rating'" (click)="rate() "></ngx-star-rating>
+
+                </form> -->
+
+
+
+            </div>
+            <!-- <ul class="elems ">
+                <li id="el1"> <button id="addList" [ngClass]=" calculateClasses1() " (click)="addMovie() "> {{isWatched==true ? "Watched " : "Mark as watched "}} </button> </li>
+                <li id="el2">
+                    <img src="assets/accept.png" [hidden]="!isWatched" alt="snow " id="accept">
+                </li>
+
+                <li id="el3"> <button id="addWatchList" [hidden]="isWatched " [ngClass]="calculateClasses2() " (click)="addMovieToWatchList() "> {{isInWatchList==true ? " Added to Watch list " : "Add to Watch list "}}</button></li>
+
+
+
+
+            </ul> -->
+        </div>
+
+    </div>
+
+
+    <!-- <div class="buttons ">
+        <button id="addList " [ngClass]=" calculateClasses1() " (click)="addMovie() "> {{isWatched==true ? "Watched " : "Mark as watched "}} </button>
+
+        <button id="addWatchList " [hidden]="isWatched " [ngClass]="calculateClasses2() " (click)="addMovieToWatchList() "> {{isInWatchList==true ? " Added to Watch list " : "Add to Watch list "}}</button>
+
+    </div> -->
+
+
+
+</section>

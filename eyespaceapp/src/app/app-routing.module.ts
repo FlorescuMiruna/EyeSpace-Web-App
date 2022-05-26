@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { BookPageComponent } from './component/book-page/book-page.component';
 import { BookComponent } from './component/book/book.component';
 
 import { HomeComponent } from './component/home/home.component';
@@ -20,6 +21,7 @@ const routes: Routes = [
   {path: 'my-movies', component:MyMoviesComponent},
   {path: 'home', component:HomeComponent},
   {path: 'book', component:BookComponent},
+  {path: 'book-page', component:BookPageComponent},
 
 
   // { path: 'user/management', component: UserComponent, canActivate: [AuthenticationGuard] },

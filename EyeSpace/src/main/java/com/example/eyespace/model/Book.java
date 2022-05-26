@@ -23,6 +23,7 @@ public class Book {
     private String coverUrl;
     private Integer pages;
     public String date;
+    public String author;
     @Lob
     public String synopsis;
 

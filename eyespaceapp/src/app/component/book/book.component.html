@@ -1,1 +1,70 @@
-<p>book works!</p>
+<nav>
+
+    <ul>
+        <li class="logo-img"> <img src="assets/eye.png"></li>
+        <li class="logo">Eye Space</li>
+
+        <li class="search-icon" [formGroup]="bookSearchDetailForm">
+            <input type="search" placeholder="Search" formControlName="name" id="tile">
+            <!-- <input type="text" formControlName="title" class="form-control" id="tile" aria-describedby="emailHelp"> -->
+            <label class="icon" (click)="search()">
+                <span class="bi bi-search" colour="red"></span>
+                </label>
+        </li>
+
+        <li class="btn"><span class="fas fa-bars"></span></li>
+        <div class="items">
+            <li><a href="#">Home</a></li>
+            <li><a href="/movie">Descover Movies</a></li>
+
+            <li><a routerLink="/my-movies">My Movies</a></li>
+            <li><a (click)="goToProfile()">Profile</a></li>
+            <li><a (click)="goToUsers()">User portal</a></li>
+            <li><a (click)="goToSettings()">Settings</a></li>
+        </div>
+
+
+    </ul>
+</nav>
+
+<div class="container-fluid">
+
+
+    <div class="row-md-4" id="row-md-4-search" *ngFor="let bookSearch of bookSearchList " (click)="goToBook(bookSearch)">
+
+        <div class=" card shadow " id="card-search ">
+            <div class="inner-search ">
+
+                <img src={{bookSearch.coverUrl}} class="card-img-top " alt="... ">
+
+            </div>
+            <div class="card-body " id="card-body-search " style="text-align:left ">
+                <h5 class="card-title ">{{bookSearch.name}}</h5>
+                <p class="card-text ">{{bookSearch.year}}</p>
+                <!-- <p class="card-text ">{{movieSearch.idIMDB}}</p> -->
+            </div>
+        </div>
+    </div>
+
+
+    <!-- hardcodat-->
+
+    <!-- <div class="row-md-4 " id="row-md-4-search ">
+        <div class="card shadow " id="card-search ">
+            <div class="inner-search ">
+                <img src="https://m.media-amazon.com/images/M/MV5BMTMxNTMwODM0NF5BMl5BanBnXkFtZTcwODAyMTk2Mw@@._V1_Ratio0.6751_AL_.jpg " class="card-img-top " alt="... ">
+            </div>
+            <div class="card-body " id="card-body-search " style="text-align:left ">
+                <h5 class="card-title ">The dark Knight</h5>
+                <p class="card-text ">2022</p>
+            </div>
+        </div>
+    </div> -->
+
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css " rel="stylesheet " integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN " crossorigin="anonymous ">
+
+
+
+
+
+</div>

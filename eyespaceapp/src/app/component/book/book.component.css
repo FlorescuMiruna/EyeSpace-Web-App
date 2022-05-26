@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700&display=swap');
 * {
     box-sizing: border-box;
     font-family: 'Montserrat', sans-serif;
@@ -26,6 +27,8 @@ nav ul li.logo {
     font-size: 30px;
     font-weight: 700;
     color: #f2f2f2;
+    float: left;
+    /* border: solid red; */
 }
 
 nav ul li.logo-img img {
@@ -51,7 +54,7 @@ nav ul div.items a {
 }
 
 nav ul div.items a:hover {
-    color: cyan;
+    color: rgb(75, 125, 125);
 }
 
 nav ul .search-icon {
@@ -172,7 +175,8 @@ nav ul li.btn span.show:before {
     }
 }
 
-.content {
+
+/* .content {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -194,51 +198,71 @@ nav ul li.btn span.show:before {
     font-size: 28px;
     font-weight: 600;
     color: #202020;
+} */
+
+.container {
+    margin-top: 1%;
 }
 
-body {
+.inner-search {
+    overflow: hidden;
+}
+
+.inner-search img {
+    max-width: 100px;
+    max-height: 150px;
+}
+
+#row-md-4-search {
+    margin: 0 auto;
     margin-top: 20px;
-    background: #eee;
+    margin-bottom: 20px;
 }
 
-@media (min-width: 0) {
-    .g-mr-15 {
-        margin-right: 1.07143rem !important;
-    }
+#card-search:hover {
+    background-color: rgba(40, 149, 151, 0.416);
 }
 
-@media (min-width: 0) {
-    .g-mt-3 {
-        margin-top: 0.21429rem !important;
-    }
+.card:hover {
+    background-color: rgba(40, 149, 151, 0.416);
 }
 
-.g-height-50 {
-    height: 50px;
+#card-search ::shadow {
+    width: 40rem;
+    flex-direction: row;
+    margin-left: 20%;
 }
 
-.g-width-50 {
-    width: 50px !important;
+
+/** de aici pt a 2 -a*/
+
+.inner {
+    overflow: hidden;
 }
 
-@media (min-width: 0) {
-    .g-pa-30 {
-        padding: 2.14286rem !important;
-    }
+.inner img {
+    transition: 1.50s ease;
 }
 
-.g-bg-secondary {
-    background-color: #fafafa !important;
+.inner:hover img {
+    transform: scale(1.5);
 }
 
-.u-shadow-v18 {
-    box-shadow: 0 5px 10px -6px rgba(0, 0, 0, 0.15);
+.col-md-3 {
+    /* border: 10px solid rgb(11, 175, 110); */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.g-color-gray-dark-v4 {
-    color: #777 !important;
+.card-body {
+    text-align: center;
 }
 
-.g-font-size-12 {
-    font-size: 0.85714rem !important;
+#card-popular {
+    /* border: solid red; */
+    width: 22rem;
+    height: 40rem;
+    margin-top: 5%;
+    margin-bottom: 5%;
 }
