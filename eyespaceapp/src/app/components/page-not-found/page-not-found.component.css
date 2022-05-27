@@ -91,12 +91,12 @@ section {
     --main-color: #000000;
     --secondary-color: #050505;
     --shadow-var: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    --my-red-color: #cc2323;
-    --green-message: #d22323;
+    --my-red-color: #280404;
+    --green-message: #25db40;
 }
 
 .fundal {
-    background: linear-gradient(-45deg, #000000, #ae0034, #24b94b);
+    background: linear-gradient(-45deg, #000000, #f61357, #24b94b);
     background-size: 400% 400%;
     animation: gradient 15s ease infinite;
     /* height: 100vh; */
@@ -137,7 +137,7 @@ section {
     text-decoration: none;
     outline: none;
     color: #000000;
-    background-color: #ffffff;
+    background-color: #cfd6e0;
     border: none;
     border-radius: 15px;
     box-shadow: 0 9px rgb(238, 230, 230);
