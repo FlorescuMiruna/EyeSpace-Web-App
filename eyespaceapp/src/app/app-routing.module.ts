@@ -7,6 +7,7 @@ import { HomeComponent } from './component/home/home.component';
 import { MoviePageComponent } from './component/movie-page/movie-page.component';
 import { MovieComponent } from './component/movie/movie.component';
 import { MyMoviesComponent } from './component/my-movies/my-movies.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { AuthenticationGuard } from './guard/authentication.guard';
 import { LoginComponent } from './login/login.component';
@@ -24,7 +25,8 @@ const routes: Routes = [
   // {path: 'home', component:HomeComponent},
   // {path: 'book', component:BookComponent},
   // {path: 'book-page', component:BookPageComponent},
-
+ //Wild Card Route for 404 request
+ { path: '**', pathMatch: 'full', component: PageNotFoundComponent },
 
   // { path: 'user/management', component: UserComponent, canActivate: [AuthenticationGuard] },
   { path: '', redirectTo: '/login', pathMatch: 'full' }
