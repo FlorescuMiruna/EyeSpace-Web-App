@@ -54,11 +54,15 @@ public class User implements Serializable {
 
     @JsonIgnore
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    private List<Quote> quotes = new ArrayList<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     private List<Rating> ratings = new ArrayList<>();
 
     public User(){}
 
-    public User(Long id, String userId, String firstName, String lastName, String username, String password, String email, String profileImageUrl, Date lastLoginDate, Date lastLoginDateDisplay, Date joinDate, String role, String[] authorities, boolean isActive, boolean isNotLocked, Set<Movie> movies, Set<Movie> movies_watch_list, Set<Movie> favorites, List<Comment> comments, List<Rating> ratings) {
+    public User(Long id, String userId, String firstName, String lastName, String username, String password, String email, String profileImageUrl, Date lastLoginDate, Date lastLoginDateDisplay, Date joinDate, String role, String[] authorities, boolean isActive, boolean isNotLocked, Set<Movie> movies, Set<Movie> movies_watch_list, Set<Movie> favorites, List<Comment> comments, List<Quote> quotes, List<Rating> ratings) {
         this.id = id;
         this.userId = userId;
         this.firstName = firstName;
@@ -78,7 +82,16 @@ public class User implements Serializable {
         this.movies_watch_list = movies_watch_list;
         this.favorites = favorites;
         this.comments = comments;
+        this.quotes = quotes;
         this.ratings = ratings;
+    }
+
+    public List<Quote> getQuotes() {
+        return quotes;
+    }
+
+    public void setQuotes(List<Quote> quotes) {
+        this.quotes = quotes;
     }
 
     public List<Rating> getRatings() {
@@ -264,6 +277,7 @@ public class User implements Serializable {
 //                ", favorites=" + favorites +
                 ", comments=" + comments +
                 ", ratings=" + ratings +
+                ", quotes=" + quotes +
                 '}';
     }
 }

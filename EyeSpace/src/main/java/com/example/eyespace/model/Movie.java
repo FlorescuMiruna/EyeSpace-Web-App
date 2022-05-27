@@ -76,6 +76,10 @@ public class Movie {
 
     @JsonIgnore
     @OneToMany(mappedBy = "movie",cascade = CascadeType.ALL)
+    private List<Quote> quotes = new ArrayList<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "movie",cascade = CascadeType.ALL)
     private List<Rating> ratings = new ArrayList<>();
 
     @Override
