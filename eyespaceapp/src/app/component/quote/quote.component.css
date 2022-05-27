@@ -97,7 +97,7 @@ body {
     height: 100%;
 }
 
-.card .additional .more-info h1 {
+.card .additional .more-info h6 {
     color: #fff;
     margin-bottom: 0;
 }
@@ -172,11 +172,17 @@ body {
     padding-top: 0;
 }
 
+.card .general p {
+    text-align: center;
+    font-family: "Times New Roman", 'Ancient Runes', serif;
+}
+
 .card .general .more {
     position: absolute;
     bottom: 1rem;
     right: 1rem;
-    font-size: 0.9em;
+    font-size: 2em;
+    font-family: "Times New Roman", 'Ancient Runes', serif;
 }
 
 .img-thumbnail {

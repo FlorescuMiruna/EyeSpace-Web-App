@@ -1,5 +1,5 @@
 <div class="center">
-    <div class="card">
+    <div class="card" *ngFor="let quote of quotes ">
         <div class="additional">
             <div class="user-card">
                 <div class="level center">
@@ -8,10 +8,10 @@
                 <div class="points center">
                     5,312 Points
                 </div>
-                <img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="img-fluid d-block mx-auto rounded-circle img-thumbnail mb-4">
+                <img src={{quote.movie.posterUrl}} class="img-fluid d-block mx-auto rounded-circle img-thumbnail mb-4">
             </div>
             <div class="more-info">
-                <h1>Jane Doe</h1>
+                <h6>{{quote.movie.plot}} </h6>
                 <div class="coords">
                     <span>Group Name</span>
                     <span>Joined January 2019</span>
@@ -45,9 +45,10 @@
             </div>
         </div>
         <div class="general">
-            <h1>Jane Doe</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce a volutpat mauris, at molestie lacus. Nam vestibulum sodales odio ut pulvinar.</p>
-            <span class="more">Mouse over the card for more info</span>
+            <h1></h1>
+            <p>{{quote.text}}</p>
+            <h1 class="more"> ~ {{quote.person}}</h1>
+            <!-- <span class="more">{{quote.person}}</span> -->
         </div>
     </div>
 
