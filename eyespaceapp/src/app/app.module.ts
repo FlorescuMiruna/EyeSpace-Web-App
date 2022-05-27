@@ -21,6 +21,7 @@ import { NgxStarRatingModule } from 'ngx-star-rating';
 import { HomeComponent } from './component/home/home.component';
 import { BookComponent } from './component/book/book.component';
 import { BookPageComponent } from './component/book-page/book-page.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 
 
@@ -37,7 +38,8 @@ import { BookPageComponent } from './component/book-page/book-page.component';
     MyMoviesComponent,
     HomeComponent,
     BookComponent,
-    BookPageComponent
+    BookPageComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

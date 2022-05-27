@@ -1,7 +1,7 @@
 <nav>
 
     <ul>
-        <li class="logo-img"> <img src="assets/eye.png" alt="... " style=""></li>
+        <li class="logo-img"> <img src="assets/eye.png"></li>
         <li class="logo">Eye Space</li>
 
 
@@ -26,7 +26,7 @@
         <div class="col-md-4">
         </div>
         <div class="col-md-4">
-            <h5>User Management Portal</h5>
+            <!-- <h5>User Management Portal</h5> -->
             <small *ngIf="titleAction$ | async as title">{{ title }}</small>
         </div>
         <div class="col-md-4">
@@ -114,7 +114,9 @@
       </button>
 
         <!-- change password  -->
-        <div [hidden]="!isAdmin" class="tab-pane fade" id="reset-password">
+        <!-- <div [hidden]="!isAdmin" class="tab-pane fade" id="reset-password"> -->
+        <div class="tab-pane fade" id="reset-password">
+
             <form #resetPasswordForm="ngForm" (ngSubmit)="onResetPassword(resetPasswordForm)">
                 <fieldset>
                     <legend>User Password Management</legend>
@@ -160,10 +162,16 @@
                                                         <div *ngIf="user?.lastLoginDateDisplay !== null" class="text-muted"><small>Last login:
                                   {{user?.lastLoginDateDisplay | date:'medium'}}</small></div>
                                                         <div class="mt-2">
-                                                            <button (click)="updateProfileImage()" class="btn btn-primary" type="button">
+                                                            <!-- <button (click)="updateProfileImage()" class="btn btn-primary" type="button">
                                   <i class="fa fa-fw fa-camera"></i>
                                   <span>Change Photo</span>
-                                </button>
+                                </button> --><label for="profile-image-input" id="label-special">
+                                    <i class="fa fa-fw fa-camera"></i>Change Photo</label>
+
+
+                                                            <form enctype="multipart/form-data">
+                                                                <input type="file" (change)="onProfileImageChange(($any($event.target).files[0].name), ($any($event.target).files[0])); onUpdateProfileImage() " name="profile-image-input " id="profile-image-input" placeholder="file" accept="image/* " />
+                                                            </form>
                                                         </div>
                                                     </div>
                                                     <div class="text-center text-sm-right">
@@ -239,6 +247,16 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
+
+                                                                <!-- <div>
+                                                                    <form enctype="multipart/form-data">
+                                                                        <label for="profile-image-input">Browse...</label>
+                                                                        <input aria-hidden="true" type="file" (change)="onProfileImageChange(($any($event.target).files[0].name), ($any($event.target).files[0])); onUpdateProfileImage() " name="profile-image-input " id="profile-image-input" placeholder="file " accept="image/* "
+                                                                        />
+                                                                    </form>
+                                                                </div> -->
+
+
                                                             </div>
                                                         </div>
                                                         <div class="row">
@@ -516,8 +534,8 @@
 
 
         <!-- profile image change form -->
-        <form enctype="multipart/form-data">
+        <!-- <form enctype="multipart/form-data">
             <input type="file" (change)="onProfileImageChange(($any($event.target).files[0].name), ($any($event.target).files[0])); onUpdateProfileImage() " name="profile-image-input " id="profile-image-input " placeholder="file " accept="image/* " />
-        </form>
+        </form> -->
 
     </div>

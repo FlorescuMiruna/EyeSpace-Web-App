@@ -7,6 +7,7 @@ import { HomeComponent } from './component/home/home.component';
 import { MoviePageComponent } from './component/movie-page/movie-page.component';
 import { MovieComponent } from './component/movie/movie.component';
 import { MyMoviesComponent } from './component/my-movies/my-movies.component';
+import { ProfileComponent } from './components/profile/profile.component';
 import { AuthenticationGuard } from './guard/authentication.guard';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
@@ -19,9 +20,10 @@ const routes: Routes = [
   {path: 'movie-page', component:MoviePageComponent},
   { path: 'user/management', component: UserComponent },
   {path: 'my-movies', component:MyMoviesComponent},
-  {path: 'home', component:HomeComponent},
-  {path: 'book', component:BookComponent},
-  {path: 'book-page', component:BookPageComponent},
+  {path: 'profile', component:ProfileComponent},
+  // {path: 'home', component:HomeComponent},
+  // {path: 'book', component:BookComponent},
+  // {path: 'book-page', component:BookPageComponent},
 
 
   // { path: 'user/management', component: UserComponent, canActivate: [AuthenticationGuard] },

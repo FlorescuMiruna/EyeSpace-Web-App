@@ -179,3 +179,26 @@ nav ul li.btn span.show:before {
         width: 10vmin;
     }
 }
+
+
+/**buton */
+
+#label-special {
+    cursor: pointer;
+    background-color: #4CAF50;
+    /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    /* Style as you please, it will become the visible UI component. */
+}
+
+#profile-image-input {
+    opacity: 0;
+    position: absolute;
+    z-index: -1;
+}
