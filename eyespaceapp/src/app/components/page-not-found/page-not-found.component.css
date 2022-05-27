@@ -1,4 +1,4 @@
-body {
+/* body {
     margin-top: 20px;
 }
 
@@ -54,14 +54,13 @@ section {
     display: block;
     margin-left: auto;
     margin-right: auto;
-    /* width: 50%; */
+    width: 50%;
 }
 
 .center-btn {
     display: block;
     margin-left: 40%;
     margin-right: 40%;
-    /* margin-top: 3%; */
     width: 20%;
     display: inline-block;
     padding: 15px 25px;
@@ -86,4 +85,80 @@ section {
     background-color: #d1f1fc;
     box-shadow: 0 5px #666;
     transform: translateY(4px);
+} */
+
+:root {
+    --main-color: #000000;
+    --secondary-color: #050505;
+    --shadow-var: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    --my-red-color: #cc2323;
+    --green-message: #d22323;
+}
+
+.fundal {
+    background: linear-gradient(-45deg, #000000, #ae0034, #24b94b);
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
+    /* height: 100vh; */
+    font-family: poppins;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    /* border: solid red; */
+}
+
+#center-btn {
+    display: block;
+    margin-left: 40%;
+    margin-right: 40%;
+    margin-top: 3%;
+    width: 20%;
+    display: inline-block;
+    padding: 15px 25px;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #000000;
+    background-color: #ffffff;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px rgb(238, 230, 230);
+    margin-bottom: 5%;
+    margin-top: 0%;
+}
+
+#center-btn:hover {
+    background-color: #20a4f0;
+    box-shadow: 0 9px #cfd6e0
+}
+
+
+/* #center-btn:active {
+    background-color: #d1f1fc;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+} */
+
+#img-404 {
+    width: 60%;
+    padding-top: 5%;
+    padding-bottom: 5%;
 }
