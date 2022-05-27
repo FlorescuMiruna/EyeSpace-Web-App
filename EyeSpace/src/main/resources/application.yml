@@ -1,5 +1,5 @@
 apiIMDBKey:
-  k_2ukkb3l2
+  k_06q21vqs
 #k_aszbetcv
 #k_45z0qzo4
 #k_s86h4bwp
@@ -10,8 +10,6 @@ apiIMDBKey:
 #k_gy65gq6d
 #k_cc1z7ycp
 
-apiHAPIBooksKey:
-  91a92978f3msh9c72cd78b7b7ce7p159252jsnc2427ab6c01c
 
 jwt:
   secret: '[a-zA-Z0-9._]^+$Guidelines89797987forAlphabeticalArraNumeralsandOtherSymbo$'
