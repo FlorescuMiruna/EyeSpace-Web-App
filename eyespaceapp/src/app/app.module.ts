@@ -23,6 +23,7 @@ import { BookComponent } from './component/book/book.component';
 import { BookPageComponent } from './component/book-page/book-page.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { QuoteComponent } from './component/quote/quote.component';
 
 
 
@@ -41,7 +42,8 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     BookComponent,
     BookPageComponent,
     ProfileComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    QuoteComponent
   ],
   imports: [
     BrowserModule,

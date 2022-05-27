@@ -69,9 +69,8 @@ public class QuoteService {
 
 
             quoteUpdated.setText(quoteUpdated.getText() == null ? quoteOptional.get().getText() : quoteUpdated.getText());
-
             quoteUpdated.setPerson(quoteUpdated.getPerson() == null ? quoteOptional.get().getPerson() : quoteUpdated.getPerson());
-
+            quoteUpdated.setPerson(quoteUpdated.getTheme() == null ? quoteOptional.get().getTheme() : quoteUpdated.getTheme());
 
             return quoteRepository.save(quoteUpdated);
         }else {

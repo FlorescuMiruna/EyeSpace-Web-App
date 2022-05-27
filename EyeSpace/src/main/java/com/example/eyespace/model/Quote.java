@@ -23,6 +23,8 @@ public class Quote {
 
     private String person;
 
+    private String theme = "Dark";
+
     //@JsonIgnore
     @ManyToOne
     @JoinColumn(name = "movie_id", referencedColumnName = "id")
