@@ -256,10 +256,12 @@ public class MovieService {
 
 
     public void removeMovieFromUser(String movieId, Long userId) {
+
+
         User user = userService.findUserById(userId);
         Optional<Movie> movieOptional = Optional.ofNullable(movieRepository.findById(movieId));
         if(movieOptional.isPresent()  ){
-
+            
             if(user.getMovies().contains(movieOptional.get())){
 
                 movieOptional.get().getUsers1().remove(user);

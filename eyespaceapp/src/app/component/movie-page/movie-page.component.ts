@@ -416,7 +416,8 @@ export class MoviePageComponent implements OnInit {
             this.isWatched = false;
 
             //Atunci cand sterg filmul din lista il sterg si din lista favoritelor
-
+           if(this.isFavorite == true)
+           {
             this.movieService.removeMovieFromFavorites(this.movieAPI.id, userId).subscribe(res => {
 
 
@@ -426,6 +427,8 @@ export class MoviePageComponent implements OnInit {
               console.log(err)
               console.log("Error while fetching data")
             });
+           }
+   
 
 
             this.refreshUserFromLocalChash(userId);

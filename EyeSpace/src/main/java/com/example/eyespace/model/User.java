@@ -277,7 +277,7 @@ public class User implements Serializable {
 //                ", favorites=" + favorites +
                 ", comments=" + comments +
                 ", ratings=" + ratings +
-                ", quotes=" + quotes +
+                //", quotes=" + quotes +
                 '}';
     }
 }
