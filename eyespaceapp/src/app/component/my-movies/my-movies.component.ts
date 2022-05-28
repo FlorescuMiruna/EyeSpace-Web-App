@@ -19,12 +19,38 @@ export class MyMoviesComponent implements OnInit {
   time: [number,number] = [0,0];
   favorites_ids : String[] = [];
   user: User = this.authenticationService.getUserFromLocalCache();
+  pageAll: Boolean = true;
+  pageFavorites: Boolean = true;
+  pageWatched: Boolean = true;
+  pageWatchList: Boolean = true;
   constructor(private userService: UserService,private movieService: MovieService, private authenticationService: AuthenticationService, private router:Router) { }
 
   ngOnInit(): void {
     this.initializeLists();
+    this.checkPage();
   }
 
+
+  checkPage(){
+    var page = localStorage.getItem("my-movies") || "";
+    if(page== "Watched"){
+      this.pageWatchList = false;
+      this.pageFavorites = false;
+    }
+
+
+     if(page== "WatchList"){
+      this.pageWatched = false;
+      this.pageFavorites = false;
+     
+    }
+    if(page== "Favorites"){
+      this.pageWatchList = false;
+      this.pageWatched = false;
+
+    }
+
+  }
   initializeLists(){
     this.refreshUserFromLocalChash(this.authenticationService.getUserFromLocalCache().id);
     console.log("USER",this.authenticationService.getUserFromLocalCache())

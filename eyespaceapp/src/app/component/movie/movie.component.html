@@ -17,7 +17,20 @@
             <!-- <li><a href="#">Home</a></li> -->
             <li><a href="/movie">Descover Movies</a></li>
 
-            <li><a routerLink="/my-movies">My Movies</a></li>
+            <div class="dropdown">
+                <li><a (click)="goToMyMovies()">My Movies</a></li>
+
+                <div class="dropdown-content">
+
+                    <p (click)="goToMyWatchedMovies()" id="my-movies-fav">Watched </p>
+                    <p (click)="goToMyWatchListMovies()" id="my-movies-fav">Watch List </p>
+                    <p (click)="goToMyFavoriteMovies()" id="my-movies-fav">Favorites</p>
+                </div>
+            </div>
+
+
+
+
             <li><a (click)="goToProfile()">Profile</a></li>
             <li><a (click)="goToUsers()">User portal</a></li>
             <li><a (click)="goToSettings()">Settings</a></li>
@@ -26,7 +39,12 @@
 
     </ul>
 </nav>
-
+<!-- <div class="dropdown">
+    <span>Mouse over me</span>
+    <div class="dropdown-content">
+        <p>Hello World!</p>
+    </div>
+</div> -->
 
 <div class="container-fluid">
 

@@ -21,11 +21,7 @@
 </nav>
 
 
-<!-- <div class="navi">
-    <button type="button" class="btn btn-info">Your movies</button>
-    <button type="button" class="btn btn-info">Watch list</button>
-    <button type="button" class="btn btn-info">Favorites</button>
-</div> -->
+
 
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 <div class="container">
@@ -75,13 +71,13 @@
 <!-- <h1>TIME SPENT WATCHING MOVIES: {{time[0]}} Days {{time[1]}} Hours </h1>
 <h1>MOVIES WATCHED: {{movies.length}}</h1> -->
 
-<div class="card bg-light mb-3">
+<div class="card bg-light mb-3" [hidden]="!pageWatched">
     <div class="card-header">
         <h4 class="font-weight-bold ">YOUR MOVIES</h4>
     </div>
 </div>
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css " rel="stylesheet " integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN " crossorigin="anonymous ">
-<div class="row ">
+<div class="row" [hidden]="!pageWatched">
 
     <div class="col-md-3 " *ngFor="let movie of movies " (click)="goToMovie(movie) ">
 
@@ -106,12 +102,12 @@
 
 
 </div>
-<div class="card bg-light mb-3">
+<div class="card bg-light mb-3" [hidden]="!pageWatchList">
     <div class="card-header">
-        <h4 class="font-weight-bold ">WATCH LIST</h4>
+        <h4 class="font-weight-bold">WATCH LIST</h4>
     </div>
 </div>
-<div class="row ">
+<div class="row" [hidden]="!pageWatchList">
 
     <div class="col-md-3 " *ngFor="let movie of movies_watch_list " (click)="goToMovie(movie) ">
 
@@ -132,12 +128,12 @@
 </div>
 
 
-<div class="card bg-light mb-3">
+<div class="card bg-light mb-3" [hidden]="!pageFavorites">
     <div class="card-header">
         <h4 class="font-weight-bold ">FAVORITE MOVIES</h4>
     </div>
 </div>
-<div class="row ">
+<div class="row " [hidden]="!pageFavorites">
 
     <div class="col-md-3 " *ngFor="let movie of favorites " (click)="goToMovie(movie) ">
 
