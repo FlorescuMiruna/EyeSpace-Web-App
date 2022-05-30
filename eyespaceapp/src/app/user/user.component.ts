@@ -310,5 +310,26 @@ export class UserComponent implements OnInit, OnDestroy {
     this.checkPage();
   }
 
+  goToMyMovies(){
+    this.router.navigate(['/my-movies']);
+    localStorage.setItem('my-movies', 'All');
+
+  }
+  
+  goToMyWatchedMovies(){
+    this.router.navigate(['/my-movies']);
+    localStorage.setItem('my-movies', 'Watched');
+  }
+  goToMyWatchListMovies(){
+    this.router.navigate(['/my-movies']);
+    localStorage.setItem('my-movies', 'WatchList');
+  }
+
+  goToMyFavoriteMovies(){
+    this.router.navigate(['/my-movies']);
+    localStorage.setItem('my-movies', 'Favorites');
+
+  }
+
 }
 

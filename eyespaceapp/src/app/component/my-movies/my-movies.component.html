@@ -1,7 +1,7 @@
 <nav>
 
     <ul>
-        <li class="logo-img"> <img src="assets/eye.png" alt="... " style=""></li>
+        <li class="logo-img"> <img src="assets/eye.png"></li>
         <li class="logo">Eye Space</li>
 
 
@@ -10,7 +10,16 @@
             <!-- <li><a href="/home">Home</a></li> -->
             <li><a href="/movie">Descover Movies</a></li>
 
-            <li><a routerLink="/my-movies">My Movies</a></li>
+            <div class="dropdown">
+                <li id="my-movies"><a (click)="goToMyMovies()">My Movies</a></li>
+
+                <div class="dropdown-content">
+
+                    <p (click)="goToMyWatchedMovies()" class="dropdown-item">Watched </p>
+                    <p (click)="goToMyWatchListMovies()" class="dropdown-item">Watch List </p>
+                    <p (click)="goToMyFavoriteMovies()" class="dropdown-item">Favorites</p>
+                </div>
+            </div>
             <li><a (click)="goToProfile()">Profile</a></li>
             <li><a (click)="goToUsers()">User portal</a></li>
             <li><a (click)="goToSettings()">Settings</a></li>
@@ -26,7 +35,7 @@
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 <div class="container">
     <div class="row">
-        <div class="col-lg-5 ">
+        <div class="col-lg-5" id="card-nr">
             <div class="card m-b-30 " id="special-card ">
                 <div class="card-body ">
                     <div class="media ">
@@ -41,7 +50,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-5 ">
+        <div class="col-lg-5" id="card-timp">
             <div class="card m-b-30 " id="special-card ">
                 <div class="card-body ">
                     <div class="media ">

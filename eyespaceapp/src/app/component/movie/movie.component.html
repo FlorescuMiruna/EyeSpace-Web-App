@@ -18,16 +18,15 @@
             <li><a href="/movie">Descover Movies</a></li>
 
             <div class="dropdown">
-                <li><a (click)="goToMyMovies()">My Movies</a></li>
+                <li id="my-movies"><a (click)="goToMyMovies()">My Movies</a></li>
 
                 <div class="dropdown-content">
 
-                    <p (click)="goToMyWatchedMovies()" id="my-movies-fav">Watched </p>
-                    <p (click)="goToMyWatchListMovies()" id="my-movies-fav">Watch List </p>
-                    <p (click)="goToMyFavoriteMovies()" id="my-movies-fav">Favorites</p>
+                    <p (click)="goToMyWatchedMovies()" class="dropdown-item">Watched </p>
+                    <p (click)="goToMyWatchListMovies()" class="dropdown-item">Watch List </p>
+                    <p (click)="goToMyFavoriteMovies()" class="dropdown-item">Favorites</p>
                 </div>
             </div>
-
 
 
 

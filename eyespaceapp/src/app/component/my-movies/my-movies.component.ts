@@ -32,7 +32,11 @@ export class MyMoviesComponent implements OnInit {
 
 
   checkPage(){
+
     var page = localStorage.getItem("my-movies") || "";
+    this.pageWatchList = true;
+    this.pageWatched = true;
+    this.pageFavorites = true;
     if(page== "Watched"){
       this.pageWatchList = false;
       this.pageFavorites = false;
@@ -49,6 +53,11 @@ export class MyMoviesComponent implements OnInit {
       this.pageWatched = false;
 
     }
+
+    console.log("***********************")
+    console.log("pageWatchList",this.pageWatchList);
+    console.log("pageWatched",this.pageWatched);
+    console.log("pageFavorites",this.pageFavorites);
 
   }
   initializeLists(){
@@ -123,5 +132,31 @@ export class MyMoviesComponent implements OnInit {
     this.router.navigate(['/user/management']);
     localStorage.setItem('page', 'Settings');
   }
+  goToMyMovies(){
+    // this.router.navigate(['/my-movies']);
+    localStorage.setItem('my-movies', 'All');
+    this.checkPage();
+    console.log("goToMyMovies");
+
+  }
+  
+  goToMyWatchedMovies(){
+    // this.router.navigate(['/my-movies']);
+    localStorage.setItem('my-movies', 'Watched');
+    this.checkPage();
+  }
+  goToMyWatchListMovies(){
+   // this.router.navigate(['/my-movies']);
+    localStorage.setItem('my-movies', 'WatchList');
+    this.checkPage();
+  }
+
+  goToMyFavoriteMovies(){
+   // this.router.navigate(['/my-movies']);
+    localStorage.setItem('my-movies', 'Favorites');
+    this.checkPage();
+
+  }
+  
 
 }
