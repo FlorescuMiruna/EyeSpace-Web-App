@@ -109,7 +109,7 @@
                         <td class="">
                             <div class="btn-group">
                                 <button class="btn btn-outline-info" (click)="onEditUser(appUser)"><i class="fas fa-edit"></i></button>
-                                <button [hidden]="!isAdmin" class="btn btn-outline-danger" (click)="onDeleteUser(appUser.username)"><i class="fas fa-trash"></i></button>
+                                <button [hidden]="!isSuperAdmin" class="btn btn-outline-danger" (click)="onDeleteUser(appUser.username)"><i class="fas fa-trash"></i></button>
                             </div>
                         </td>
                     </tr>
@@ -230,7 +230,7 @@
                                                                             <select name="role" required [(ngModel)]="user.role" class="form-control">
                                             <option [hidden]="!isAdmin" value="ROLE_USER">USER</option>
                                             <option [hidden]="!isAdmin" value="ROLE_HR">HR</option>
-                                            <option [hidden]="!isAdmin" value="ROLE_MANAGER">MANAGER</option>
+                                            <!-- <option [hidden]="!isAdmin" value="ROLE_MANAGER">MANAGER</option> -->
                                             <option [hidden]="!isAdmin" value="ROLE_ADMIN">ADMIN</option>
                                             <option [hidden]="!isAdmin" value="ROLE_SUPER_ADMIN">SUPER ADMIN</option>
                                           </select>
@@ -415,7 +415,7 @@
                                     <select name="role" required ngModel="ROLE_USER" class="form-control">
                       <option value="ROLE_USER">USER</option>
                       <option value="ROLE_HR">HR</option>
-                      <option value="ROLE_MANAGER">MANAGER</option>
+                      <!-- <option value="ROLE_MANAGER">MANAGER</option> -->
                       <option value="ROLE_ADMIN">ADMIN</option>
                       <option value="ROLE_SUPER_ADMIN">SUPER ADMIN</option>
                     </select>
@@ -497,7 +497,7 @@
                                     <select name="role" [disabled]="!isAdmin" required [(ngModel)]="editUser.role" class="form-control">
                     <option value="ROLE_USER">USER</option>
                     <option value="ROLE_HR">HR</option>
-                    <option value="ROLE_MANAGER">MANAGER</option>
+                    <!-- <option value="ROLE_MANAGER">MANAGER</option> -->
                     <option value="ROLE_ADMIN">ADMIN</option>
                     <option value="ROLE_SUPER_ADMIN">SUPER ADMIN</option>
                   </select>

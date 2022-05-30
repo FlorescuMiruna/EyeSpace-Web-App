@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NotificationType } from 'src/app/enum/notification-type.enum';
+import { Role } from 'src/app/enum/role.enum';
 import { Comm } from 'src/app/model/comm';
 import { Movie } from 'src/app/model/movie';
 import { Rating } from 'src/app/model/rating';
@@ -68,6 +69,14 @@ export class MoviePageComponent implements OnInit {
     })
 
 
+  }
+  private getUserRole(): string {
+    return this.authenticationService.getUserFromLocalCache().role;
+  }
+
+  public get isHR(): boolean {
+
+    return this.getUserRole() === Role.HR ;
   }
   rate() {
 

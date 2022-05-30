@@ -124,8 +124,13 @@
                         <h5 class="h5 g-color-gray-dark-v1 mb-0 ">{{comment.user.username}}</h5>
                     </li>
                     <li id="commDelete">
-                        <i id="commDelete" style=" font-size:24px " *ngIf="comment.user.id===user.id " class="fa" (click)="deleteComm(comment) ">&#xf014;</i>
+                        <i id="commDelete" style=" font-size:24px " *ngIf="comment.user.id===user.id" class="fa" (click)="deleteComm(comment)">&#xf014;</i>
                     </li>
+
+                    <li id="commDelete">
+                        <i id="commDelete" style=" font-size:24px; color: rgb(84, 136, 215); " *ngIf="comment.user.id!==user.id && isHR" class="fa" (click)="deleteComm(comment)">&#xf014;</i>
+                    </li>
+
                     <li id="commEdit">
                         <i id="commEdit" style="font-size:24px " *ngIf="comment.user.id===user.id " class='fa fa-edit' data-bs-toggle="modal" data-bs-target="#editComm" (click)="editComm(comment)"></i>
                     </li>

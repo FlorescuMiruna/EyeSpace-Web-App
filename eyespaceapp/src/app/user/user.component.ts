@@ -3,6 +3,7 @@ import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/co
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Subscription } from 'rxjs';
+import Swal from 'sweetalert2';
 import { NotificationType } from '../enum/notification-type.enum';
 import { Role } from '../enum/role.enum';
 import { CustomHttpRespone } from '../model/custom-http-response';
@@ -99,6 +100,10 @@ export class UserComponent implements OnInit, OnDestroy {
 
     return this.getUserRole() === Role.ADMIN || this.getUserRole() === Role.SUPER_ADMIN;
   }
+  public get isSuperAdmin(): boolean {
+
+    return this.getUserRole() === Role.SUPER_ADMIN;
+  }
 
   public get isManager(): boolean {
     return this.isAdmin || this.getUserRole() === Role.MANAGER;
@@ -194,17 +199,39 @@ export class UserComponent implements OnInit, OnDestroy {
     );
   }
   public onDeleteUser(username: string): void {
-    this.subscriptions.push(
-      this.userService.deleteUser(username).subscribe(
-        (response: CustomHttpRespone) => {
-          this.sendNotification(NotificationType.SUCCESS, response.message);
-          this.getUsers(false);
-        },
-        (error: HttpErrorResponse) => {
-          this.sendNotification(NotificationType.ERROR, error.error.message);
-        }
-      )
-    );
+
+    Swal.fire({
+      title: 'Are you sure you want to delete the user?',
+      text: 'This action cannot be undone!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#4E9A9B',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+
+
+
+        this.subscriptions.push(
+          this.userService.deleteUser(username).subscribe(
+            (response: CustomHttpRespone) => {
+              this.sendNotification(NotificationType.SUCCESS, response.message);
+              this.getUsers(false);
+            },
+            (error: HttpErrorResponse) => {
+              this.sendNotification(NotificationType.ERROR, error.error.message);
+            }
+          )
+        );
+
+
+
+
+      }
+    })
+    
+
   }
 
   public onResetPassword(emailForm: NgForm): void {
