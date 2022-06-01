@@ -1,163 +1,212 @@
-<div class="center">
-    <div class="card" *ngFor="let quote of quotes ">
-        <div class="additional">
-            <div class="user-card">
-                <div class="level center">
-                    Level 13
-                </div>
-                <div class="points center">
-                    5,312 Points
-                </div>
-                <img src={{quote.movie.posterUrl}} class="img-fluid d-block mx-auto rounded-circle img-thumbnail mb-4">
-            </div>
-            <div class="more-info">
-                <h6>{{quote.movie.plot}} </h6>
-                <div class="coords">
-                    <span>Group Name</span>
-                    <span>Joined January 2019</span>
-                </div>
-                <div class="coords">
-                    <span>Position/Role</span>
-                    <span>City, Country</span>
-                </div>
-                <div class="stats">
-                    <div>
-                        <div class="title">Awards</div>
-                        <i class="fa fa-trophy"></i>
-                        <div class="value">2</div>
-                    </div>
-                    <div>
-                        <div class="title">Matches</div>
-                        <i class="fa fa-gamepad"></i>
-                        <div class="value">27</div>
-                    </div>
-                    <div>
-                        <div class="title">Pals</div>
-                        <i class="fa fa-group"></i>
-                        <div class="value">123</div>
-                    </div>
-                    <div>
-                        <div class="title">Coffee</div>
-                        <i class="fa fa-coffee"></i>
-                        <div class="value infinity">∞</div>
-                    </div>
+<nav>
+
+    <ul>
+        <li class="logo-img"> <img src="assets/eye.png"></li>
+        <li class="logo">Eye Space</li>
+
+
+        <li class="btn"><span class="fas fa-bars"></span></li>
+        <div class="items">
+            <!-- <li><a href="/home">Home</a></li> -->
+            <li><a href="/movie">Descover Movies</a></li>
+
+            <div class="dropdown">
+                <li id="my-movies"><a (click)="goToMyMovies()">My Movies</a></li>
+
+                <div class="dropdown-content">
+
+                    <p (click)="goToMyWatchedMovies()" class="dropdown-item">Watched </p>
+                    <p (click)="goToMyWatchListMovies()" class="dropdown-item">Watch List </p>
+                    <p (click)="goToMyFavoriteMovies()" class="dropdown-item">Favorites</p>
                 </div>
             </div>
+
+            <li><a (click)="goToProfile()">Profile</a></li>
+            <li><a (click)="goToUsers()">User portal</a></li>
+            <li><a (click)="goToSettings()">Settings</a></li>
         </div>
-        <div class="general">
-            <h1></h1>
-            <p>{{quote.text}}</p>
-            <h1 class="more"> ~ {{quote.person}}</h1>
-            <!-- <span class="more">{{quote.person}}</span> -->
+
+
+    </ul>
+</nav>
+
+
+
+
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css " rel="stylesheet " integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN " crossorigin="anonymous ">
+
+
+<div class="row">
+
+    <div class="col-md-4 " *ngFor="let quote of quotes ">
+
+        <div class="card">
+            <!-- <div class="additional" class="additional"> -->
+            <div class="additional" [ngStyle]="{'background': isDark(quote.theme)? 'linear-gradient(#000000, #4b064c)' : isLight(quote.theme)? 'linear-gradient(#ffffff, #f0e8d2)' : isBlue(quote.theme)? 'linear-gradient( #3678b2, #0f9c91)': 'linear-gradient( #da8849, #a93364)' }">
+                <div class="user-card">
+                    <!-- <i id="quoteDelete" style="font-size:24px ">&#xf014;</i> -->
+
+                    <!-- <li id="quoteDelete">
+                        <i id="quoteDelete " style=" font-size:24px " class="fa" (click)="deleteQuote(quote)">&#xf014;</i>
+                    </li>
+
+                    <li id="quoteDelete">
+                        <i id="quoteDelete " style=" font-size:24px " class='fa fa-edit' (click)="deleteQuote(quote)"></i>
+                    </li> -->
+
+                    <!-- [ngStyle]="{'background': isDark(quote.theme)? 'linear-gradient(#000000, #4b064c)' : isLight(quote.theme)? 'linear-gradient(#ffffff, #f0e8d2)' : isBlue(quote.theme)? 'linear-gradient( #3678b2, #0f9c91)': 'linear-gradient( #da8849, #a93364)' }" -->
+                    <i id="quoteDelete" [ngStyle]="{'color': isLight(quote.theme)?  'black' : 'white'}" class="fa" (click)="deleteQuote(quote)">&#xf014;</i>
+
+
+
+                    <i id="quoteEdit" [ngStyle]="{'color': isLight(quote.theme)?  'black' : 'white'}" class='fa fa-edit' (click)="editQuote(quote)" data-bs-toggle="modal" data-bs-target="#editQuote"></i>
+
+
+                    <!-- <div class="level center "> {{quote.movie.title}} -->
+
+
+                    <img src={{quote.movie.posterUrl}} class="img-fluid d-block mx-auto rounded-circle img-thumbnail mb-4 ">
+                </div>
+                <div class="more-info ">
+                    <!-- <i id="quoteDelete" style=" font-size:24px " class="fa" (click)="deleteQuote(quote)">&#xf014;</i>
+
+
+
+                    <i id="quoteEdit" style=" font-size:24px " class='fa fa-edit' (click)="editQuote(quote)"></i> -->
+                    <!-- <div class="stats">
+                        <div>
+                            <i class="fa fa-star"></i>
+                            <div class="rating">{{quote.movie.rating}}</div>
+                        </div>
+                    </div> -->
+
+
+                    <div>
+                        <!-- <i class="fa fa-star"></i> -->
+                        <div class="year" [ngStyle]="{'color': isLight(quote.theme)?  'black' : 'white'}">{{quote.movie.date.substring(0,4)}}</div>
+                    </div>
+
+                    <div class="coords">
+                        <div class="level center" [ngStyle]="{'color': isLight(quote.theme)?  'black' : 'white'}">{{quote.movie.title}} </div>
+
+                    </div>
+                    <div class="stats ">
+                        <div id="director" [ngStyle]="{'color': isLight(quote.theme)?  'black' : 'white'}">Directed by {{quote.movie.director}} </div>
+                    </div>
+                </div>
+            </div>
+            <div class="general">
+                <blockquote>
+                    " {{quote.text}} "
+                </blockquote>
+
+                <!-- <h1 class="more "> ~ {{quote.person}}</h1> -->
+                <!-- <span class="more ">{{quote.person}}</span> -->
+            </div>
         </div>
     </div>
 
 
+</div>
+
+<button class="button-85" type="submit" data-bs-toggle="modal" data-bs-target="#addQuote">Add a new quote</button>
 
 
-    <!-- 
-    <div class="card green">
-        <div class="additional">
-            <div class="user-card">
-                <div class="level center">
-                    Level 13
-                </div>
-                <div class="points center">
-                    5,312 Points
-                </div>
-                <img src="https://bootdey.com/img/Content/avatar/avatar6.png" class="img-fluid d-block mx-auto rounded-circle img-thumbnail mb-4">
+
+
+<!-- Add Quote Modal -->
+<div class="modal fade" id="addQuote" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add new quote</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="more-info">
-                <h1>Jane Doe</h1>
-                <div class="coords">
-                    <span>Group Name</span>
-                    <span>Joined January 2019</span>
-                </div>
-                <div class="coords">
-                    <span>Position/Role</span>
-                    <span>City, Country</span>
-                </div>
-                <div class="stats">
-                    <div>
-                        <div class="title">Awards</div>
-                        <i class="fa fa-trophy"></i>
-                        <div class="value">2</div>
+            <div class="modal-body">
+                <form [formGroup]="quoteDetails">
+                    <div class="mb-3 ">
+                        <label for="exampleInputText" class="form-label ">Text</label>
+                        <input type="text" formControlName="text" class="form-control " id="text" aria-describedby="textHelp ">
+
                     </div>
+                    <!-- <div class="mb-3">
+                        <label for="exampleInputText" class="form-label ">Person</label>
+                        <input type="text" formControlName="person" class="form-control" id="person" aria-describedby="textHelp">
+                    </div> -->
                     <div>
-                        <div class="title">Matches</div>
-                        <i class="fa fa-gamepad"></i>
-                        <div class="value">27</div>
+                        <label for="exampleInputText" class="form-label ">Theme</label>
+                        <select name="theme" class="form-control" id="theme" formControlName="theme">
+                            <option value="Dark" selected>Dark</option>
+                            <option  value="Light">Light</option>
+                            <option value="Blue">Blue sky</option>
+                            <option value="Pink">Sunset sky</option>
+                        
+                          </select>
                     </div>
+
                     <div>
-                        <div class="title">Pals</div>
-                        <i class="fa fa-group"></i>
-                        <div class="value">123</div>
+                        <label for="exampleInputText" class="form-label ">Movie</label>
+                        <select name="movieId" class="form-control" id="movieId" formControlName="movieId">
+                 
+                            <option  *ngFor="let movie of movies" value={{movie.id}}>{{movie.title}}</option>
+                     
+                          </select>
                     </div>
-                    <div>
-                        <div class="title">Coffee</div>
-                        <i class="fa fa-coffee"></i>
-                        <div class="value infinity">∞</div>
+
+
+                    <div class="modal-footer">
+
+                        <button type="button" class="btn btn-primary" (click)="addQuote()" data-bs-dismiss="modal">Add quote</button>
                     </div>
-                </div>
+
+
+                </form>
             </div>
-        </div>
-        <div class="general">
-            <h1>Jane Doe</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce a volutpat mauris, at molestie lacus. Nam vestibulum sodales odio ut pulvinar.</p>
-            <span class="more">Mouse over the card for more info</span>
+
         </div>
     </div>
+</div>
 
-    <div class="card green">
-        <div class="additional">
-            <div class="user-card">
-                <div class="level center">
-                    Level 13
-                </div>
-                <div class="points center">
-                    5,312 Points
-                </div>
-                <img src="https://bootdey.com/img/Content/avatar/avatar6.png" class="img-fluid d-block mx-auto rounded-circle img-thumbnail mb-4">
+<!-- Edit Quote Modal -->
+<div class="modal fade" id="editQuote" tabindex="-1 " aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title " id="exampleModalLabel">Edit Quote details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close "></button>
             </div>
-            <div class="more-info">
-                <h1>Jane Doe</h1>
-                <div class="coords">
-                    <span>Group Name</span>
-                    <span>Joined January 2019</span>
-                </div>
-                <div class="coords">
-                    <span>Position/Role</span>
-                    <span>City, Country</span>
-                </div>
-                <div class="stats">
-                    <div>
-                        <div class="title">Awards</div>
-                        <i class="fa fa-trophy"></i>
-                        <div class="value">2</div>
+            <div class="modal-body">
+                <form [formGroup]="quoteDetailsEdit">
+                    <div class="mb-3 ">
+                        <label for="exampleInputEmail2 " class="form-label">Text</label>
+                        <input type="text" formControlName="textt" class="form-control " id="textt" aria-describedby="emailHelp ">
                     </div>
-                    <div>
-                        <div class="title">Matches</div>
-                        <i class="fa fa-gamepad"></i>
-                        <div class="value">27</div>
-                    </div>
-                    <div>
-                        <div class="title">Pals</div>
-                        <i class="fa fa-group"></i>
-                        <div class="value">123</div>
-                    </div>
-                    <div>
-                        <div class="title">Coffee</div>
-                        <i class="fa fa-coffee"></i>
-                        <div class="value infinity">∞</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="general">
-            <h1>Jane Doe</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce a volutpat mauris, at molestie lacus. Nam vestibulum sodales odio ut pulvinar.</p>
-            <span class="more">Mouse over the card for more info</span>
-        </div>
-    </div> -->
 
+                    <!-- <div class="mb-3">
+                        <label for="exampleInputText" class="form-label ">Person</label>
+                        <input type="text" formControlName="personn" class="form-control" id="personn" aria-describedby="textHelp">
+                    </div> -->
+                    <div>
+                        <label for="exampleInputText" class="form-label ">Theme</label>
+                        <select name="themee" class="form-control" id="themee" formControlName="themee">
+                            <option value="Dark" selected>Dark</option>
+                            <option  value="Light">Light</option>
+                            <option value="Blue">Blue sky</option>
+                            <option value="Pink">Sunset sky</option>
+                        
+                          </select>
+                    </div>
+
+                    <div class="modal-footer ">
+                        <button type="button" class="btn btn-secondary " data-bs-dismiss="modal">Close</button>
+
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="updateQuote()">Update quote</button>
+                    </div>
+
+                </form>
+            </div>
+
+        </div>
+    </div>
 </div>

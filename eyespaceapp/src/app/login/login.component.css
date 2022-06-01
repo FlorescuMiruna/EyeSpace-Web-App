@@ -126,3 +126,17 @@ html {
 h3 {
     color: white;
 }
+
+.action-movie-img {
+    width: 30%;
+    height: 50%;
+    float: right;
+    margin-bottom: -70%;
+    /* margin: auto;
+    display: block; */
+    /* -moz-border-radius: 50%;
+    -webkit-border-radius: 50%; */
+    /* border: solid red; */
+    /* border-radius: 50%; */
+    /* border: solid red; */
+}
