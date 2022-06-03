@@ -94,11 +94,26 @@ export class QuoteComponent implements OnInit {
     this.myQuoteObj.theme = this.quoteDetails.value.theme;
 
     var movieId = this.quoteDetails.value.movieId;
+  
     console.log("Form",this.quoteDetails.value)
     console.log("OBJ",this.myQuoteObj)
-  
 
-    let userId = this.authenticationService.getUserFromLocalCache().id;
+
+    // if(this.authenticationService.getUserFromLocalCache().movies.length === 0){
+  
+    // }
+
+    if(this.quoteDetails.value.movieId === "")
+    {
+      Swal.fire({
+        icon: 'error',
+     
+        title: "You must select a movie in order to add the quote!",
+        
+      })
+    }
+    else{
+      let userId = this.authenticationService.getUserFromLocalCache().id;
 
     this.quoteService.addQuote(this.myQuoteObj, movieId, userId).subscribe(res => {
       // console.log("res", res);
@@ -120,6 +135,9 @@ export class QuoteComponent implements OnInit {
 
     });
 
+    }
+
+    
   }
 
   editQuote(quote:Quote){
