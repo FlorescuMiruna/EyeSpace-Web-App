@@ -39,7 +39,9 @@ public class CommentController {
     }
 
     @PostMapping("/movie/{movieId}/user/{userId}")
-    public Comment addComment(@RequestBody Comment comment, @PathVariable String movieId, @PathVariable  Long userId){
+    public Comment addComment(@RequestBody Comment comment,
+                              @PathVariable String movieId,
+                              @PathVariable  Long userId){
         commentService.addComment(comment,movieId,userId);
         return comment;
     }

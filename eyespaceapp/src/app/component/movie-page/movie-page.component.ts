@@ -120,7 +120,7 @@ export class MoviePageComponent implements OnInit {
 
   deleteComm(comm: Comm) {
           Swal.fire({
-        title: 'Do you want to delete your comment?',
+        title: 'Do you want to delete your review?',
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',

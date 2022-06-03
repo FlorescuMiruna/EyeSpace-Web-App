@@ -46,8 +46,6 @@ public class MovieController {
 
     @PutMapping("/remove/watch-list/{movieId}/user/{userId}")
     public void removeWatchListMovieFromUser(@PathVariable String movieId,@PathVariable Long userId){
-
-
         movieService.removeWatchListMovieFromUser(movieId,userId);
 
     }

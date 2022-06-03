@@ -65,7 +65,7 @@
                         <!-- <li *ngIf="averageRating !==0 "> Avrage Rating: {{averageRating}} <i class="fa fa-star " aria-hidden="true "></i> </li>
                         <li *ngIf="averageRating===0 "> Not enough Data</li> -->
                         <!-- <li><i class="fa fa-eye "></i>125 Views</li> -->
-                        <li><i class="fa fa-comment "></i>{{comments.length}} Comments</li>
+                        <li><i class="fa fa-comment "></i>{{comments.length}} Reviews</li>
                     </ul>
                 </div>
                 <form [formGroup]="form " [hidden]="!isWatched " id="stars ">
@@ -162,14 +162,14 @@
 
             <form [formGroup]="commDetails ">
                 <div class="mb-3 ">
-                    <label for="exampleInputText" class="form-label ">Text</label>
-                    <input type="text" formControlName="text" class="form-control " id="text" aria-describedby="textHelp ">
-
+                    <label for="exampleInputText" class="form-label ">Write a review</label>
+                    <!-- <input type="text" formControlName="text" class="form-control " id="text" aria-describedby="textHelp "> -->
+                    <textarea type="text" formControlName="text" class="form-control " id="text" aria-describedby="textHelp"></textarea>
                 </div>
 
                 <div class="modal-footer">
 
-                    <button type="button" class="btn btn-primary" (click)="addComm() ">Add comm</button>
+                    <button type="button" class="btn btn-primary" (click)="addComm() ">Publish review</button>
                 </div>
             </form>
 
@@ -188,22 +188,22 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title " id="exampleModalLabel">Edit Comm details</h5>
+                <h5 class="modal-title " id="exampleModalLabel">Edit your review</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close "></button>
             </div>
             <div class="modal-body">
                 <form [formGroup]="commDetailsEdit ">
                     <div class="mb-3 ">
                         <label for="exampleInputEmail2 " class="form-label ">Text</label>
-                        <input type="text" formControlName="textt" class="form-control " id="textt" aria-describedby="emailHelp ">
-
+                        <!-- <input type="text" formControlName="textt" class="form-control " id="textt" aria-describedby="emailHelp "> -->
+                        <textarea type="text" formControlName="textt" class="form-control " id="textt" aria-describedby="emailHelp "></textarea>
                     </div>
 
 
                     <div class="modal-footer ">
                         <button type="button" class="btn btn-secondary " data-bs-dismiss="modal">Close</button>
 
-                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="updateComm()">Update comm</button>
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="updateComm()">Update review</button>
                     </div>
 
                 </form>
