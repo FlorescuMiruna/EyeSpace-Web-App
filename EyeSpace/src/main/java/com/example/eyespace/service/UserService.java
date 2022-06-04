@@ -30,6 +30,7 @@ public interface UserService {
     void resetPassword(String email) throws MessagingException, EmailNotFoundException;
 
     User updateProfileImage(String username, MultipartFile profileImage) throws UserNotFoundException, UsernameExistException, EmailExistException, IOException, NotAnImageFileException;
+    void updatePassword(String email, String password) throws EmailNotFoundException;
 
 
     UserDto mapToDto(User user);

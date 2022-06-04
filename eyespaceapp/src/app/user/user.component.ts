@@ -251,6 +251,38 @@ export class UserComponent implements OnInit, OnDestroy {
       )
     );
   }
+
+  public onUpdatePassword(paswordForm: NgForm): void {
+    this.refreshing = true;
+    if(paswordForm.value['update-password-email1'] !== paswordForm.value['update-password-email2']){
+      this.refreshing = false;
+        Swal.fire({
+          icon: 'error',
+
+          title: 'You must enter the same password',
+          text: 'Please try again',
+      
+        })
+    }
+    else {
+      const password = paswordForm.value['update-password-email2'];
+      const emailAddress = this.authenticationService.getUserFromLocalCache().email;
+      this.subscriptions.push(
+        this.userService.updatePassword(emailAddress,password ).subscribe(
+          (response: CustomHttpRespone) => {
+            this.sendNotification(NotificationType.SUCCESS, response.message);
+            this.refreshing = false;
+          },
+          (error: HttpErrorResponse) => {
+            this.sendNotification(NotificationType.WARNING, error.error.message);
+            this.refreshing = false;
+          },
+          () => paswordForm.reset()
+        )
+      );
+    }
+
+  }
   public onUpdateProfileImage(): void {
     console.log("** onUpdateProfileImage")
     const formData = new FormData();

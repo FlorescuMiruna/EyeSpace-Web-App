@@ -24,6 +24,7 @@ import { BookPageComponent } from './component/book-page/book-page.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { QuoteComponent } from './component/quote/quote.component';
+import { ResetPasswordComponent } from './component/reset-password/reset-password.component';
 
 
 
@@ -43,7 +44,8 @@ import { QuoteComponent } from './component/quote/quote.component';
     BookPageComponent,
     ProfileComponent,
     PageNotFoundComponent,
-    QuoteComponent
+    QuoteComponent,
+    ResetPasswordComponent
   ],
   imports: [
     BrowserModule,

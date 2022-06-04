@@ -128,7 +128,7 @@
         <!-- <div [hidden]="!isAdmin" class="tab-pane fade" id="reset-password"> -->
         <div class="tab-pane fade" id="reset-password">
 
-            <form #resetPasswordForm="ngForm" (ngSubmit)="onResetPassword(resetPasswordForm)">
+            <!-- <form #resetPasswordForm="ngForm" (ngSubmit)="onResetPassword(resetPasswordForm)">
                 <fieldset>
                     <legend>User Password Management</legend>
                     <div class="form-group">
@@ -142,8 +142,33 @@
               <span *ngIf="!refreshing">Reset Password</span>
             </button>
                 </fieldset>
+            </form> -->
+
+            <form #updatePasswordForm="ngForm" (ngSubmit)="onUpdatePassword(updatePasswordForm)">
+                <fieldset>
+                    <legend class="text-center mt-3">Change your password</legend>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">New password address</label>
+                        <input type="password" name="update-password-email1" required ngModel class="form-control" placeholder="Enter password">
+                        <label for="exampleInputEmail1">Confirm password</label>
+                        <input type="password" name="update-password-email2" required ngModel class="form-control" placeholder="Enter password">
+                    </div>
+                    <div class="text-center mt-3">
+                        <button type="submit" [disabled]="updatePasswordForm.invalid" class="btn btn-primary">
+                            <i *ngIf="refreshing" class="fas fa-spinner fa-spin"></i>&nbsp;&nbsp;
+                            <span *ngIf="refreshing">Loading...</span>
+                            <span *ngIf="!refreshing">Update Password</span>
+                          </button>
+                    </div>
+
+                </fieldset>
             </form>
+
+
         </div>
+
+
+
 
         <!-- user profile -->
         <div class="tab-pane fade" id="profile">

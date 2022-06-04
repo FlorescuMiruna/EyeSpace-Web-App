@@ -39,6 +39,7 @@ import static org.springframework.http.MediaType.IMAGE_JPEG_VALUE;
 //@CrossOrigin("http://localhost:4200")
 public class UserController extends ExceptionHandling {
     public static final String EMAIL_SENT = "An email with a new password was sent to: ";
+    public static final String PASSWORD_UPDATED = "Password changed successfully ";
     public static final String USER_DELETED_SUCCESSFULLY = "User deleted successfully";
     private AuthenticationManager authenticationManager;
     private UserService userService;
@@ -117,6 +118,11 @@ public class UserController extends ExceptionHandling {
     public ResponseEntity<HttpResponse> resetPassword(@PathVariable("email") String email) throws MessagingException, EmailNotFoundException {
         userService.resetPassword(email);
         return response(OK, EMAIL_SENT + email);
+    }
+    @GetMapping("/updatepassword/{email}/password/{password}")
+    public ResponseEntity<HttpResponse> updatePassword(@PathVariable("email") String email, @PathVariable("password") String password) throws  EmailNotFoundException {
+        userService.updatePassword(email, password);
+        return response(OK, PASSWORD_UPDATED );
     }
 
     @DeleteMapping("/delete/{username}")

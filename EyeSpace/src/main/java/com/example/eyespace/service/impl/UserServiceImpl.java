@@ -172,6 +172,19 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
+    public void updatePassword(String email, String password) throws EmailNotFoundException {
+        User user = userRepository.findUserByEmail(email);
+        if (user == null) {
+            throw new EmailNotFoundException(NO_USER_FOUND_BY_EMAIL + email);
+        }
+
+        user.setPassword(encodePassword(password));
+        userRepository.save(user);
+        LOGGER.info("Updated user password: " + password);
+
+    }
+
+    @Override
     public User updateProfileImage(String username, MultipartFile profileImage) throws UserNotFoundException, UsernameExistException, EmailExistException, IOException, NotAnImageFileException {
         User user = validateNewUsernameAndEmail(username, null, null);
         saveProfileImage(user, profileImage);
