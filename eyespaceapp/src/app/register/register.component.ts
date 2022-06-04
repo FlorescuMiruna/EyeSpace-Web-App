@@ -6,6 +6,7 @@ import { AuthenticationService } from '../service/authentication.service';
 import { NotificationService } from '../service/notification.service';
 import { User } from '../model/user';
 import { NotificationType } from '../enum/notification-type.enum';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-register',
@@ -27,18 +28,43 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   public onRegister(user: User): void {
     this.showLoading = true;
-    this.subscriptions.push(
-      this.authenticationService.register(user).subscribe(
-        (response: User) => {
-          this.showLoading = false;
-          this.sendNotification(NotificationType.SUCCESS, `A new account was created for ${response.firstName}.`);
-        },
-        (errorResponse: HttpErrorResponse) => {
-          this.sendNotification(NotificationType.ERROR, errorResponse.error.message);
-          this.showLoading = false;
-        }
-      )
-    );
+
+   /** 
+    * Validam adresa de email
+    * Conditii:
+    * 1.Emailul nu este gol
+    * 2.Contine simbolul @ cu cel putin o litera inaintea lui
+    * 3.Simbolul @ este urmat de cel putin 2 litere dupa el
+    * 4.Se termina cu punct si cel putin 2 litere dupa el
+    */
+    if(/(.+)@(.+){2,}\.(.+){2,}/.test(user.email) === false){
+      Swal.fire({
+        icon: 'error',
+        title: 'Please enter a valid email address!',
+ 
+      })
+
+      this.showLoading = false;
+    }
+
+    else{
+      this.subscriptions.push(
+        this.authenticationService.register(user).subscribe(
+          (response: User) => {
+            this.showLoading = false;
+            this.sendNotification(NotificationType.SUCCESS, `A new account was created for ${response.firstName}.`);
+          },
+          (errorResponse: HttpErrorResponse) => {
+            this.sendNotification(NotificationType.ERROR, errorResponse.error.message);
+            this.showLoading = false;
+          }
+        )
+      );
+    }
+    
+ 
+
+
   }
 
   private sendNotification(notificationType: NotificationType, message: string): void {
