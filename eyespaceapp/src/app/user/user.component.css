@@ -185,11 +185,11 @@ nav ul li.btn span.show:before {
 
 #label-special {
     cursor: pointer;
-    background-color: #4CAF50;
+    background-color: rgb(20, 17, 17);
     /* Green */
     border: none;
     color: white;
-    padding: 15px 32px;
+    padding: 10px 10px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
