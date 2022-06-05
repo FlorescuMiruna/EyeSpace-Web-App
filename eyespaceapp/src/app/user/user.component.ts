@@ -42,7 +42,7 @@ export class UserComponent implements OnInit, OnDestroy {
     this.user = this.authenticationService.getUserFromLocalCache();
     console.log("USER", this.user)
     this.getUsers(true);
-    
+
   }
   ngOnDestroy(): void {
     this.subscriptions.forEach(sub => sub.unsubscribe());
@@ -139,25 +139,46 @@ export class UserComponent implements OnInit, OnDestroy {
     this.clickButton('new-user-save');
   }
   public onAddNewUser(userForm: NgForm): void {
-    console.log("off")
-    const formData = this.userService.createUserFormDate(null, userForm.value, this.profileImage);
-    this.subscriptions.push(
-      this.userService.addUser(formData).subscribe(
-        (response: User) => {
-          console.log(response);
-          this.clickButton('new-user-close');
-          this.getUsers(false);
-          this.fileName = null as any;
-          this.profileImage = null as any;
-          userForm.reset();
-          this.sendNotification(NotificationType.SUCCESS, `${response.firstName} ${response.lastName} added successfully`);
-        },
-        (errorResponse: HttpErrorResponse) => {
-          this.sendNotification(NotificationType.ERROR, errorResponse.error.message);
-          this.profileImage = null as any;
-        }
-      )
-    );
+
+    console.log(userForm.value.email)
+    /** 
+ * Validam adresa de email
+ * Conditii:
+ * 1.Emailul nu este gol
+ * 2.Contine simbolul @ cu cel putin o litera inaintea lui
+ * 3.Simbolul @ este urmat de cel putin 2 litere dupa el
+ * 4.Se termina cu punct si cel putin 2 litere dupa el
+ */
+    if (/(.+)@(.+){2,}\.(.+){2,}/.test(userForm.value.email) === false) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Please enter a valid email address!',
+
+      })
+
+
+    }
+    else{
+      const formData = this.userService.createUserFormDate(null, userForm.value, this.profileImage);
+      this.subscriptions.push(
+        this.userService.addUser(formData).subscribe(
+          (response: User) => {
+            console.log(response);
+            this.clickButton('new-user-close');
+            this.getUsers(false);
+            this.fileName = null as any;
+            this.profileImage = null as any;
+            userForm.reset();
+            this.sendNotification(NotificationType.SUCCESS, `${response.firstName} ${response.lastName} added successfully`);
+          },
+          (errorResponse: HttpErrorResponse) => {
+            this.sendNotification(NotificationType.ERROR, errorResponse.error.message);
+            this.profileImage = null as any;
+          }
+        )
+      );
+    }
+
   }
   public searchUsers(searchTerm: string): void {
     const results: User[] = [];
@@ -230,7 +251,7 @@ export class UserComponent implements OnInit, OnDestroy {
 
       }
     })
-    
+
 
   }
 
@@ -254,21 +275,21 @@ export class UserComponent implements OnInit, OnDestroy {
 
   public onUpdatePassword(paswordForm: NgForm): void {
     this.refreshing = true;
-    if(paswordForm.value['update-password-email1'] !== paswordForm.value['update-password-email2']){
+    if (paswordForm.value['update-password-email1'] !== paswordForm.value['update-password-email2']) {
       this.refreshing = false;
-        Swal.fire({
-          icon: 'error',
+      Swal.fire({
+        icon: 'error',
 
-          title: 'You must enter the same password',
-          text: 'Please try again',
-      
-        })
+        title: 'You must enter the same password',
+        text: 'Please try again',
+
+      })
     }
     else {
       const password = paswordForm.value['update-password-email2'];
       const emailAddress = this.authenticationService.getUserFromLocalCache().email;
       this.subscriptions.push(
-        this.userService.updatePassword(emailAddress,password ).subscribe(
+        this.userService.updatePassword(emailAddress, password).subscribe(
           (response: CustomHttpRespone) => {
             this.sendNotification(NotificationType.SUCCESS, response.message);
             this.refreshing = false;
@@ -351,40 +372,40 @@ export class UserComponent implements OnInit, OnDestroy {
     return this.authenticationService.getUserFromLocalCache().role;
   }
 
-  goToProfile(){
-    
+  goToProfile() {
+
     localStorage.setItem('page', 'Profile');
     this.checkPage();
   }
 
-  goToUsers(){
-   
+  goToUsers() {
+
     localStorage.setItem('page', 'Users');
     this.checkPage();
   }
 
-  goToSettings(){
+  goToSettings() {
 
     localStorage.setItem('page', 'Settings');
     this.checkPage();
   }
 
-  goToMyMovies(){
+  goToMyMovies() {
     this.router.navigate(['/my-movies']);
     localStorage.setItem('my-movies', 'All');
 
   }
-  
-  goToMyWatchedMovies(){
+
+  goToMyWatchedMovies() {
     this.router.navigate(['/my-movies']);
     localStorage.setItem('my-movies', 'Watched');
   }
-  goToMyWatchListMovies(){
+  goToMyWatchListMovies() {
     this.router.navigate(['/my-movies']);
     localStorage.setItem('my-movies', 'WatchList');
   }
 
-  goToMyFavoriteMovies(){
+  goToMyFavoriteMovies() {
     this.router.navigate(['/my-movies']);
     localStorage.setItem('my-movies', 'Favorites');
 
