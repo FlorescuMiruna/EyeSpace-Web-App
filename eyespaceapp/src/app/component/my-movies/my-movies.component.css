@@ -382,3 +382,7 @@
         align-content: center;
         float: inline-end;
     }
+    
+    .text-center.mt-3 {
+        border: solid red;
+    }

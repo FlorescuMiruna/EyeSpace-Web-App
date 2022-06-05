@@ -582,3 +582,12 @@ div .box.tags ul li i {
     /* border: solid red; */
     /* border: solid red; */
 }
+
+#write-review {
+    margin-top: 5%;
+}
+
+#input-review {
+    /* border: solid red; */
+    margin-left: 10%;
+}

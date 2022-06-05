@@ -110,8 +110,8 @@
 
 
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css " rel="stylesheet " integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN " crossorigin="anonymous ">
-<section class="container " [hidden]="!isWatched " id="comm-place ">
-    <div class="row ">
+<section class="container" [hidden]="!isWatched " id="comm-place">
+    <div class="row" id="a">
 
         <div class="col-md-10 ">
 
@@ -160,8 +160,8 @@
                 </div>
             </div>
 
-            <form [formGroup]="commDetails ">
-                <div class="mb-3 ">
+            <form [formGroup]="commDetails" id="input-review">
+                <div class="mb-3" id="write-review">
                     <label for="exampleInputText" class="form-label ">Write a review</label>
                     <!-- <input type="text" formControlName="text" class="form-control " id="text" aria-describedby="textHelp "> -->
                     <textarea type="text" formControlName="text" class="form-control " id="text" aria-describedby="textHelp"></textarea>
@@ -169,7 +169,7 @@
 
                 <div class="modal-footer">
 
-                    <button type="button" class="btn btn-primary" (click)="addComm() ">Publish review</button>
+                    <button type="button" class="btn btn-dark" (click)="addComm() ">Publish review</button>
                 </div>
             </form>
 
