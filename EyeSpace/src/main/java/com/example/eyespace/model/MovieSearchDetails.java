@@ -10,7 +10,6 @@ public class MovieSearchDetails {
 
     @Id
     private String idIMDB;
-
     private String title;
     private String year;
     private String posterUrl;

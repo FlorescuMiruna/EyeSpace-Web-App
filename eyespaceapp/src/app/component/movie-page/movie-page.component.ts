@@ -292,7 +292,7 @@ export class MoviePageComponent implements OnInit {
      
 
       // console.log("Exista?",this.checkPosterExists(this.movieAPI.posterUrl));
-      // console.log(this.movieAPI.posterUrl);
+      console.log(this.movieAPI);
       console.log("favorites:", this.user.favorites)
       this.checkWatched();
       this.checkInWatchList();
@@ -356,6 +356,7 @@ export class MoviePageComponent implements OnInit {
 
 
       this.comments = res;
+      console.log(this.comments);
 
       /**Iau din lista doar comentariile carora le-am dat like*/
 
