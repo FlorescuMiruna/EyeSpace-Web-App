@@ -37,11 +37,20 @@ export class UserComponent implements OnInit, OnDestroy {
     private userService: UserService, private notificationService: NotificationService) { }
 
   ngOnInit(): void {
+    console.log("Is user logged in?",this.authenticationService.isUserLoggedIn());
+    if(this.authenticationService.isUserLoggedIn() === false){
 
-    this.checkPage();
-    this.user = this.authenticationService.getUserFromLocalCache();
-    console.log("USER", this.user)
-    this.getUsers(true);
+      this.router.navigate(['/login']);
+    }
+    else{
+      this.checkPage();
+      this.user = this.authenticationService.getUserFromLocalCache();
+      console.log("USER", this.user)
+      this.getUsers(true);
+    }
+
+
+    
 
   }
   ngOnDestroy(): void {
