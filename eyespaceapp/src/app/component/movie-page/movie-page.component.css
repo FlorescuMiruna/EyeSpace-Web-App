@@ -333,6 +333,9 @@ body {
     background-color: #F0F0F0;
     padding: 50px 0;
     height: 100%;
+    border-bottom-width: 14px;
+    /* border-bottom-style: solid; */
+    border-image: linear-gradient(to right, rgb(188, 23, 95), darkorchid, rgb(60, 156, 208)) 1;
 }
 
 .content-item h1 {
