@@ -23,7 +23,7 @@
             </div>
             <li><a href="/quotes">Quotes</a></li>
             <li><a (click)="goToProfile()">Profile</a></li>
-            <li><a (click)="goToUsers()">User portal</a></li>
+            <li><a (click)="goToUsers()">Users</a></li>
             <li><a (click)="goToSettings()">Settings</a></li>
         </div>
 
@@ -148,7 +148,7 @@
                 <fieldset>
                     <legend class="text-center mt-3">Change your password</legend>
                     <div class="form-group">
-                        <label for="exampleInputEmail1">New password address</label>
+                        <label for="exampleInputEmail1">New password </label>
                         <input type="password" name="update-password-email1" required ngModel class="form-control" placeholder="Enter password">
                         <label for="exampleInputEmail1">Confirm password</label>
                         <input type="password" name="update-password-email2" required ngModel class="form-control" placeholder="Enter password">
@@ -268,7 +268,7 @@
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-12 col-sm-5 offset-sm-1 mb-3">
-                                                                <!-- <div class="mb-2"><b>Account Settings</b></div>
+                                                                <div class="mb-2"><b>Account Settings</b></div>
                                                                 <div class="row">
                                                                     <div class="col">
                                                                         <div class="custom-controls-stacked px-2">
@@ -282,7 +282,7 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                </div> -->
+                                                                </div>
 
                                                                 <!-- <div>
                                                                     <form enctype="multipart/form-data">
@@ -322,12 +322,12 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="card">
+                                <!-- <div class="card">
                                     <div class="card-body">
                                         <h6 class="card-title font-weight-bold">Permissions From Role</h6>
                                         <h6 *ngFor="let authority of user?.authorities" class="card-text">{{authority}}</h6>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>

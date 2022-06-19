@@ -132,7 +132,7 @@ export class MoviePageComponent implements OnInit {
 
           this.commentService.deleteComment(comm).subscribe(res => {
             Swal.fire(
-              'The comment was deleted!',
+              'The review was deleted!',
             )
             this.initializeComments();
           }, err => {
@@ -469,7 +469,7 @@ export class MoviePageComponent implements OnInit {
         Swal.fire({
           position: 'center',
           icon: 'success',
-          title: 'The movie was added to your WATCH list',
+          title: 'The movie was added to your Watchlist',
           showConfirmButton: false,
           timer: 1500
         })
@@ -486,7 +486,7 @@ export class MoviePageComponent implements OnInit {
     }
     else {
       Swal.fire({
-        title: 'Do you want to remove the movie from your WATCH list?',
+        title: 'Do you want to remove the movie from your watchlist?',
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -556,7 +556,7 @@ export class MoviePageComponent implements OnInit {
         Swal.fire({
           position: 'center',
           icon: 'success',
-          title: 'The movie was added to your FAVORITES',
+          title: 'The movie was marked as favorite',
           showConfirmButton: false,
           timer: 1500
         })
@@ -573,7 +573,7 @@ export class MoviePageComponent implements OnInit {
       })
     } else {
       Swal.fire({
-        title: 'Do you want to remove the movie from FAVORITES?',
+        title: 'Do you want to remove the movie from favorites?',
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',

@@ -32,7 +32,7 @@
 
             <li><a href="/quotes">Quotes</a></li>
             <li><a (click)="goToProfile()">Profile</a></li>
-            <li><a (click)="goToUsers()">User portal</a></li>
+            <li><a (click)="goToUsers()">Users</a></li>
             <li><a (click)="goToSettings()">Settings</a></li>
         </div>
 
@@ -85,7 +85,7 @@
 
     <div class="row">
 
-        <div class="col-md-3" *ngFor="let  movie of mostPopularMovies " (click)="goToPopularMovie(movie)">
+        <div class="col-md-2" *ngFor="let  movie of mostPopularMovies " (click)="goToPopularMovie(movie)">
 
             <div class="card shadow" id="card-popular">
                 <div class="inner">

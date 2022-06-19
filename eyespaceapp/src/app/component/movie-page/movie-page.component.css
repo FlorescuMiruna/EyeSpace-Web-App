@@ -11,9 +11,13 @@
     overflow: hidden;
 }
 
+.col-sm-7 {
+    overflow: hidden;
+}
+
 .row {
     max-width: 1000px;
-    max-height: 1500px;
+    max-height: 1000px;
 }
 
 .col-sm-8 img {
