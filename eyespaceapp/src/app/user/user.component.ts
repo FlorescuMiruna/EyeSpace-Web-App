@@ -81,6 +81,8 @@ export class UserComponent implements OnInit, OnDestroy {
           this.userService.addUsersToLocalCache(response);
           this.users = response;
           this.refreshing = false;
+          if (localStorage.getItem('page') !== 'Users')
+          showNotification = false;
           if (showNotification) {
             this.sendNotification(NotificationType.SUCCESS, `${response.length} user(s) loaded successfully.`);
           }
