@@ -85,29 +85,29 @@
                 <thead class="table-borderless">
                     <tr class="text-center">
                         <th>Photo</th>
-                        <th>User ID</th>
+                        <!-- <th>User ID</th> -->
                         <th>First Name</th>
                         <th>Last Name</th>
                         <th>Username</th>
                         <th>Email</th>
-                        <th>Status</th>
+                        <!-- <th>Status</th> -->
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody *ngFor="let appUser of users">
                     <tr class="text-center">
                         <td (click)="onSelectUser(appUser)">
-                            <img height="40" width="40" src="{{appUser?.profileImageUrl}}" class="rounded-circle img-fluid img-thumbnail" alt="" />
+                            <img height="40" width="40" src="{{appUser?.profileImageUrl}}" class="img-fluid img-thumbnail" alt="" />
                         </td>
-                        <td (click)="onSelectUser(appUser)">{{appUser?.userId}}</td>
+                        <!-- <td (click)="onSelectUser(appUser)">{{appUser?.userId}}</td> -->
                         <td (click)="onSelectUser(appUser)">{{appUser?.firstName}}</td>
                         <td (click)="onSelectUser(appUser)">{{appUser?.lastName}}</td>
                         <td (click)="onSelectUser(appUser)">{{appUser?.username}}</td>
                         <td (click)="onSelectUser(appUser)">{{appUser?.email}}</td>
-                        <td (click)="onSelectUser(appUser)">
+                        <!-- <td (click)="onSelectUser(appUser)">
                             <span [hidden]="!appUser?.active" class="badge badge-success">Active</span>
                             <span [hidden]="appUser?.active" class="badge badge-danger">Inactive</span>
-                        </td>
+                        </td> -->
                         <td class="">
                             <div class="btn-group">
                                 <button class="btn btn-outline-info" (click)="onEditUser(appUser)"><i class="fas fa-edit"></i></button>
