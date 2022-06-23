@@ -108,10 +108,20 @@
                             <span [hidden]="!appUser?.active" class="badge badge-success">Active</span>
                             <span [hidden]="appUser?.active" class="badge badge-danger">Inactive</span>
                         </td> -->
-                        <td class="">
+
+
+                        <!-- <td class="">
                             <div class="btn-group">
                                 <button class="btn btn-outline-info" (click)="onEditUser(appUser)"><i class="fas fa-edit"></i></button>
                                 <button [hidden]="!isSuperAdmin" class="btn btn-outline-danger" (click)="onDeleteUser(appUser.username)"><i class="fas fa-trash"></i></button>
+                            </div>
+                        </td> -->
+
+
+                        <td class="">
+                            <div>
+                                <button class="btn btn-info" (click)="onEditUser(appUser)">EDIT</button>
+                                <button [hidden]="!isSuperAdmin" class="btn btn-danger" (click)="onDeleteUser(appUser.username)">DELETE</button>
                             </div>
                         </td>
                     </tr>

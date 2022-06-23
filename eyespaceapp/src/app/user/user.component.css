@@ -232,3 +232,7 @@ nav ul li.btn span.show:before {
     /* border: solid red; */
     /* border: solid red; */
 }
+
+.btn.btn-danger {
+    margin-left: 10px;
+}
